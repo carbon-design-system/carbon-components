@@ -14,6 +14,8 @@ import '@babel/polyfill';
 export { sync as syncColors, generate as generateColors } from './colors';
 export { generate as generateIcons } from './icons';
 export { syncSmallIcons, syncLargeIcons } from './icons';
+export { generate as generatePictograms } from './pictograms';
+export { sync as syncPictograms } from './pictograms';
 export { sync as syncThemes, generate as generateThemes } from './themes';
 export { sync as syncType, generate as generateType } from './type';
 

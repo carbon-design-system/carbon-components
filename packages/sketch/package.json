@@ -30,6 +30,7 @@
     "@carbon/icons": "^10.17.0",
     "@carbon/themes": "^10.18.0",
     "@carbon/type": "^10.15.0",
+    "@carbon/pictograms": "^10.9.2",
     "@skpm/builder": "^0.7.0",
     "color-string": "^1.5.3",
     "skpm": "^1.2.0"
