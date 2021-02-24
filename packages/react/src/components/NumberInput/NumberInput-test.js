@@ -90,6 +90,13 @@ describe('NumberInput', () => {
         expect(wrapper.find('input').prop('step')).toEqual(10);
       });
 
+      it('should not render step buttons when step value is "any"', () => {
+        expect(numberInput.prop('step')).toEqual(1);
+        wrapper.setProps({ step: 'any' });
+        expect(wrapper.exists('.up-icon')).toBeFalsy();
+        expect(wrapper.exists('.down-icon')).toBeFalsy();
+      });
+
       it('should set disabled as expected', () => {
         expect(numberInput.prop('disabled')).toEqual(false);
         wrapper.setProps({ disabled: true });

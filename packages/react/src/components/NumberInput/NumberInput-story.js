@@ -35,7 +35,7 @@ const props = () => ({
   min: number('Minimum value (min)', 0),
   max: number('Maximum value (max)', 100),
   value: number('Value (value)', 50),
-  step: number('Step of up/down arrow (step)', 10),
+  step: select('Step of up/down arrow (step)', [10, 2, 'any'], 10),
   size: select('Field size (size)', sizes, undefined) || undefined,
   disabled: boolean('Disabled (disabled)', false),
   readOnly: boolean('Read only (readOnly)', false),

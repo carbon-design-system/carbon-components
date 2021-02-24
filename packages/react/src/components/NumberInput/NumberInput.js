@@ -135,7 +135,7 @@ class NumberInput extends Component {
     /**
      * Specify how much the valus should increase/decrease upon clicking on up/down button
      */
-    step: PropTypes.number,
+    step: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['any'])]),
     /**
      * Provide custom text for the component for each translation id
      */
@@ -247,7 +247,7 @@ class NumberInput extends Component {
         ? (min !== undefined && value > min) || min === undefined
         : (max !== undefined && value < max) || max === undefined;
 
-    if (!disabled && conditional) {
+    if (!disabled && conditional && step !== 'any') {
       value = direction === 'down' ? value - step : value + step;
       value = capMax(max, capMin(min, value));
       evt.persist();
@@ -417,17 +417,19 @@ class NumberInput extends Component {
                   {labelText}
                   {helper}
                   <div className={`${prefix}--number__input-wrapper`}>
-                    <button
-                      type="button"
-                      className={`${prefix}--number__control-btn down-icon`}
-                      {...buttonProps}
-                      onClick={(evt) => this.handleArrowClick(evt, 'down')}
-                      title={decrementNumLabel}
-                      aria-label={decrementNumLabel || iconDescription}
-                      aria-live="polite"
-                      aria-atomic="true">
-                      <CaretDownGlyph className="down-icon" />
-                    </button>
+                    {step !== 'any' && (
+                      <button
+                        type="button"
+                        className={`${prefix}--number__control-btn down-icon`}
+                        {...buttonProps}
+                        onClick={(evt) => this.handleArrowClick(evt, 'down')}
+                        title={decrementNumLabel}
+                        aria-label={decrementNumLabel || iconDescription}
+                        aria-live="polite"
+                        aria-atomic="true">
+                        <CaretDownGlyph className="down-icon" />
+                      </button>
+                    )}
                     <input
                       type="number"
                       pattern="[0-9]*"
@@ -435,17 +437,19 @@ class NumberInput extends Component {
                       {...props}
                       ref={mergeRefs(ref, this._handleInputRef)}
                     />
-                    <button
-                      type="button"
-                      className={`${prefix}--number__control-btn up-icon`}
-                      {...buttonProps}
-                      onClick={(evt) => this.handleArrowClick(evt, 'up')}
-                      title={incrementNumLabel}
-                      aria-label={incrementNumLabel || iconDescription}
-                      aria-live="polite"
-                      aria-atomic="true">
-                      <CaretUpGlyph className="up-icon" />
-                    </button>
+                    {step !== 'any' && (
+                      <button
+                        type="button"
+                        className={`${prefix}--number__control-btn up-icon`}
+                        {...buttonProps}
+                        onClick={(evt) => this.handleArrowClick(evt, 'up')}
+                        title={incrementNumLabel}
+                        aria-label={incrementNumLabel || iconDescription}
+                        aria-live="polite"
+                        aria-atomic="true">
+                        <CaretUpGlyph className="up-icon" />
+                      </button>
+                    )}
                   </div>
                 </>
               );
@@ -472,30 +476,32 @@ class NumberInput extends Component {
                       className={`${prefix}--number__invalid ${prefix}--number__invalid--warning`}
                     />
                   )}
-                  <div className={`${prefix}--number__controls`}>
-                    <button
-                      type="button"
-                      className={`${prefix}--number__control-btn up-icon`}
-                      {...buttonProps}
-                      onClick={(evt) => this.handleArrowClick(evt, 'up')}
-                      title={incrementNumLabel || iconDescription}
-                      aria-label={incrementNumLabel || iconDescription}
-                      aria-live="polite"
-                      aria-atomic="true">
-                      <CaretUpGlyph className="up-icon" />
-                    </button>
-                    <button
-                      type="button"
-                      className={`${prefix}--number__control-btn down-icon`}
-                      {...buttonProps}
-                      onClick={(evt) => this.handleArrowClick(evt, 'down')}
-                      title={decrementNumLabel || iconDescription}
-                      aria-label={decrementNumLabel || iconDescription}
-                      aria-live="polite"
-                      aria-atomic="true">
-                      <CaretDownGlyph className="down-icon" />
-                    </button>
-                  </div>
+                  {step !== 'any' && (
+                    <div className={`${prefix}--number__controls`}>
+                      <button
+                        type="button"
+                        className={`${prefix}--number__control-btn up-icon`}
+                        {...buttonProps}
+                        onClick={(evt) => this.handleArrowClick(evt, 'up')}
+                        title={incrementNumLabel || iconDescription}
+                        aria-label={incrementNumLabel || iconDescription}
+                        aria-live="polite"
+                        aria-atomic="true">
+                        <CaretUpGlyph className="up-icon" />
+                      </button>
+                      <button
+                        type="button"
+                        className={`${prefix}--number__control-btn down-icon`}
+                        {...buttonProps}
+                        onClick={(evt) => this.handleArrowClick(evt, 'down')}
+                        title={decrementNumLabel || iconDescription}
+                        aria-label={decrementNumLabel || iconDescription}
+                        aria-live="polite"
+                        aria-atomic="true">
+                        <CaretDownGlyph className="down-icon" />
+                      </button>
+                    </div>
+                  )}
                 </div>
                 {error ? null : helper}
               </>
