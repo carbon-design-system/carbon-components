@@ -64,10 +64,13 @@ export default class Modal extends Component {
     ),
 
     /**
-     * Provide whether the modal content has a form element.
-     * If `true` is used here, non-form child content should have `bx--modal-content__regular-content` class.
+     * Deprecated: Used to determine whether the modal content has a form element to adjust spacing,
+     * but now spacing styles account for all types of elements
      */
-    hasForm: PropTypes.bool,
+    hasForm: deprecate(
+      PropTypes.bool,
+      `\nThe prop \`hasForm\` for Modal has been deprecated, as the feature of \`hasForm\` runs by default.`
+    ),
 
     /**
      * Specify whether the modal contains scrolling content
@@ -386,7 +389,7 @@ export default class Modal extends Component {
     });
 
     const contentClasses = classNames(`${prefix}--modal-content`, {
-      [`${prefix}--modal-content--with-form`]: hasForm,
+      [`${prefix}--modal-content--with-form`]: hasForm, //TO-DO: delete this line in v11 since hasForm is deprecated
       [`${prefix}--modal-scroll-content`]: hasScrollingContent,
     });
 
