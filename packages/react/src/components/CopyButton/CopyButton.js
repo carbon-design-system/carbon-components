@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { settings } from 'carbon-components';
-import { Copy16 } from '@carbon/icons-react';
+import { Copy as CopyIcon } from '@carbon/icons-react/next';
 import Copy from '../Copy';
 
 const { prefix } = settings;
@@ -21,7 +21,7 @@ export default function CopyButton({ iconDescription, className, ...other }) {
       aria-label={iconDescription}
       title={iconDescription}
       {...other}>
-      <Copy16 className={`${prefix}--snippet__icon`} />
+      <CopyIcon className={`${prefix}--snippet__icon`} />
     </Copy>
   );
 }

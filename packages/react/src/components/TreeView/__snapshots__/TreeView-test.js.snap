@@ -131,7 +131,7 @@ exports[`TreeView should render 1`] = `
             className="bx--tree-parent-node__toggle"
             onClick={[Function]}
           >
-            <ForwardRef(CaretDown16)
+            <ForwardRef(CaretDown)
               className="bx--tree-parent-node__toggle-icon bx--tree-parent-node__toggle-icon--expanded"
             >
               <Icon
@@ -159,7 +159,7 @@ exports[`TreeView should render 1`] = `
                   />
                 </svg>
               </Icon>
-            </ForwardRef(CaretDown16)>
+            </ForwardRef(CaretDown)>
           </span>
           <span
             className="bx--tree-node__label__details"
@@ -272,7 +272,7 @@ exports[`TreeView should render 1`] = `
                   className="bx--tree-parent-node__toggle"
                   onClick={[Function]}
                 >
-                  <ForwardRef(CaretDown16)
+                  <ForwardRef(CaretDown)
                     className="bx--tree-parent-node__toggle-icon bx--tree-parent-node__toggle-icon--expanded"
                   >
                     <Icon
@@ -300,7 +300,7 @@ exports[`TreeView should render 1`] = `
                         />
                       </svg>
                     </Icon>
-                  </ForwardRef(CaretDown16)>
+                  </ForwardRef(CaretDown)>
                 </span>
                 <span
                   className="bx--tree-node__label__details"
@@ -390,6 +390,9 @@ exports[`TreeView should render with icons 1`] = `
       renderIcon={
         Object {
           "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "size": [Function],
+          },
           "render": [Function],
         }
       }
@@ -416,7 +419,7 @@ exports[`TreeView should render with icons 1`] = `
         <div
           className="bx--tree-node__label"
         >
-          <ForwardRef(Document16)
+          <ForwardRef(Document)
             className="bx--tree-node__icon"
           >
             <Icon
@@ -440,14 +443,14 @@ exports[`TreeView should render with icons 1`] = `
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3	z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
+                  d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3 z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
                 />
                 <path
                   d="M10 22H22V24H10zM10 16H22V18H10z"
                 />
               </svg>
             </Icon>
-          </ForwardRef(Document16)>
+          </ForwardRef(Document)>
           1
         </div>
       </li>
@@ -462,6 +465,9 @@ exports[`TreeView should render with icons 1`] = `
       renderIcon={
         Object {
           "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "size": [Function],
+          },
           "render": [Function],
         }
       }
@@ -488,7 +494,7 @@ exports[`TreeView should render with icons 1`] = `
         <div
           className="bx--tree-node__label"
         >
-          <ForwardRef(Document16)
+          <ForwardRef(Document)
             className="bx--tree-node__icon"
           >
             <Icon
@@ -512,14 +518,14 @@ exports[`TreeView should render with icons 1`] = `
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3	z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
+                  d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3 z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
                 />
                 <path
                   d="M10 22H22V24H10zM10 16H22V18H10z"
                 />
               </svg>
             </Icon>
-          </ForwardRef(Document16)>
+          </ForwardRef(Document)>
           2
         </div>
       </li>
@@ -535,6 +541,9 @@ exports[`TreeView should render with icons 1`] = `
       renderIcon={
         Object {
           "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "size": [Function],
+          },
           "render": [Function],
         }
       }
@@ -566,7 +575,7 @@ exports[`TreeView should render with icons 1`] = `
             className="bx--tree-parent-node__toggle"
             onClick={[Function]}
           >
-            <ForwardRef(CaretDown16)
+            <ForwardRef(CaretDown)
               className="bx--tree-parent-node__toggle-icon bx--tree-parent-node__toggle-icon--expanded"
             >
               <Icon
@@ -594,12 +603,12 @@ exports[`TreeView should render with icons 1`] = `
                   />
                 </svg>
               </Icon>
-            </ForwardRef(CaretDown16)>
+            </ForwardRef(CaretDown)>
           </span>
           <span
             className="bx--tree-node__label__details"
           >
-            <ForwardRef(Folder16)
+            <ForwardRef(Folder)
               className="bx--tree-node__icon"
             >
               <Icon
@@ -627,7 +636,7 @@ exports[`TreeView should render with icons 1`] = `
                   />
                 </svg>
               </Icon>
-            </ForwardRef(Folder16)>
+            </ForwardRef(Folder)>
             5
           </span>
         </div>
@@ -644,6 +653,9 @@ exports[`TreeView should render with icons 1`] = `
             renderIcon={
               Object {
                 "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "size": [Function],
+                },
                 "render": [Function],
               }
             }
@@ -670,7 +682,7 @@ exports[`TreeView should render with icons 1`] = `
               <div
                 className="bx--tree-node__label"
               >
-                <ForwardRef(Document16)
+                <ForwardRef(Document)
                   className="bx--tree-node__icon"
                 >
                   <Icon
@@ -694,14 +706,14 @@ exports[`TreeView should render with icons 1`] = `
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3	z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
+                        d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3 z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
                       />
                       <path
                         d="M10 22H22V24H10zM10 16H22V18H10z"
                       />
                     </svg>
                   </Icon>
-                </ForwardRef(Document16)>
+                </ForwardRef(Document)>
                 5-1
               </div>
             </li>
@@ -715,6 +727,9 @@ exports[`TreeView should render with icons 1`] = `
             renderIcon={
               Object {
                 "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "size": [Function],
+                },
                 "render": [Function],
               }
             }
@@ -741,7 +756,7 @@ exports[`TreeView should render with icons 1`] = `
               <div
                 className="bx--tree-node__label"
               >
-                <ForwardRef(Document16)
+                <ForwardRef(Document)
                   className="bx--tree-node__icon"
                 >
                   <Icon
@@ -765,14 +780,14 @@ exports[`TreeView should render with icons 1`] = `
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3	z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
+                        d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3 z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
                       />
                       <path
                         d="M10 22H22V24H10zM10 16H22V18H10z"
                       />
                     </svg>
                   </Icon>
-                </ForwardRef(Document16)>
+                </ForwardRef(Document)>
                 5-2
               </div>
             </li>
@@ -787,6 +802,9 @@ exports[`TreeView should render with icons 1`] = `
             renderIcon={
               Object {
                 "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "size": [Function],
+                },
                 "render": [Function],
               }
             }
@@ -818,7 +836,7 @@ exports[`TreeView should render with icons 1`] = `
                   className="bx--tree-parent-node__toggle"
                   onClick={[Function]}
                 >
-                  <ForwardRef(CaretDown16)
+                  <ForwardRef(CaretDown)
                     className="bx--tree-parent-node__toggle-icon bx--tree-parent-node__toggle-icon--expanded"
                   >
                     <Icon
@@ -846,12 +864,12 @@ exports[`TreeView should render with icons 1`] = `
                         />
                       </svg>
                     </Icon>
-                  </ForwardRef(CaretDown16)>
+                  </ForwardRef(CaretDown)>
                 </span>
                 <span
                   className="bx--tree-node__label__details"
                 >
-                  <ForwardRef(Folder16)
+                  <ForwardRef(Folder)
                     className="bx--tree-node__icon"
                   >
                     <Icon
@@ -879,7 +897,7 @@ exports[`TreeView should render with icons 1`] = `
                         />
                       </svg>
                     </Icon>
-                  </ForwardRef(Folder16)>
+                  </ForwardRef(Folder)>
                   5-3
                 </span>
               </div>
@@ -896,6 +914,9 @@ exports[`TreeView should render with icons 1`] = `
                   renderIcon={
                     Object {
                       "$$typeof": Symbol(react.forward_ref),
+                      "propTypes": Object {
+                        "size": [Function],
+                      },
                       "render": [Function],
                     }
                   }
@@ -922,7 +943,7 @@ exports[`TreeView should render with icons 1`] = `
                     <div
                       className="bx--tree-node__label"
                     >
-                      <ForwardRef(Document16)
+                      <ForwardRef(Document)
                         className="bx--tree-node__icon"
                       >
                         <Icon
@@ -946,14 +967,14 @@ exports[`TreeView should render with icons 1`] = `
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3	z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
+                              d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3 z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
                             />
                             <path
                               d="M10 22H22V24H10zM10 16H22V18H10z"
                             />
                           </svg>
                         </Icon>
-                      </ForwardRef(Document16)>
+                      </ForwardRef(Document)>
                       5-4
                     </div>
                   </li>

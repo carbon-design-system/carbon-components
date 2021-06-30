@@ -6,10 +6,10 @@
  */
 
 import {
-  Close16,
-  WarningFilled16,
-  CheckmarkFilled16,
-} from '@carbon/icons-react';
+  Close,
+  WarningFilled,
+  CheckmarkFilled,
+} from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -26,24 +26,24 @@ function Filename({ iconDescription, status, invalid, ...rest }) {
     case 'edit':
       return (
         <>
-          {invalid && <WarningFilled16 className={`${prefix}--file-invalid`} />}
+          {invalid && <WarningFilled className={`${prefix}--file-invalid`} />}
           <button
             aria-label={iconDescription}
             className={`${prefix}--file-close`}
             type="button"
             {...rest}>
-            <Close16 />
+            <Close />
           </button>
         </>
       );
     case 'complete':
       return (
-        <CheckmarkFilled16
+        <CheckmarkFilled
           aria-label={iconDescription}
           className={`${prefix}--file-complete`}
           {...rest}>
           {iconDescription && <title>{iconDescription}</title>}
-        </CheckmarkFilled16>
+        </CheckmarkFilled>
       );
     default:
       return null;

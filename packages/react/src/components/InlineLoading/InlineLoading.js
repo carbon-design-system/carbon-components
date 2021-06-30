@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { CheckmarkFilled16, ErrorFilled16 } from '@carbon/icons-react';
+import { CheckmarkFilled, ErrorFilled } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import deprecate from '../../prop-types/deprecate';
 import Loading from '../Loading';
@@ -29,9 +29,9 @@ export default function InlineLoading({
   const getLoading = () => {
     if (status === 'error') {
       return (
-        <ErrorFilled16 className={`${prefix}--inline-loading--error`}>
+        <ErrorFilled className={`${prefix}--inline-loading--error`}>
           <title>{iconDescription}</title>
-        </ErrorFilled16>
+        </ErrorFilled>
       );
     }
     if (status === 'finished') {
@@ -41,10 +41,10 @@ export default function InlineLoading({
         }
       }, successDelay);
       return (
-        <CheckmarkFilled16
+        <CheckmarkFilled
           className={`${prefix}--inline-loading__checkmark-container`}>
           <title>{iconDescription}</title>
-        </CheckmarkFilled16>
+        </CheckmarkFilled>
       );
     }
     if (status === 'inactive' || status === 'active') {

@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Search16 } from '@carbon/icons-react';
+import { Search } from '@carbon/icons-react/next';
 import Button from '../Button';
 import Link from '../Link';
 import ButtonSkeleton from '../Button/Button.Skeleton';
@@ -118,7 +118,7 @@ describe('Button', () => {
 
   describe('Renders icon buttons', () => {
     const iconButton = mount(
-      <Button renderIcon={Search16} iconDescription="Search">
+      <Button renderIcon={Search} iconDescription="Search">
         Search
       </Button>
     );
@@ -130,7 +130,7 @@ describe('Button', () => {
 
     it('should return error if icon given without description', () => {
       const props = {
-        renderIcon: Search16,
+        renderIcon: Search,
       };
       // eslint-disable-next-line quotes
       const error = new Error(
@@ -142,11 +142,11 @@ describe('Button', () => {
 
   describe('Renders custom icon buttons', () => {
     const iconButton = mount(
-      <Button renderIcon={Search16} iconDescription="Search">
+      <Button renderIcon={Search} iconDescription="Search">
         Search
       </Button>
     );
-    const originalIcon = mount(<Search16 />).find('svg');
+    const originalIcon = mount(<Search />).find('svg');
     const icon = iconButton.find('svg');
 
     it('should have the appropriate icon', () => {
@@ -158,7 +158,7 @@ describe('Button', () => {
 
     it('should return error if icon given without description', () => {
       const props = {
-        renderIcon: Search16,
+        renderIcon: Search,
       };
       // eslint-disable-next-line quotes
       const error = new Error(

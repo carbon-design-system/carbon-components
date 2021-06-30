@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { ListBulleted16, Grid16 } from '@carbon/icons-react';
+import { ListBulleted, Grid } from '@carbon/icons-react/next';
 import { shallow, mount } from 'enzyme';
 import { settings } from 'carbon-components';
 
@@ -41,13 +41,13 @@ describe('[Deprecated] SearchLayoutButton', () => {
 
   describe('icons', () => {
     it('should use "list" icon for toggle button', () => {
-      const icon = wrapper.find(ListBulleted16);
+      const icon = wrapper.find(ListBulleted);
       expect(icon.length).toBe(1);
     });
 
     it('should use "grid" icon when format state is not "list"', () => {
       wrapper.setState({ format: 'not-list' });
-      const icon = wrapper.find(Grid16);
+      const icon = wrapper.find(Grid);
       expect(icon.length).toBe(1);
     });
 
@@ -55,11 +55,11 @@ describe('[Deprecated] SearchLayoutButton', () => {
       const wrapperWithFormatProps = mount(
         <SearchLayoutButton format="grid" />
       );
-      expect(wrapperWithFormatProps.find(Grid16).length).toBe(1);
-      expect(wrapperWithFormatProps.find(ListBulleted16).length).toBe(0);
+      expect(wrapperWithFormatProps.find(Grid).length).toBe(1);
+      expect(wrapperWithFormatProps.find(ListBulleted).length).toBe(0);
       wrapperWithFormatProps.setProps({ format: 'list' });
-      expect(wrapperWithFormatProps.find(Grid16).length).toBe(0);
-      expect(wrapperWithFormatProps.find(ListBulleted16).length).toBe(1);
+      expect(wrapperWithFormatProps.find(Grid).length).toBe(0);
+      expect(wrapperWithFormatProps.find(ListBulleted).length).toBe(1);
     });
 
     it('should avoid change the format upon setting props, unless there the value actually changes', () => {

@@ -10,11 +10,11 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { settings } from 'carbon-components';
 import {
-  CheckmarkOutline16,
-  Warning16,
-  RadioButton16,
-  CircleFilled16,
-} from '@carbon/icons-react';
+  CheckmarkOutline,
+  Warning,
+  RadioButton,
+  CircleFilled,
+} from '@carbon/icons-react/next';
 import { keys, matches } from '../../internal/keyboard';
 
 const { prefix } = settings;
@@ -65,29 +65,29 @@ export function ProgressStep({
   const SVGIcon = ({ complete, current, description, invalid, prefix }) => {
     if (invalid) {
       return (
-        <Warning16 className={`${prefix}--progress__warning`}>
+        <Warning className={`${prefix}--progress__warning`}>
           <title>{description}</title>
-        </Warning16>
+        </Warning>
       );
     }
     if (current) {
       return (
-        <CircleFilled16>
+        <CircleFilled>
           <title>{description}</title>
-        </CircleFilled16>
+        </CircleFilled>
       );
     }
     if (complete) {
       return (
-        <CheckmarkOutline16>
+        <CheckmarkOutline>
           <title>{description}</title>
-        </CheckmarkOutline16>
+        </CheckmarkOutline>
       );
     }
     return (
-      <RadioButton16>
+      <RadioButton>
         <title>{description}</title>
-      </RadioButton16>
+      </RadioButton>
     );
   };
 

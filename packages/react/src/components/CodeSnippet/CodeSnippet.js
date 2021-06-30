@@ -10,7 +10,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import useResizeObserver from 'use-resize-observer/polyfilled';
 import debounce from 'lodash.debounce';
-import { ChevronDown16 } from '@carbon/icons-react';
+import { ChevronDown } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import Copy from '../Copy';
 import Button from '../Button';
@@ -259,7 +259,7 @@ function CodeSnippet({
           <span className={`${prefix}--snippet-btn--text`}>
             {expandCodeBtnText}
           </span>
-          <ChevronDown16
+          <ChevronDown
             aria-label={expandCodeBtnText}
             className={`${prefix}--icon-chevron--down ${prefix}--snippet__icon`}
             name="chevron--down"

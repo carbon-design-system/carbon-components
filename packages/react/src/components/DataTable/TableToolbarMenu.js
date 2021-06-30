@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { settings } from 'carbon-components';
 import OverflowMenu from '../OverflowMenu';
-import { Settings16 } from '@carbon/icons-react';
+import { Settings } from '@carbon/icons-react/next';
 
 const { prefix } = settings;
 
@@ -40,7 +40,7 @@ const TableToolbarMenu = ({
 };
 
 TableToolbarMenu.defaultProps = {
-  renderIcon: Settings16,
+  renderIcon: Settings,
   iconDescription: 'Settings',
 };
 

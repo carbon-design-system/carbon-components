@@ -70,7 +70,7 @@ exports[`HeaderMenu should render 1`] = `
       >
         test
         <defaultRenderMenuContent>
-          <ForwardRef(ChevronDown16)
+          <ForwardRef(ChevronDown)
             className="bx--header__menu-arrow"
           >
             <Icon
@@ -98,7 +98,7 @@ exports[`HeaderMenu should render 1`] = `
                 />
               </svg>
             </Icon>
-          </ForwardRef(ChevronDown16)>
+          </ForwardRef(ChevronDown)>
         </defaultRenderMenuContent>
       </a>
       <ul

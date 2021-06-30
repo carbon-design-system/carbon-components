@@ -9,14 +9,14 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { settings } from 'carbon-components';
-import { OverflowMenuVertical16 } from '@carbon/icons-react';
+import { OverflowMenuVertical } from '@carbon/icons-react/next';
 import Menu from '../../Menu';
 
 const { prefix } = settings;
 
 function OverflowMenu({
   children,
-  renderIcon: IconElement = OverflowMenuVertical16,
+  renderIcon: IconElement = OverflowMenuVertical,
   ...rest
 }) {
   const [open, setOpen] = useState(false);

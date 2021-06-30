@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Search16, Close16 } from '@carbon/icons-react';
+import { Search as SearchIcon, Close } from '@carbon/icons-react/next';
 import Search from '../Search';
 import SearchSkeleton from '../Search/Search.Skeleton';
 import { mount, shallow } from 'enzyme';
@@ -98,13 +98,13 @@ describe('Search', () => {
 
       describe('icons', () => {
         it('renders "search" icon', () => {
-          const icons = wrapper.find(Search16);
+          const icons = wrapper.find(SearchIcon);
           expect(icons.length).toBe(1);
         });
 
         it('renders two Icons', () => {
           wrapper.setProps({ size: undefined });
-          const iconTypes = [Search16, Close16];
+          const iconTypes = [SearchIcon, Close];
           const icons = wrapper.findWhere((n) => iconTypes.includes(n.type()));
           expect(icons.length).toEqual(2);
         });
@@ -125,7 +125,7 @@ describe('Search', () => {
       const largeContainer = large.find(`.${prefix}--search`);
 
       it('renders correct search icon', () => {
-        const icons = large.find(Search16);
+        const icons = large.find(SearchIcon);
         expect(icons.length).toBe(1);
       });
 
@@ -139,7 +139,7 @@ describe('Search', () => {
       });
 
       it('renders two Icons', () => {
-        const iconTypes = [Search16, Close16];
+        const iconTypes = [SearchIcon, Close];
         const icons = large.findWhere((n) => iconTypes.includes(n.type()));
         expect(icons.length).toEqual(2);
       });
@@ -159,7 +159,7 @@ describe('Search', () => {
       const smallContainer = small.find(`.${prefix}--search`);
 
       it('renders correct search icon', () => {
-        const icons = small.find(Search16);
+        const icons = small.find(SearchIcon);
         expect(icons.length).toBe(1);
       });
 
@@ -173,7 +173,7 @@ describe('Search', () => {
       });
 
       it('renders two Icons', () => {
-        const iconTypes = [Search16, Close16];
+        const iconTypes = [SearchIcon, Close];
         const icons = wrapper.findWhere((n) => iconTypes.includes(n.type()));
         expect(icons.length).toEqual(2);
       });

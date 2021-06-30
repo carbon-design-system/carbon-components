@@ -23,7 +23,7 @@ exports[`ListBoxField should render 1`] = `
         tabIndex={0}
         title="Clear selected item"
       >
-        <ForwardRef(Close16)>
+        <ForwardRef(Close)>
           <Icon
             fill="currentColor"
             height={16}
@@ -47,7 +47,7 @@ exports[`ListBoxField should render 1`] = `
               />
             </svg>
           </Icon>
-        </ForwardRef(Close16)>
+        </ForwardRef(Close)>
       </div>
     </ListBoxSelection>
   </div>

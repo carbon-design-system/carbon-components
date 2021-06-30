@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ChevronDown20 } from '@carbon/icons-react';
+import { ChevronDown } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -167,7 +167,7 @@ export class SideNavMenu extends React.Component {
           )}
           <span className={`${prefix}--side-nav__submenu-title`}>{title}</span>
           <SideNavIcon className={`${prefix}--side-nav__submenu-chevron`} small>
-            <ChevronDown20 />
+            <ChevronDown size={20} />
           </SideNavIcon>
         </button>
         <ul className={`${prefix}--side-nav__menu`}>{children}</ul>

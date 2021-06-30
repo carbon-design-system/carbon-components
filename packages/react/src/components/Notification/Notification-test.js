@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Close20, ErrorFilled20, CheckmarkFilled20 } from '@carbon/icons-react';
+import { Close, ErrorFilled, CheckmarkFilled } from '@carbon/icons-react/next';
 import {
   NotificationButton,
   NotificationTextDetails,
@@ -20,22 +20,25 @@ const { prefix } = settings;
 
 describe('NotificationButton', () => {
   describe('Renders as expected', () => {
-    const wrapper = shallow(<NotificationButton className="some-class" />);
+    const wrapper = mount(<NotificationButton className="some-class" />);
 
     it('renders given className', () => {
       expect(wrapper.hasClass('some-class')).toBe(true);
     });
 
     it('renders only one Icon', () => {
-      const icon = wrapper.find(Close20);
+      const icon = wrapper.find(Close);
       expect(icon.length).toEqual(1);
     });
 
     it('supports custom icon', () => {
       const iconButton = mount(
-        <NotificationButton renderIcon={Close20} iconDescription="Close" />
+        <NotificationButton
+          renderIcon={(props) => <Close size={20} {...props} />}
+          iconDescription="Close"
+        />
       );
-      const originalIcon = mount(<Close20 />).find('svg');
+      const originalIcon = mount(<Close size={20} />).find('svg');
       const icon = iconButton.find('svg');
       expect(icon.find(':not(svg):not(title)').html()).toBe(
         originalIcon.children().html()
@@ -44,13 +47,14 @@ describe('NotificationButton', () => {
 
     describe('When notificationType equals "toast"', () => {
       it('button should have correct className by default', () => {
+        const wrapper = shallow(<NotificationButton className="some-class" />);
         expect(
           wrapper.hasClass(`${prefix}--toast-notification__close-button`)
         ).toBe(true);
       });
 
       it('icon should have correct className by default', () => {
-        const icon = wrapper.find(Close20);
+        const icon = wrapper.find(Close);
         expect(icon.hasClass(`${prefix}--toast-notification__close-icon`)).toBe(
           true
         );
@@ -59,6 +63,7 @@ describe('NotificationButton', () => {
 
     describe('When notificationType equals "inline"', () => {
       it('button should have correct className', () => {
+        const wrapper = shallow(<NotificationButton className="some-class" />);
         wrapper.setProps({ notificationType: 'inline' });
         expect(
           wrapper.hasClass(`${prefix}--inline-notification__close-button`)
@@ -66,7 +71,13 @@ describe('NotificationButton', () => {
       });
 
       it('icon should have correct className', () => {
-        const icon = wrapper.find(Close20);
+        const wrapper = mount(
+          <NotificationButton
+            className="some-class"
+            notificationType="inline"
+          />
+        );
+        const icon = wrapper.find(Close);
         expect(
           icon.hasClass(`${prefix}--inline-notification__close-icon`)
         ).toBe(true);
@@ -240,12 +251,12 @@ describe('InlineNotification', () => {
 
     it('renders success notification with matching kind and <icon name=""> values', () => {
       inline.setProps({ kind: 'success' });
-      expect(inline.find(CheckmarkFilled20).length).toBe(1);
+      expect(inline.find(CheckmarkFilled).length).toBe(1);
     });
 
     it('renders error notification with matching kind and <icon name=""> values', () => {
       inline.setProps({ kind: 'error' });
-      expect(inline.find(ErrorFilled20).length).toBe(1);
+      expect(inline.find(ErrorFilled).length).toBe(1);
     });
 
     it('renders warning notification with matching kind and <icon name=""> values', () => {

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Close20, ChevronRight20 } from '@carbon/icons-react';
+import { Close, ChevronRight } from '@carbon/icons-react/next';
 
 import { settings } from 'carbon-components';
 import cx from 'classnames';
@@ -34,7 +34,7 @@ const SideNavFooter = ({
         onClick={(evt) => onToggle(evt)}
         title={assistiveText}>
         <div className={`${prefix}--side-nav__icon`}>
-          {expanded ? <Close20 /> : <ChevronRight20 />}
+          {expanded ? <Close size={20} /> : <ChevronRight size={20} />}
         </div>
         <span className={`${prefix}--assistive-text`}>{assistiveText}</span>
       </button>

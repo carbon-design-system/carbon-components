@@ -11,10 +11,10 @@ import classNames from 'classnames';
 import { settings } from 'carbon-components';
 import Link from '../Link';
 import {
-  Checkbox16,
-  CheckboxCheckedFilled16,
-  ChevronDown16,
-} from '@carbon/icons-react';
+  Checkbox,
+  CheckboxCheckedFilled,
+  ChevronDown,
+} from '@carbon/icons-react/next';
 import { keys, matches } from '../../internal/keyboard';
 import deprecate from '../../prop-types/deprecate';
 import { composeEventHandlers } from '../../tools/events';
@@ -282,7 +282,7 @@ export function SelectableTile(props) {
         onKeyDown={!disabled ? handleOnKeyDown : null}>
         <span
           className={`${prefix}--tile__checkmark ${prefix}--tile__checkmark--persistent`}>
-          {isSelected ? <CheckboxCheckedFilled16 /> : <Checkbox16 />}
+          {isSelected ? <CheckboxCheckedFilled /> : <Checkbox />}
         </span>
         <span className={`${prefix}--tile-content`}>{children}</span>
       </label>
@@ -633,7 +633,7 @@ export class ExpandableTile extends Component {
           </div>
           <div className={`${prefix}--tile__chevron`}>
             <span>{isExpanded ? tileExpandedLabel : tileCollapsedLabel}</span>
-            <ChevronDown16 />
+            <ChevronDown />
           </div>
           <div className={`${prefix}--tile-content`}>{childrenAsArray[1]}</div>
         </div>

@@ -8,7 +8,7 @@
 import cx from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ChevronDown16 } from '@carbon/icons-react';
+import { ChevronDown } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 
 const { prefix } = settings;
@@ -41,7 +41,7 @@ const ListBoxTrigger = ({ isOpen, translateWithId: t, ...rest }) => {
       className={className}
       type="button"
       tabIndex="-1">
-      <ChevronDown16 />
+      <ChevronDown />
     </button>
   );
 };

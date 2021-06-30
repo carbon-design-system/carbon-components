@@ -7,7 +7,7 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AddFilled16 as iconAddSolid } from '@carbon/icons-react';
+import { AddFilled as iconAddSolid } from '@carbon/icons-react/next';
 import Button from '../Button';
 
 const TableBatchAction = (props) => <Button {...props} />;

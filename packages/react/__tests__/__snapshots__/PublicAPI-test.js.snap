@@ -1025,6 +1025,21 @@ Map {
       "defaultProps": Object {
         "renderIcon": Object {
           "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "size": Object {
+              "args": Array [
+                Array [
+                  Object {
+                    "type": "number",
+                  },
+                  Object {
+                    "type": "string",
+                  },
+                ],
+              ],
+              "type": "oneOfType",
+            },
+          },
           "render": [Function],
         },
       },
@@ -1390,6 +1405,21 @@ Map {
         "iconDescription": "Settings",
         "renderIcon": Object {
           "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "size": Object {
+              "args": Array [
+                Array [
+                  Object {
+                    "type": "number",
+                  },
+                  Object {
+                    "type": "string",
+                  },
+                ],
+              ],
+              "type": "oneOfType",
+            },
+          },
           "render": [Function],
         },
       },
@@ -1664,6 +1694,21 @@ Map {
     "defaultProps": Object {
       "renderIcon": Object {
         "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "size": Object {
+            "args": Array [
+              Array [
+                Object {
+                  "type": "number",
+                },
+                Object {
+                  "type": "string",
+                },
+              ],
+            ],
+            "type": "oneOfType",
+          },
+        },
         "render": [Function],
       },
     },
@@ -2096,6 +2141,21 @@ Map {
       "iconDescription": "Settings",
       "renderIcon": Object {
         "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "size": Object {
+            "args": Array [
+              Array [
+                Object {
+                  "type": "number",
+                },
+                Object {
+                  "type": "string",
+                },
+              ],
+            ],
+            "type": "oneOfType",
+          },
+        },
         "render": [Function],
       },
     },

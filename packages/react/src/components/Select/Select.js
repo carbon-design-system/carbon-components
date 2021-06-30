@@ -10,10 +10,10 @@ import React from 'react';
 import classNames from 'classnames';
 import { settings } from 'carbon-components';
 import {
-  ChevronDown16,
-  WarningFilled16,
-  WarningAltFilled16,
-} from '@carbon/icons-react';
+  ChevronDown,
+  WarningFilled,
+  WarningAltFilled,
+} from '@carbon/icons-react/next';
 import deprecate from '../../prop-types/deprecate';
 
 const { prefix } = settings;
@@ -97,12 +97,12 @@ const Select = React.forwardRef(function Select(
           ref={ref}>
           {children}
         </select>
-        <ChevronDown16 className={`${prefix}--select__arrow`} />
+        <ChevronDown className={`${prefix}--select__arrow`} />
         {invalid && (
-          <WarningFilled16 className={`${prefix}--select__invalid-icon`} />
+          <WarningFilled className={`${prefix}--select__invalid-icon`} />
         )}
         {!invalid && warn && (
-          <WarningAltFilled16
+          <WarningAltFilled
             className={`${prefix}--select__invalid-icon ${prefix}--select__invalid-icon--warning`}
           />
         )}

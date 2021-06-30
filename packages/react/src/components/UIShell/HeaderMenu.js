@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ChevronDown16 } from '@carbon/icons-react';
+import { ChevronDown } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import cx from 'classnames';
 import React from 'react';
@@ -16,7 +16,7 @@ import { AriaLabelPropType } from '../../prop-types/AriaPropTypes';
 const { prefix } = settings;
 
 const defaultRenderMenuContent = () => (
-  <ChevronDown16 className={`${prefix}--header__menu-arrow`} />
+  <ChevronDown className={`${prefix}--header__menu-arrow`} />
 );
 
 /**

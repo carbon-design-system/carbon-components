@@ -8,7 +8,7 @@ exports[`ListBoxMenuIcon should render 1`] = `
   <div
     className="bx--list-box__menu-icon bx--list-box__menu-icon--open"
   >
-    <ForwardRef(ChevronDown16)
+    <ForwardRef(ChevronDown)
       aria-label="Close menu"
       name="chevron--down"
     >
@@ -42,7 +42,7 @@ exports[`ListBoxMenuIcon should render 1`] = `
           </title>
         </svg>
       </Icon>
-    </ForwardRef(ChevronDown16)>
+    </ForwardRef(ChevronDown)>
   </div>
 </ListBoxMenuIcon>
 `;
@@ -55,7 +55,7 @@ exports[`ListBoxMenuIcon should render 2`] = `
   <div
     className="bx--list-box__menu-icon"
   >
-    <ForwardRef(ChevronDown16)
+    <ForwardRef(ChevronDown)
       aria-label="Open menu"
       name="chevron--down"
     >
@@ -89,7 +89,7 @@ exports[`ListBoxMenuIcon should render 2`] = `
           </title>
         </svg>
       </Icon>
-    </ForwardRef(ChevronDown16)>
+    </ForwardRef(ChevronDown)>
   </div>
 </ListBoxMenuIcon>
 `;

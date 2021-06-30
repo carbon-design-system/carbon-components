@@ -7,6 +7,9 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
   renderIcon={
     Object {
       "$$typeof": Symbol(react.forward_ref),
+      "propTypes": Object {
+        "size": [Function],
+      },
       "render": [Function],
     }
   }
@@ -19,6 +22,9 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
     renderIcon={
       Object {
         "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "size": [Function],
+        },
         "render": [Function],
       }
     }
@@ -32,6 +38,9 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
       renderIcon={
         Object {
           "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "size": [Function],
+          },
           "render": [Function],
         }
       }
@@ -55,6 +64,9 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
         renderIcon={
           Object {
             "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "size": [Function],
+            },
             "render": [Function],
           }
         }
@@ -76,7 +88,7 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
             title="Add"
             type="button"
           >
-            <ForwardRef(Download16)
+            <ForwardRef(Download)
               aria-label="Add"
               className="bx--overflow-menu__icon"
               onClick={[Function]}
@@ -116,7 +128,7 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
                   </title>
                 </svg>
               </Icon>
-            </ForwardRef(Download16)>
+            </ForwardRef(Download)>
           </button>
         </ClickListener>
       </OverflowMenu>

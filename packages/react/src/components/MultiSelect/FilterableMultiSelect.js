@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { WarningFilled16, WarningAltFilled16 } from '@carbon/icons-react';
+import { WarningFilled, WarningAltFilled } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import cx from 'classnames';
 import Downshift from 'downshift';
@@ -488,12 +488,12 @@ export default class FilterableMultiSelect extends React.Component {
                         ref={mergeRefs(this.textInput, rootProps.ref)}
                       />
                       {invalid && (
-                        <WarningFilled16
+                        <WarningFilled
                           className={`${prefix}--list-box__invalid-icon`}
                         />
                       )}
                       {showWarning && (
-                        <WarningAltFilled16
+                        <WarningAltFilled
                           className={`${prefix}--list-box__invalid-icon ${prefix}--list-box__invalid-icon--warning`}
                         />
                       )}

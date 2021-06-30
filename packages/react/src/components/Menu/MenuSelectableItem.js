@@ -7,7 +7,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Checkmark16 } from '@carbon/icons-react';
+import { Checkmark } from '@carbon/icons-react/next';
 import MenuOption from './MenuOption';
 
 function MenuSelectableItem({ label, initialChecked, onChange = () => {} }) {
@@ -22,7 +22,7 @@ function MenuSelectableItem({ label, initialChecked, onChange = () => {} }) {
     <MenuOption
       role="menuitemcheckbox"
       aria-checked={checked}
-      renderIcon={checked ? Checkmark16 : null}
+      renderIcon={checked ? Checkmark : null}
       label={label}
       indented
       onClick={handleClick}

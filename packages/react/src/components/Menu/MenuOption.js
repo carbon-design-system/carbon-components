@@ -9,7 +9,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { settings } from 'carbon-components';
-import { CaretRight16 } from '@carbon/icons-react';
+import { CaretRight } from '@carbon/icons-react/next';
 import { keys, match } from '../../internal/keyboard';
 
 import {
@@ -156,7 +156,7 @@ function MenuOption({
           <MenuOptionContent
             label={label}
             icon={renderIcon}
-            info={<CaretRight16 />}
+            info={<CaretRight />}
             indented={indented}
           />
           <Menu

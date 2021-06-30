@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Fade32 } from '@carbon/icons-react';
+import { Fade } from '@carbon/icons-react/next';
 import React from 'react';
 import { mount } from 'enzyme';
 import { HeaderMenuButton } from '../';
@@ -25,7 +25,7 @@ describe('HeaderMenuButton', () => {
   it('should render', () => {
     const wrapper = mount(
       <HeaderMenuButton {...mockProps}>
-        <Fade32 />
+        <Fade size={32} />
       </HeaderMenuButton>
     );
     expect(wrapper).toMatchSnapshot();

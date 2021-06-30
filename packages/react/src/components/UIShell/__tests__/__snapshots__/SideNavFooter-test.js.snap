@@ -18,7 +18,9 @@ exports[`SideNavFooter should render 1`] = `
       <div
         className="bx--side-nav__icon"
       >
-        <ForwardRef(ChevronRight20)>
+        <ForwardRef(ChevronRight)
+          size={20}
+        >
           <Icon
             fill="currentColor"
             height={20}
@@ -42,7 +44,7 @@ exports[`SideNavFooter should render 1`] = `
               />
             </svg>
           </Icon>
-        </ForwardRef(ChevronRight20)>
+        </ForwardRef(ChevronRight)>
       </div>
       <span
         className="bx--assistive-text"
@@ -73,7 +75,9 @@ exports[`SideNavFooter should render 2`] = `
       <div
         className="bx--side-nav__icon"
       >
-        <ForwardRef(ChevronRight20)>
+        <ForwardRef(ChevronRight)
+          size={20}
+        >
           <Icon
             fill="currentColor"
             height={20}
@@ -97,7 +101,7 @@ exports[`SideNavFooter should render 2`] = `
               />
             </svg>
           </Icon>
-        </ForwardRef(ChevronRight20)>
+        </ForwardRef(ChevronRight)>
       </div>
       <span
         className="bx--assistive-text"

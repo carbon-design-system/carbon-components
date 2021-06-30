@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Close20 } from '@carbon/icons-react';
+import { Close } from '@carbon/icons-react/next';
 import Modal from '../Modal';
 import ModalWrapper from '../ModalWrapper';
 import InlineLoading from '../InlineLoading';
@@ -60,7 +60,7 @@ describe('Modal', () => {
     });
 
     it('should have iconDescription match Icon component description prop', () => {
-      const description = mounted.find(Close20).props()['aria-label'];
+      const description = mounted.find(Close).props()['aria-label'];
       const matches = mounted.props().iconDescription === description;
       expect(matches).toEqual(true);
     });

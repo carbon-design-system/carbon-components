@@ -42,7 +42,7 @@ exports[`DataTable.TableExpandRow should render 1`] = `
                     onClick={[MockFunction]}
                     type="button"
                   >
-                    <ForwardRef(ChevronRight16)
+                    <ForwardRef(ChevronRight)
                       className="bx--table-expand__svg"
                     >
                       <Icon
@@ -70,7 +70,7 @@ exports[`DataTable.TableExpandRow should render 1`] = `
                           />
                         </svg>
                       </Icon>
-                    </ForwardRef(ChevronRight16)>
+                    </ForwardRef(ChevronRight)>
                   </button>
                 </td>
               </TableCell>

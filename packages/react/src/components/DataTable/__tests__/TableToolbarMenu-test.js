@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import { Download16 } from '@carbon/icons-react';
+import { Download } from '@carbon/icons-react/next';
 import { TableToolbarMenu } from '..';
 
 describe('DataTable.TableToolbarMenu', () => {
@@ -15,7 +15,7 @@ describe('DataTable.TableToolbarMenu', () => {
     const wrapper = mount(
       <TableToolbarMenu
         className="custom-class"
-        renderIcon={Download16}
+        renderIcon={Download}
         iconDescription="Add">
         <span>test</span>
       </TableToolbarMenu>
@@ -27,11 +27,11 @@ describe('DataTable.TableToolbarMenu', () => {
 describe('Custom icon in DataTable.TableToolbarMenu', () => {
   it('should render', () => {
     const iconAction = mount(
-      <TableToolbarMenu renderIcon={Download16} iconDescription="Download">
+      <TableToolbarMenu renderIcon={Download} iconDescription="Download">
         <span>test</span>
       </TableToolbarMenu>
     );
-    const originalIcon = mount(<Download16 />).find('svg');
+    const originalIcon = mount(<Download />).find('svg');
     const icon = iconAction.find('svg');
     expect(icon.getDOMNode().querySelectorAll(':not(svg):not(title)')).toEqual(
       originalIcon.getDOMNode().querySelectorAll(':not(svg):not(title)')

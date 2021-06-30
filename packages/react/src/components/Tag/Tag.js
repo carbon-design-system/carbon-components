@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
 import { settings } from 'carbon-components';
-import { Close16 } from '@carbon/icons-react';
+import { Close } from '@carbon/icons-react/next';
 import setupGetInstanceId from '../../tools/setupGetInstanceId';
 
 const { prefix } = settings;
@@ -79,7 +79,7 @@ const Tag = ({
           disabled={disabled}
           aria-labelledby={tagId}
           title={title}>
-          <Close16 />
+          <Close />
         </button>
       </div>
     );

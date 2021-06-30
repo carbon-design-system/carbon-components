@@ -8,7 +8,7 @@
 import React from 'react';
 import OverflowMenu from '../OverflowMenu';
 import OverflowMenuItem from '../OverflowMenuItem';
-import { OverflowMenuVertical16 } from '@carbon/icons-react';
+import { OverflowMenuVertical } from '@carbon/icons-react/next';
 import { mount } from 'enzyme';
 import { settings } from 'carbon-components';
 
@@ -23,7 +23,7 @@ describe('OverflowMenu', () => {
       </OverflowMenu>
     );
     const menu = rootWrapper.find(`button.${prefix}--overflow-menu`);
-    const icon = menu.find(OverflowMenuVertical16);
+    const icon = menu.find(OverflowMenuVertical);
 
     it('should render an Icon', () => {
       expect(icon.length).toBe(1);
@@ -151,7 +151,7 @@ describe('OverflowMenu', () => {
     it('should be in an open state after icon is clicked', () => {
       const rootWrapper = mount(<OverflowMenu />);
       const menu = rootWrapper.childAt(0);
-      const icon = menu.find(OverflowMenuVertical16);
+      const icon = menu.find(OverflowMenuVertical);
 
       icon.simulate('click');
       // Enzyme doesn't seem to allow state() in a forwardRef-wrapped class component

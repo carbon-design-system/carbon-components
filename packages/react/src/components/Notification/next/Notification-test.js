@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { ErrorFilled20 } from '@carbon/icons-react';
+import { ErrorFilled } from '@carbon/icons-react/next';
 import {
   NotificationButton,
   ToastNotification,
@@ -36,7 +36,11 @@ describe('NotificationButton', () => {
     const { rerender } = render(<NotificationButton />);
     const defaultIcon = screen.queryByRole('img').innerHTML;
 
-    rerender(<NotificationButton renderIcon={ErrorFilled20} />);
+    rerender(
+      <NotificationButton
+        renderIcon={(props) => <ErrorFilled size={20} {...props} />}
+      />
+    );
     const customIcon = screen.queryByRole('img').innerHTML;
 
     expect(defaultIcon).not.toEqual(customIcon);

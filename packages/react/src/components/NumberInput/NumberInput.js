@@ -10,11 +10,11 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { settings } from 'carbon-components';
 import {
-  Add16,
-  Subtract16,
-  WarningFilled16,
-  WarningAltFilled16,
-} from '@carbon/icons-react';
+  Add,
+  Subtract,
+  WarningFilled,
+  WarningAltFilled,
+} from '@carbon/icons-react/next';
 import mergeRefs from '../../tools/mergeRefs';
 import requiredIfValueExists from '../../prop-types/requiredIfValueExists';
 import { useControlledStateWithValue } from '../../internal/FeatureFlags';
@@ -466,10 +466,10 @@ class NumberInput extends Component {
                     ref={mergeRefs(ref, this._handleInputRef)}
                   />
                   {isInputInvalid && (
-                    <WarningFilled16 className={`${prefix}--number__invalid`} />
+                    <WarningFilled className={`${prefix}--number__invalid`} />
                   )}
                   {!isInputInvalid && warn && (
-                    <WarningAltFilled16
+                    <WarningAltFilled
                       className={`${prefix}--number__invalid ${prefix}--number__invalid--warning`}
                     />
                   )}
@@ -483,7 +483,7 @@ class NumberInput extends Component {
                         title={decrementNumLabel || iconDescription}
                         aria-label={decrementNumLabel || iconDescription}
                         tabIndex="-1">
-                        <Subtract16 className="down-icon" />
+                        <Subtract className="down-icon" />
                       </button>
                       <div className={`${prefix}--number__rule-divider`}></div>
                       <button
@@ -494,7 +494,7 @@ class NumberInput extends Component {
                         title={incrementNumLabel || iconDescription}
                         aria-label={incrementNumLabel || iconDescription}
                         tabIndex="-1">
-                        <Add16 className="up-icon" />
+                        <Add className="up-icon" />
                       </button>
                       <div className={`${prefix}--number__rule-divider`}></div>
                     </div>

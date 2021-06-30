@@ -7,7 +7,7 @@
 
 import React from 'react';
 import CopyButton from '../CopyButton';
-import { Copy16 } from '@carbon/icons-react';
+import { Copy } from '@carbon/icons-react/next';
 import { shallow, mount } from 'enzyme';
 import { settings } from 'carbon-components';
 
@@ -40,7 +40,7 @@ describe('CopyButton', () => {
     it('Renders children as expected', () => {
       expect(wrapper.find('button').hasClass(`${prefix}--copy-btn`)).toBe(true);
       expect(wrapper.find(`.${prefix}--copy-btn__feedback`).length).toBe(1);
-      expect(wrapper.find(Copy16).length).toBe(1);
+      expect(wrapper.find(Copy).length).toBe(1);
     });
 
     it('Should be able to disable the button', () => {

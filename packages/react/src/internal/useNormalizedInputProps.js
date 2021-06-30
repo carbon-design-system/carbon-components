@@ -7,10 +7,10 @@
 
 import React from 'react';
 import {
-  WarningFilled16,
-  WarningAltFilled16,
-  EditOff16,
-} from '@carbon/icons-react';
+  WarningFilled,
+  WarningAltFilled,
+  EditOff,
+} from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 
 const { prefix } = settings;
@@ -70,10 +70,10 @@ export function useNormalizedInputProps({
   };
 
   if (readOnly) {
-    normalizedProps.icon = EditOff16;
+    normalizedProps.icon = EditOff;
   } else {
     if (normalizedProps.invalid) {
-      normalizedProps.icon = WarningFilled16;
+      normalizedProps.icon = WarningFilled;
       normalizedProps.validation = (
         <div
           className={`${prefix}--form-requirement`}
@@ -82,7 +82,7 @@ export function useNormalizedInputProps({
         </div>
       );
     } else if (normalizedProps.warn) {
-      normalizedProps.icon = WarningAltFilled16;
+      normalizedProps.icon = WarningAltFilled;
       normalizedProps.validation = (
         <div
           className={`${prefix}--form-requirement`}

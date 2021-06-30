@@ -11,10 +11,10 @@ import FloatingMenu from '../../internal/FloatingMenu';
 import Tooltip from '../Tooltip';
 import { mount } from 'enzyme';
 import {
-  Information16 as Information,
-  Add16 as Add,
-  OverflowMenuVertical16,
-} from '@carbon/icons-react';
+  Information,
+  Add,
+  OverflowMenuVertical,
+} from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 
 const { prefix } = settings;
@@ -124,10 +124,10 @@ describe('Tooltip', () => {
   });
 
   describe('Renders as expected when custom icon component with inner forwardRef is provided', () => {
-    const wrapper = mount(<Tooltip renderIcon={OverflowMenuVertical16} />);
+    const wrapper = mount(<Tooltip renderIcon={OverflowMenuVertical} />);
 
     it('does render provided custom icon component instance', () => {
-      const icon = wrapper.find(OverflowMenuVertical16);
+      const icon = wrapper.find(OverflowMenuVertical);
       expect(icon.exists()).toBe(true);
     });
   });

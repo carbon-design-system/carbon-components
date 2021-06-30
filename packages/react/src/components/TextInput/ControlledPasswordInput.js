@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { settings } from 'carbon-components';
-import { View16, ViewOff16, WarningFilled16 } from '@carbon/icons-react';
+import { View, ViewOff, WarningFilled } from '@carbon/icons-react/next';
 import { textInputProps } from './util';
 import { warning } from '../../internal/warning';
 
@@ -93,9 +93,9 @@ const ControlledPasswordInput = React.forwardRef(
     ) : null;
     const passwordIsVisible = type === 'text';
     const passwordVisibilityIcon = passwordIsVisible ? (
-      <ViewOff16 className={`${prefix}--icon-visibility-off`} />
+      <ViewOff className={`${prefix}--icon-visibility-off`} />
     ) : (
-      <View16 className={`${prefix}--icon-visibility-on`} />
+      <View className={`${prefix}--icon-visibility-on`} />
     );
     const passwordVisibilityToggleClasses = classNames(
       `${prefix}--text-input--password__visibility__toggle`,
@@ -141,9 +141,7 @@ const ControlledPasswordInput = React.forwardRef(
           className={`${prefix}--text-input__field-wrapper`}
           data-invalid={invalid || null}>
           {invalid && (
-            <WarningFilled16
-              className={`${prefix}--text-input__invalid-icon`}
-            />
+            <WarningFilled className={`${prefix}--text-input__invalid-icon`} />
           )}
           {input}
         </div>

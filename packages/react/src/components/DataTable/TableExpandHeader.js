@@ -9,7 +9,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import requiredIfGivenPropIsTruthy from '../../prop-types/requiredIfGivenPropIsTruthy';
 import React from 'react';
-import { ChevronRight16 } from '@carbon/icons-react';
+import { ChevronRight } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 
 const { prefix } = settings;
@@ -40,7 +40,7 @@ const TableExpandHeader = ({
           onClick={onExpand}
           title={expandIconDescription}
           aria-label={ariaLabel}>
-          <ChevronRight16
+          <ChevronRight
             className={`${prefix}--table-expand__svg`}
             aria-label={expandIconDescription}
           />

@@ -10,14 +10,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import { settings } from 'carbon-components';
 import {
-  Close20,
-  ErrorFilled20,
-  CheckmarkFilled20,
-  WarningFilled20,
-  WarningAltFilled20,
-  InformationFilled20,
-  InformationSquareFilled20,
-} from '@carbon/icons-react';
+  Close,
+  ErrorFilled,
+  CheckmarkFilled,
+  WarningFilled,
+  WarningAltFilled,
+  InformationFilled,
+  InformationSquareFilled,
+} from '@carbon/icons-react/next';
 
 import Button from '../../Button';
 import useIsomorphicEffect from '../../../internal/useIsomorphicEffect';
@@ -160,17 +160,20 @@ NotificationButton.defaultProps = {
   notificationType: 'toast',
   type: 'button',
   iconDescription: 'close icon',
-  renderIcon: Close20,
+  // eslint-disable-next-line react/display-name
+  renderIcon: (props) => <Close size={20} {...props} />,
 };
 
+/* eslint-disable react/display-name */
 const iconTypes = {
-  error: ErrorFilled20,
-  success: CheckmarkFilled20,
-  warning: WarningFilled20,
-  ['warning-alt']: WarningAltFilled20,
-  info: InformationFilled20,
-  ['info-square']: InformationSquareFilled20,
+  error: (props) => <ErrorFilled size={20} {...props} />,
+  success: (props) => <CheckmarkFilled size={20} {...props} />,
+  warning: (props) => <WarningFilled size={20} {...props} />,
+  ['warning-alt']: (props) => <WarningAltFilled size={20} {...props} />,
+  info: (props) => <InformationFilled size={20} {...props} />,
+  ['info-square']: (props) => <InformationSquareFilled size={20} {...props} />,
 };
+/* eslint-enable react/display-name */
 
 function NotificationIcon({ iconDescription, kind, notificationType }) {
   const IconForKind = iconTypes[kind];

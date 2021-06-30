@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { settings } from 'carbon-components';
-import { View16, ViewOff16 } from '@carbon/icons-react';
+import { View, ViewOff } from '@carbon/icons-react/next';
 import { useNormalizedInputProps } from '../../internal/useNormalizedInputProps';
 import { textInputProps } from './util';
 import { FormContext } from '../FluidForm';
@@ -128,9 +128,9 @@ const PasswordInput = React.forwardRef(function PasswordInput(
 
   const passwordIsVisible = inputType === 'text';
   const passwordVisibilityIcon = passwordIsVisible ? (
-    <ViewOff16 className={`${prefix}--icon-visibility-off`} />
+    <ViewOff className={`${prefix}--icon-visibility-off`} />
   ) : (
-    <View16 className={`${prefix}--icon-visibility-on`} />
+    <View className={`${prefix}--icon-visibility-on`} />
   );
   const passwordVisibilityToggleClasses = classNames(
     `${prefix}--text-input--password__visibility__toggle`,

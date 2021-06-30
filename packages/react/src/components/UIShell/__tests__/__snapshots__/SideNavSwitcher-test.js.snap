@@ -62,7 +62,9 @@ exports[`SideNavSwitcher should render 1`] = `
     <div
       className="bx--side-nav__switcher-chevron"
     >
-      <ForwardRef(ChevronDown20)>
+      <ForwardRef(ChevronDown)
+        size={20}
+      >
         <Icon
           fill="currentColor"
           height={20}
@@ -86,7 +88,7 @@ exports[`SideNavSwitcher should render 1`] = `
             />
           </svg>
         </Icon>
-      </ForwardRef(ChevronDown20)>
+      </ForwardRef(ChevronDown)>
     </div>
   </div>
 </ForwardRef(SideNavSwitcher)>

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Filter16 } from '@carbon/icons-react';
+import { Filter } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -33,7 +33,7 @@ const SearchFilterButton = ({ labelText, iconDescription, ...other }) => {
       aria-label={labelText}
       title={labelText}
       {...other}>
-      <Filter16
+      <Filter
         className={`${prefix}--search-filter`}
         aria-label={iconDescription}
       />

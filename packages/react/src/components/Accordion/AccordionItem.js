@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ChevronRight16 } from '@carbon/icons-react';
+import { ChevronRight } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -83,7 +83,7 @@ function AccordionItem({
         onClick={onClick}
         onKeyDown={onKeyDown}
         type="button">
-        <ChevronRight16 className={`${prefix}--accordion__arrow`} />
+        <ChevronRight className={`${prefix}--accordion__arrow`} />
         <div className={`${prefix}--accordion__title`}>{title}</div>
       </Expando>
       <div id={id} className={`${prefix}--accordion__content`}>

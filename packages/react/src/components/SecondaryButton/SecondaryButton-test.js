@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Search16 } from '@carbon/icons-react';
+import { Search } from '@carbon/icons-react/next';
 import SecondaryButton from '../SecondaryButton';
 import { shallow, mount } from 'enzyme';
 import { settings } from 'carbon-components';
@@ -38,7 +38,7 @@ describe('SecondaryButton', () => {
 
     describe('Renders icon buttons', () => {
       const iconButton = mount(
-        <SecondaryButton renderIcon={Search16} iconDescription="Search">
+        <SecondaryButton renderIcon={Search} iconDescription="Search">
           Search
         </SecondaryButton>
       );

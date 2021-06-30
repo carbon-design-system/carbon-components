@@ -8,7 +8,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { ChevronDown16 } from '@carbon/icons-react';
+import { ChevronDown } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import deprecate from '../../prop-types/deprecate';
 
@@ -113,11 +113,11 @@ export default class TimePickerSelect extends Component {
           disabled={disabled}>
           {children}
         </select>
-        <ChevronDown16
+        <ChevronDown
           className={`${prefix}--select__arrow`}
           aria-label={iconDescription}>
           {iconDescription && <title>{iconDescription}</title>}
-        </ChevronDown16>
+        </ChevronDown>
       </div>
     );
   }

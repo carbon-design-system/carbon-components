@@ -8,7 +8,7 @@
 import React from 'react';
 import Tag from '../Tag';
 import TagSkeleton from '../Tag/Tag.Skeleton';
-import { Add16 } from '@carbon/icons-react';
+import { Add } from '@carbon/icons-react/next';
 import { shallow } from 'enzyme';
 import { settings } from 'carbon-components';
 import { render, cleanup } from '@carbon/test-utils/react';
@@ -67,7 +67,7 @@ describe('Tag', () => {
 
   it('should allow for a custom icon', () => {
     const tag = shallow(
-      <Tag type="red" renderIcon={Add16}>
+      <Tag type="red" renderIcon={Add}>
         This is a tag
       </Tag>
     );

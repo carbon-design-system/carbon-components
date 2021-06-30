@@ -8,7 +8,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { Search16, Close16 } from '@carbon/icons-react';
+import { Search as SearchIcon, Close } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import { composeEventHandlers } from '../../tools/events';
 import { keys, match } from '../../internal/keyboard';
@@ -216,7 +216,7 @@ export default class Search extends Component {
     const searchIcon = renderIcon ? (
       renderIcon
     ) : (
-      <Search16 className={`${prefix}--search-magnifier-icon`} />
+      <SearchIcon className={`${prefix}--search-magnifier-icon`} />
     );
 
     return (
@@ -252,7 +252,7 @@ export default class Search extends Component {
           onClick={this.clearInput}
           type="button"
           aria-label={closeButtonLabelText}>
-          <Close16 />
+          <Close />
         </button>
       </div>
     );

@@ -116,9 +116,10 @@ exports[`ModalWrapper should render 1`] = `
               title="Close"
               type="button"
             >
-              <ForwardRef(Close20)
+              <ForwardRef(Close)
                 aria-label="Close"
                 className="bx--modal-close__icon"
+                size={20}
               >
                 <Icon
                   aria-label="Close"
@@ -147,7 +148,7 @@ exports[`ModalWrapper should render 1`] = `
                     />
                   </svg>
                 </Icon>
-              </ForwardRef(Close20)>
+              </ForwardRef(Close)>
             </button>
           </div>
           <div

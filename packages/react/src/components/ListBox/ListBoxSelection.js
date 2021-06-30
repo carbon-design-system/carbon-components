@@ -8,7 +8,7 @@
 import cx from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Close16 } from '@carbon/icons-react';
+import { Close } from '@carbon/icons-react/next';
 import { settings } from 'carbon-components';
 import { match, keys } from '../../internal/keyboard';
 
@@ -78,7 +78,7 @@ const ListBoxSelection = ({
         aria-label={t('clear.all')}
         aria-hidden={true}
         title={description}>
-        <Close16 />
+        <Close />
       </div>
     </div>
   ) : (
@@ -92,7 +92,7 @@ const ListBoxSelection = ({
       aria-hidden={true}
       title={description}>
       {selectionCount}
-      <Close16 />
+      <Close />
     </div>
   );
 };

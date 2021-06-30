@@ -15,7 +15,7 @@ exports[`AccordionSkeleton should render 1`] = `
       <span
         className="bx--accordion__heading"
       >
-        <ForwardRef(ChevronRight16)
+        <ForwardRef(ChevronRight)
           className="bx--accordion__arrow"
         >
           <Icon
@@ -43,7 +43,7 @@ exports[`AccordionSkeleton should render 1`] = `
               />
             </svg>
           </Icon>
-        </ForwardRef(ChevronRight16)>
+        </ForwardRef(ChevronRight)>
         <SkeletonText
           className="bx--accordion__title"
           heading={false}
@@ -120,7 +120,7 @@ exports[`AccordionSkeleton should render 1`] = `
         <span
           className="bx--accordion__heading"
         >
-          <ForwardRef(ChevronRight16)
+          <ForwardRef(ChevronRight)
             className="bx--accordion__arrow"
           >
             <Icon
@@ -148,7 +148,7 @@ exports[`AccordionSkeleton should render 1`] = `
                 />
               </svg>
             </Icon>
-          </ForwardRef(ChevronRight16)>
+          </ForwardRef(ChevronRight)>
           <SkeletonText
             className="bx--accordion__title"
             heading={false}
@@ -177,7 +177,7 @@ exports[`AccordionSkeleton should render 1`] = `
         <span
           className="bx--accordion__heading"
         >
-          <ForwardRef(ChevronRight16)
+          <ForwardRef(ChevronRight)
             className="bx--accordion__arrow"
           >
             <Icon
@@ -205,7 +205,7 @@ exports[`AccordionSkeleton should render 1`] = `
                 />
               </svg>
             </Icon>
-          </ForwardRef(ChevronRight16)>
+          </ForwardRef(ChevronRight)>
           <SkeletonText
             className="bx--accordion__title"
             heading={false}
@@ -234,7 +234,7 @@ exports[`AccordionSkeleton should render 1`] = `
         <span
           className="bx--accordion__heading"
         >
-          <ForwardRef(ChevronRight16)
+          <ForwardRef(ChevronRight)
             className="bx--accordion__arrow"
           >
             <Icon
@@ -262,7 +262,7 @@ exports[`AccordionSkeleton should render 1`] = `
                 />
               </svg>
             </Icon>
-          </ForwardRef(ChevronRight16)>
+          </ForwardRef(ChevronRight)>
           <SkeletonText
             className="bx--accordion__title"
             heading={false}

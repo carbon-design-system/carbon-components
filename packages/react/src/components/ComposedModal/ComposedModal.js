@@ -11,7 +11,7 @@ import Button from '../Button';
 import ButtonSet from '../ButtonSet';
 import classNames from 'classnames';
 import { settings } from 'carbon-components';
-import { Close20 } from '@carbon/icons-react';
+import { Close } from '@carbon/icons-react/next';
 import toggleClass from '../../tools/toggleClass';
 import requiredIfGivenPropIsTruthy from '../../prop-types/requiredIfGivenPropIsTruthy';
 import wrapFocus from '../../internal/wrapFocus';
@@ -436,7 +436,7 @@ export class ModalHeader extends Component {
           title={iconDescription}
           aria-label={iconDescription}
           type="button">
-          <Close20 className={closeIconClass} />
+          <Close size={20} className={closeIconClass} />
         </button>
       </div>
     );

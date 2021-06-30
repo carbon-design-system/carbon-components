@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { CaretRight16, CaretLeft16 } from '@carbon/icons-react';
+import { CaretRight, CaretLeft } from '@carbon/icons-react/next';
 import Pagination from '../Pagination';
 import Select from '../Select';
 import SelectItem from '../SelectItem';
@@ -24,7 +24,7 @@ describe('Pagination', () => {
     );
 
     describe('icons', () => {
-      const iconTypes = [CaretLeft16, CaretRight16];
+      const iconTypes = [CaretLeft, CaretRight];
       const icons = pagination.findWhere((n) => iconTypes.includes(n.type()));
 
       it('should have 2 icons', () => {
