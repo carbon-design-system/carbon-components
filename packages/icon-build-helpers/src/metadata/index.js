@@ -44,7 +44,6 @@ async function check({
  * @param {object} options
  * @param {Adapter} [options.adapter] The adapter to use to load the extensions
  * @param {string} options.input The directory of source files
- * @param {string} [options.output] The directory for the built metadata
  * @param {Array<Extension>} [options.extensions] The extensions to load
  * @returns {Promise<object>}
  */

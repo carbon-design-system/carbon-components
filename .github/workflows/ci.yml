@@ -42,3 +42,90 @@ jobs:
         run: yarn lint
       - name: Lint Sass files
         run: yarn lint:styles
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '14.x'
+      - uses: actions/cache@v2.1.6
+        id: cache
+        with:
+          path: |
+            node_modules
+            */**/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: yarn install --immutable --immutable-cache
+      - name: Build project
+        run: yarn build --ignore '@carbon/sketch'
+      - name: Check generated styles
+        run: |
+          yarn carbon-cli check --ignore '**/@(node_modules|examples|components|react|fixtures)/**' 'packages/**/*.scss'
+      - name: Run tests
+        run: yarn test --ci
+
+  e2e:
+    name: 'test:e2e'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '14.x'
+      - uses: actions/cache@v2.1.6
+        id: cache
+        with:
+          path: |
+            node_modules
+            */**/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: yarn install --immutable --immutable-cache
+      - uses: dorny/paths-filter@v2.10.2
+        id: filter
+        with:
+          filters: |
+            e2e:
+              - 'e2e/**'
+              - 'packages/icons/**'
+              - 'packages/icons-react/**'
+              - 'packages/icons-vue/**'
+              - 'packages/pictograms/**'
+              - 'packages/pictograms-react/**'
+              - 'packages/icon-build-helpers/**'
+      - name: Build project
+        if: ${{ steps.filter.outputs.e2e == 'true' }}
+        run: yarn build --ignore '@carbon/sketch'
+      - name: Run e2e tests
+        if: ${{ steps.filter.outputs.e2e == 'true' }}
+        run: yarn test:e2e
+
+  vrt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '14.x'
+      - uses: actions/cache@v2.1.6
+        id: cache
+        with:
+          path: |
+            node_modules
+            */**/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: yarn install --immutable --immutable-cache
+      - name: Build project
+        run: yarn build --ignore '@carbon/sketch'
+      - name: Run VRT
+        env:
+          PERCY_TOKEN: dd3392142006a6483c8f524697f39f052755fa9dc087ff4437cac3d64227abdd
+        run: |
+          yarn run percy exec -- yarn workspace carbon-components-react test:e2e

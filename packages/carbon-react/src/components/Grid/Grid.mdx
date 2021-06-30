@@ -12,11 +12,13 @@ import { Story, Preview, Props } from '@storybook/addon-docs/blocks';
 ## Table of Contents
 
 - [Overview](#overview)
+  - [Debugging](#debugging)
 - [Grid modes](#grid-modes)
   - [Wide grid](#wide-grid)
   - [Narrow grid](#narrow-grid)
   - [Condensed grid](#condensed-grid)
-  - [Mix-and-match](#mix-and-match)
+- [Subgrid](#subgrid)
+- [Mixed grid modes](#mixed-grid-modes)
 - [Auto columns](#auto-columns)
 - [Offset columns](#offset-columns)
 - [Component API](#component-api)
@@ -31,16 +33,16 @@ import { Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 Carbon's grid components help developers use the
 [2x Grid](https://www.carbondesignsystem.com/guidelines/2x-grid/overview). The
-project provides `Grid`, `Row`, and `Column` components which can be used to
-build a variety of layouts. You can import these components from
+project provides `Grid` and `Column` components which can be used to build a
+variety of layouts. You can import these components from
 `carbon-components-react`:
 
 ```js
-import { Grid, Row, Column } from 'carbon-components-react';
+import { Grid, Column } from 'carbon-components-react';
 ```
 
 <Preview>
-  <Story id="components-grid--responsive-grid" />
+  <Story id="components-grid--responsive" />
 </Preview>
 
 ## Overview
@@ -49,9 +51,9 @@ Every layout starts with the `Grid` component. You can specify a `Grid` at the
 top-level of your project, or at different depths provided that it can span 100%
 width of its container.
 
-Next, you will use a combination of `Row` and `Column`. You can have multiple
-`Row` components in a `Grid`, and multiple `Column` components in a `Row`. Each
-`Row` will contain all the `Column` components provided to it, as long as they
+Next, you will use a combination of `Column` and `Grid`. You can have multiple
+`Column` components in a `Grid`, and nest `Grid` components in a `Column`. Each
+`Grid` will contain all the `Column` components provided to it, as long as they
 don't span more columns than the total number of columns in the grid.
 
 To specify how many columns the `Column` component should span, you can use the
@@ -63,26 +65,21 @@ number `4` to specify that each `Column` component should span 4 columns at that
 breakpoint.
 
 ```js
-import { Grid, Row, Column } from 'carbon-components-react';
+import { Grid, Column } from 'carbon-components-react';
 
 function MyComponent() {
   return (
     <Grid>
-      <Row>
-        <Column lg={4}>Span 4 of 12</Column>
-        <Column lg={4}>Span 4 of 12</Column>
-        <Column lg={4}>Span 4 of 12</Column>
-        <Column lg={4}>Span 4 of 12</Column>
-      </Row>
+      <Column lg={4}>Span 4 of 16</Column>
+      <Column lg={4}>Span 4 of 16</Column>
+      <Column lg={4}>Span 4 of 16</Column>
+      <Column lg={4}>Span 4 of 16</Column>
     </Grid>
   );
 }
 ```
 
-_Note: by default, `carbon-components` ships with a 12 column grid. You can
-enable a 16 column grid, which will be the default grid in the next major
-version, by using our
-[feature flags in Sass](https://github.com/carbon-design-system/carbon/blob/main/docs/guides/sass.md#feature-flags)._
+_Note: by default, `carbon-components` ships with a 16 column grid._
 
 You can pair up multiple breakpoint props to specify how many columns the
 `Column` component should span at different break points. In the example below,
@@ -90,8 +87,23 @@ we will use the `sm`, `md`, and `lg` prop to specify how many columns the
 `Column` components should span at the small, medium, and large breakpoints.
 
 <Preview>
-  <Story id="components-grid--responsive-grid" />
+  <Story id="components-grid--responsive" />
 </Preview>
+
+### Debugging
+
+It is incredibly helpful when debugging CSS Grid to use the browser developer
+tools css grid mode to view the grid definition. Depending on the browser these
+typically provide a toggle for overlaying a schematic showing the column and
+grid gap definition. With this overlay it's much easier to visually understand
+if grid modes are configured and set properly on the grid.
+
+Documentation on these features is available for
+[Chrome](https://developer.chrome.com/docs/devtools/css/grid/),
+[Firefox](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Examine_grid_layouts),
+and
+[Safari](https://webkit.org/blog/11588/introducing-css-grid-inspector/#:~:text=If%20you're%20using%20Safari,%23css%2Dgrid%2Ddemo%20.),
+among others.
 
 ## Grid modes
 
@@ -102,15 +114,10 @@ default, `Grid` uses the wide grid mode with a 32px gutter. However, you can use
 the `narrow` or `condensed` props to enable the narrow and condensed grid modes,
 respectively.
 
-The same way that you can pass in `narrow` or `condensed` to the `Grid`
-component, you can also pass in `narrow` or `condensed` to a `Row` component to
-enable a certain grid mode but only for a row. This can be useful when you need
-to mix-and-match certain grid modes to achieve a particular layout.
-
 ### Wide grid
 
 <Preview>
-  <Story id="components-grid--responsive-grid" />
+  <Story id="components-grid--wide" />
 </Preview>
 
 ### Narrow grid
@@ -125,7 +132,31 @@ to mix-and-match certain grid modes to achieve a particular layout.
   <Story id="components-grid--condensed" />
 </Preview>
 
-### Mix-and-match
+## Subgrid
+
+`Grid` components can be nested within one another to achieve more advanced
+layout configurations. When a `Grid` is a child of another `Grid`, the child
+will always be automatically defined as a subgrid. Subgrids should always be
+contained within a `Column` to ensure that the column amount/definition is
+properly configured for the subgrid to inherit. Additionally, wrapping subgrids
+in a `Column` enables you to define responsive parameters for the column (`sm`,
+`md`, etc) that the subgrid will inherit and be bound to.
+
+<Preview>
+  <Story id="components-grid--subgrid" />
+</Preview>
+
+## Mixed grid modes
+
+The same way that you can pass in `narrow` or `condensed` to a root `Grid`, you
+can also pass in `narrow` or `condensed` to a nested `Grid` (subgrid) to enable
+a certain grid mode for only that subgrid. This can be useful when you need to
+mix-and-match certain grid modes to achieve a particular layout.
+
+As an example, one common use case is to define a two column layout by mixing a
+`narrow` grid in the left column with a `condensed` grid in the right column.
+This results in reduced equal grid margin to the left of the narrow, between the
+two, and to the right of the condensed.
 
 <Preview>
   <Story id="components-grid--mixed-grid-modes" />
@@ -133,19 +164,17 @@ to mix-and-match certain grid modes to achieve a particular layout.
 
 ## Auto columns
 
-In some situations, you may want your content to span a specific proportion of
-the grid without having to calculate it across every breakpoint. A common
-use-case for this is if you have a row of four cards and want each to span 25%
-width each.
+Each column by default spans one single column as defined by the parent grid's
+parameters.
 
-In these situations, you can make use of the auto columns feature of the
-`Column` component. Auto columns is enabled when you do not provide any
-breakpoint props, and it will automatically set each column to a percentage of
-the total available width.
+The default track sizing functions of the grid columns are defined by the parent
+grid's `grid-template-columns` property. This declares that there should be
+`--cds-grid-columns` number of columns, and each column should by default span a
+`minmax()` of `0` columns minimum, or a maximum of `--cds-grid-column-size`
+(`1fr`).
 
-For example, if you have on `Column` component it would span 100%, two `Column`
-components would span 50% each, four `Column` components would span 25% each,
-and so on.
+The values of these custom properties can be changed to modify the default
+behavior of columns.
 
 <Preview>
   <Story id="components-grid--auto-columns" />
@@ -178,26 +207,24 @@ breakpoint. At the medium breakpoint, it will be offset by two columns.
 
 ### Using the `as` prop
 
-By default, `Grid`, `Row`, and `Column` will render as a `div`. However, you can
-use the `as` prop to change this to another HTML element, or a custom component
-from your project.
+By default, `Grid` and `Column` will render as a `div`. However, you can use the
+`as` prop to change this to another HTML element, or a custom component from
+your project.
 
-In the example below, we use the `as` prop on `Row` to change it from a `div` to
-a `section`. Simililarly, we use the `as` prop on `Column` to change it from a
-`div` to an `article`.
+In the example below, we use the `as` prop on `Column` to change it from a `div`
+to a `section`. Simililarly, we use the `as` prop on `Column` to change it from
+a `div` to an `article`.
 
 ```jsx
-import { Grid, Row, Column } from 'carbon-components-react';
+import { Grid, Column } from 'carbon-components-react';
 
 function MyComponent() {
   return (
     <Grid>
-      <Row as="section">
-        <Column as="article">Example content</Column>
-        <Column as="article">Example content</Column>
-        <Column as="article">Example content</Column>
-        <Column as="article">Example content</Column>
-      </Row>
+      <Column as="article">Example content</Column>
+      <Column as="article">Example content</Column>
+      <Column as="article">Example content</Column>
+      <Column as="article">Example content</Column>
     </Grid>
   );
 }
@@ -207,7 +234,7 @@ You can also provide a custom component to the `as` prop. This custom component
 should accept all props passed to it, like a class name for the column.
 
 ```jsx
-import { Grid, Row, Column } from 'carbon-components-react';
+import { Grid, Column } from 'carbon-components-react';
 
 function Article({ children, ...rest }) {
   return <article {...rest}>{children}</article>;
@@ -220,12 +247,10 @@ function CustomColumn({ children, ...rest }) {
 function MyComponent() {
   return (
     <Grid>
-      <Row>
-        <CustomColumn>Example content</Column>
-        <CustomColumn>Example content</Column>
-        <CustomColumn>Example content</Column>
-        <CustomColumn>Example content</Column>
-      </Row>
+      <CustomColumn>Example content</Column>
+      <CustomColumn>Example content</Column>
+      <CustomColumn>Example content</Column>
+      <CustomColumn>Example content</Column>
     </Grid>
   );
 }
@@ -247,13 +272,11 @@ at the small breakpoint.
 
 ### Can I nest grid components?
 
-At the moment, there is no ability to nest grid components. In the future, we
-may take advantage of CSS Grid and
-[subgrid](https://caniuse.com/#feat=css-subgrid) alongside but at the moment we
-are limited in terms of what we can support for nesting.
-
-If you would like to contribute nesting for the grid components available, we
-would love for you to get in touch!
+Yes! While the CSS Grid `subgrid` property is still
+[not well supported](https://caniuse.com/#feat=css-subgrid), css custom
+properties are used to enable nested grids with inherited column definitions.
+View the subgrid story documentation for more information on how this works and
+how to use it.
 
 ## Feedback
 

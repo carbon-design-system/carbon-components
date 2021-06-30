@@ -70,7 +70,7 @@ const DataTableSkeleton = ({
               <th key={i}>
                 {headers ? (
                   <div className="bx--table-header-label">
-                    {headers[i]?.key}
+                    {headers[i]?.header}
                   </div>
                 ) : (
                   <span></span>

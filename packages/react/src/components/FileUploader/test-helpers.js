@@ -31,7 +31,6 @@ export function uploadFiles(input, files = []) {
       if (!newValue) {
         input.files.length = 0;
       }
-      return newValue;
     },
   });
 

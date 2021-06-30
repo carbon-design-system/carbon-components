@@ -5,10 +5,26 @@
 // LICENSE file in the root directory of this source tree.
 //
 
+@use '../config' as *;
+
 /// Include styles for screen reader/assistive text
 /// @access public
 /// @group utilities
 @mixin visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  margin: -1px;
+  clip: rect(0, 0, 0, 0);
+  visibility: inherit;
+  white-space: nowrap;
+}
+
+.#{$prefix}--assistive-text,
+.#{$prefix}--visually-hidden {
   position: absolute;
   overflow: hidden;
   width: 1px;

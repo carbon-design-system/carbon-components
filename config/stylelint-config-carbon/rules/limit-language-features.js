@@ -19,15 +19,15 @@ module.exports = {
 
     // Function
     // Specify a blacklist of disallowed functions.
-    'function-blacklist': OFF,
+    'function-disallowed-list': OFF,
     // Disallow scheme-relative urls.
     'function-url-no-scheme-relative': OFF,
     // Specify a blacklist of disallowed url schemes.
-    'function-url-scheme-blacklist': OFF,
+    'function-url-scheme-disallowed-list': OFF,
     // Specify a whitelist of allowed url schemes.
-    'function-url-scheme-whitelist': OFF,
+    'function-url-scheme-allowed-list': OFF,
     // Specify a whitelist of allowed functions.
-    'function-whitelist': OFF,
+    'function-allowed-list': OFF,
 
     // Number
     // Limit the number of decimal places allowed in numbers.
@@ -39,9 +39,9 @@ module.exports = {
 
     // Unit
     // Specify a blacklist of disallowed units.
-    'unit-blacklist': OFF,
+    'unit-disallowed-list': OFF,
     // Specify a whitelist of allowed units.
-    'unit-whitelist': OFF,
+    'unit-allowed-list': OFF,
 
     // Shorthand property
     // Disallow redundant values in shorthand properties (Autofixable).
@@ -57,11 +57,11 @@ module.exports = {
 
     // Property
     // Specify a blacklist of disallowed properties.
-    'property-blacklist': OFF,
+    'property-disallowed-list': OFF,
     // Disallow vendor prefixes for properties.
     'property-no-vendor-prefix': OFF,
     // Specify a whitelist of allowed properties.
-    'property-whitelist': OFF,
+    'property-allowed-list': OFF,
 
     // Declaration
     // Disallow longhand properties that can be combined into one shorthand
@@ -71,21 +71,21 @@ module.exports = {
     'declaration-no-important': true,
     // Specify a blacklist of disallowed property and unit pairs within
     // declarations.
-    'declaration-property-unit-blacklist': OFF,
+    'declaration-property-unit-disallowed-list': OFF,
     // Specify a whitelist of allowed property and unit pairs within
     // declarations.
-    'declaration-property-unit-whitelist': {
+    'declaration-property-unit-allowed-list': {
       '/^animation/': ['ms'],
     },
     // Specify a blacklist of disallowed property and value pairs within
     // declarations.
-    'declaration-property-value-blacklist': {
+    'declaration-property-value-disallowed-list': {
       // Disallow unset as it is unsupported in IE11
       '/.*/': ['unset'],
     },
     // Specify a whitelist of allowed property and value pairs within
     // declarations.
-    'declaration-property-value-whitelist': OFF,
+    'declaration-property-value-allowed-list': OFF,
 
     // Declaration block
     // Limit the number of declaration within single line declaration blocks.
@@ -93,15 +93,15 @@ module.exports = {
 
     // Selector
     // Specify a blacklist of disallowed attribute operators.
-    'selector-attribute-operator-blacklist': OFF,
+    'selector-attribute-operator-disallowed-list': OFF,
     // Specify a whitelist of allowed attribute operators.
-    'selector-attribute-operator-whitelist': OFF,
+    'selector-attribute-operator-allowed-list': OFF,
     // Specify a pattern for class selectors.
     'selector-class-pattern': OFF,
     // Specify a blacklist of disallowed combinators.
-    'selector-combinator-blacklist': OFF,
+    'selector-combinator-disallowed-list': OFF,
     // Specify a whitelist of allowed combinators.
-    'selector-combinator-whitelist': OFF,
+    'selector-combinator-allowed-list': OFF,
     // Specify a pattern for id selectors.
     'selector-id-pattern': OFF,
     // Limit the number of attribute selectors in a selector.
@@ -129,21 +129,21 @@ module.exports = {
     // Disallow vendor prefixes for selectors.
     'selector-no-vendor-prefix': OFF,
     // Specify a blacklist of disallowed pseudo-class selectors.
-    'selector-pseudo-class-blacklist': OFF,
+    'selector-pseudo-class-disallowed-list': OFF,
     // Specify a whitelist of allowed pseudo-class selectors.
-    'selector-pseudo-class-whitelist': OFF,
+    'selector-pseudo-class-allowed-list': OFF,
     // Specify a blacklist of disallowed pseudo-element selectors.
-    'selector-pseudo-element-blacklist': OFF,
+    'selector-pseudo-element-disallowed-list': OFF,
     // Specify a whitelist of allowed pseudo-element selectors.
-    'selector-pseudo-element-whitelist': OFF,
+    'selector-pseudo-element-allowed-list': OFF,
 
     // Media feature
     // Specify a blacklist of disallowed media feature names.
-    'media-feature-name-blacklist': OFF,
+    'media-feature-name-disallowed-list': OFF,
     // Disallow vendor prefixes for media feature names.
     'media-feature-name-no-vendor-prefix': true,
     // Specify a whitelist of allowed media feature names.
-    'media-feature-name-whitelist': OFF,
+    'media-feature-name-allowed-list': OFF,
 
     // Custom media
     // Specify a pattern for custom media query names.
@@ -151,15 +151,15 @@ module.exports = {
 
     // At-rule
     // Specify a blacklist of disallowed at-rules.
-    'at-rule-blacklist': OFF,
+    'at-rule-disallowed-list': OFF,
     // Disallow vendor prefixes for at-rules.
     'at-rule-no-vendor-prefix': true,
     // Specify a whitelist of allowed at-rules.
-    'at-rule-whitelist': OFF,
+    'at-rule-allowed-list': OFF,
 
     // Comment
     // Specify a blacklist of disallowed words within comments.
-    'comment-word-blacklist': OFF,
+    'comment-word-disallowed-list': OFF,
 
     // General / Sheet
     // Limit the depth of nesting.

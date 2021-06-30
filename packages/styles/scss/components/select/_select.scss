@@ -1,0 +1,263 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../config' as *;
+@use '../../spacing' as *;
+@use '../../motion' as *;
+@use '../../type' as *;
+@use '../../breakpoint' as *;
+@use '../../theme' as *;
+@use '../../utilities/component-reset';
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/skeleton' as *;
+@use '../form';
+
+/// Select styles
+/// @access public
+/// @group select
+@mixin select {
+  .#{$prefix}--select {
+    @include component-reset.reset;
+
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .#{$prefix}--select-input__wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .#{$prefix}--select-input {
+    @include type-style('body-short-01');
+    @include focus-outline('reset');
+
+    display: block;
+    width: 100%;
+    height: rem(40px);
+    padding: 0 $spacing-09 0 $spacing-05;
+    border: none;
+    border-bottom: 1px solid $border-strong;
+    appearance: none;
+    background-color: $field;
+    border-radius: 0;
+    color: $text-primary;
+    cursor: pointer;
+    font-family: inherit;
+    // reset disabled <select> opacity
+    opacity: 1;
+
+    // Do not transition on background-color (see: https://github.com/carbon-design-system/carbon/issues/4464)
+    transition: outline $duration-fast-01 motion(standard, productive);
+
+    &:hover {
+      background-color: $background-hover;
+    }
+
+    // Hide default select arrow in IE10+
+    &::-ms-expand {
+      display: none;
+    }
+
+    // Select text renders a little high on Firefox
+    @-moz-document url-prefix() {
+      // Removes dotted inner focus
+      &:-moz-focusring,
+      &::-moz-focus-inner {
+        background-image: none;
+        color: transparent;
+        text-shadow: 0 0 0 #000000;
+      }
+    }
+
+    &:focus {
+      @include focus-outline('outline');
+
+      color: $text-primary;
+    }
+
+    &:disabled,
+    &:hover:disabled {
+      border-bottom-color: $border-disabled;
+      background-color: $field-disabled;
+      color: $text-disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  .#{$prefix}--select-input--sm {
+    height: rem(32px);
+    max-height: rem(32px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--select-input--xl,
+  .#{$prefix}--select-input--lg {
+    height: rem(48px);
+    max-height: rem(48px);
+  }
+
+  .#{$prefix}--select--disabled .#{$prefix}--label,
+  .#{$prefix}--select--disabled .#{$prefix}--form__helper-text {
+    color: $text-disabled;
+  }
+
+  .#{$prefix}--select-input__wrapper[data-invalid] .#{$prefix}--select-input,
+  .#{$prefix}--select--warning .#{$prefix}--select-input {
+    padding-right: carbon--mini-units(9);
+  }
+
+  .#{$prefix}--select-input:disabled ~ .#{$prefix}--select__arrow {
+    fill: $icon-disabled;
+  }
+
+  .#{$prefix}--select--light .#{$prefix}--select-input {
+    background-color: $field-02;
+
+    &:hover {
+      background-color: $background-hover;
+    }
+
+    &:disabled,
+    &:hover:disabled {
+      background-color: $field-02;
+      color: $text-disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  .#{$prefix}--select__arrow {
+    position: absolute;
+    top: 0;
+    right: $spacing-05;
+    height: 100%;
+    fill: $icon-primary;
+    pointer-events: none;
+
+    // Windows, Firefox HCM Fix
+    @media screen and (-ms-high-contrast: active),
+      screen and (prefers-contrast) {
+      // `ButtonText` is a CSS2 system color to help improve colors in HCM
+      path {
+        fill: ButtonText;
+      }
+    }
+  }
+
+  .#{$prefix}--select__invalid-icon {
+    position: absolute;
+    right: $spacing-08;
+  }
+
+  .#{$prefix}--select-input__wrapper[data-invalid]
+    .#{$prefix}--select-input
+    ~ .#{$prefix}--select__invalid-icon {
+    fill: $support-error;
+  }
+
+  .#{$prefix}--select__invalid-icon--warning {
+    fill: $support-warning;
+  }
+
+  .#{$prefix}--select__invalid-icon--warning path[fill] {
+    fill: $icon-primary;
+    opacity: 1;
+  }
+
+  .#{$prefix}--select-optgroup,
+  .#{$prefix}--select-option {
+    // For the options to show in IE11
+    color: $text-primary;
+  }
+
+  .#{$prefix}--select--inline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .#{$prefix}--select--inline.#{$prefix}--select--invalid .#{$prefix}--label,
+  .#{$prefix}--select--inline.#{$prefix}--select--invalid
+    .#{$prefix}--form__helper-text {
+    align-self: flex-start;
+    // Offset label text margin
+    margin-top: rem(13px);
+  }
+
+  .#{$prefix}--select--inline .#{$prefix}--form__helper-text {
+    margin-bottom: 0;
+    margin-left: $spacing-03;
+  }
+
+  .#{$prefix}--select--inline .#{$prefix}--label {
+    margin: 0 $spacing-03 0 0;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--select--inline .#{$prefix}--select-input {
+    width: auto;
+    padding-right: $spacing-07;
+    padding-left: $spacing-03;
+    border-bottom: none;
+    background-color: transparent;
+    color: $text-primary;
+  }
+
+  .#{$prefix}--select--inline .#{$prefix}--select-input[disabled],
+  .#{$prefix}--select--inline .#{$prefix}--select-input[disabled]:hover {
+    background-color: $field-disabled;
+  }
+
+  .#{$prefix}--select--inline .#{$prefix}--select__arrow {
+    right: $spacing-03;
+  }
+
+  .#{$prefix}--select--inline.#{$prefix}--select--invalid
+    .#{$prefix}--select-input {
+    padding-right: rem(56px);
+  }
+
+  .#{$prefix}--select--inline.#{$prefix}--select--invalid
+    .#{$prefix}--select-input
+    ~ .#{$prefix}--select__invalid-icon {
+    right: $spacing-07;
+  }
+
+  .#{$prefix}--select--inline .#{$prefix}--select-input:disabled {
+    color: $text-disabled;
+    cursor: not-allowed;
+
+    ~ * {
+      cursor: not-allowed;
+    }
+  }
+
+  //Skeleton State
+  .#{$prefix}--select.#{$prefix}--skeleton {
+    @include skeleton;
+
+    width: 100%;
+    height: 2.5rem;
+  }
+
+  .#{$prefix}--select.#{$prefix}--skeleton .#{$prefix}--select-input {
+    display: none;
+  }
+
+  // Windows HCM fix
+  // stylelint-disable-next-line no-duplicate-selectors
+  .#{$prefix}--select__arrow {
+    @include high-contrast-mode('icon-fill');
+  }
+}

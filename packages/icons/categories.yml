@@ -183,6 +183,7 @@ categories:
           - text--color
           - text--creation
           - text--fill
+          - text--font
           - text--footnote
           - text--highlight
           - text--indent
@@ -240,11 +241,13 @@ categories:
           - overflow-menu--vertical
           - page--first
           - page--last
+          - select--window
           - subtract
           - subtract--alt
           - switcher
           - up-to-top
           - zoom--area
+          - zoom--fit
           - zoom--in
           - zoom--in-area
           - zoom--out
@@ -261,6 +264,7 @@ categories:
           - arrows--vertical
           - automatic
           - bookmark
+          - bookmark--add
           - bookmark--filled
           - branch
           - caret--sort
@@ -283,6 +287,10 @@ categories:
           - commit
           - compare
           - connect
+          - connect--recursive
+          - connect--source
+          - connect--target
+          - convert-to-cloud
           - delete
           - deploy
           - deploy-rules
@@ -357,6 +365,7 @@ categories:
           - scan
           - scan--disabled
           - search
+          - search--locate
           - send
           - send--alt
           - send--alt--filled
@@ -437,7 +446,9 @@ categories:
           - thumbnail--1
           - thumbnail--2
           - thumbs-down
+          - thumbs-down--filled
           - thumbs-up
+          - thumbs-up--filled
           - trophy
           - trophy--filled
           - unlocked
@@ -510,8 +521,9 @@ categories:
           - currency--shekel
           - currency--won
           - currency--yen
-          - delivery--parcel
           - delivery
+          - delivery--add
+          - delivery--parcel
           - enterprise
           - finance
           - fish
@@ -898,6 +910,7 @@ categories:
           - object-storage
           - ordinal
           - parent-child
+          - parameter
           - phrase-sentiment
           - presentation-file
           - progress-bar
@@ -1008,6 +1021,8 @@ categories:
           - folder--details--reference
           - folder--move-to
           - folder--off
+          - folder--open
+          - folder--parent
           - folder--shared
           - folders
           - gamification
@@ -1102,6 +1117,14 @@ categories:
           - error
           - error--filled
           - error--outline
+          - glyph--caution
+          - glyph--caution-inverted
+          - glyph--circle-fill
+          - glyph--circle-stroke
+          - glyph--critical
+          - glyph--incomplete
+          - glyph--square-fill
+          - glyph--undefined
           - help
           - help--filled
           - in-progress
@@ -1147,7 +1170,11 @@ categories:
           - smell
           - taste
           - touch--1
+          - touch--1-down
+          - touch--1-down--filled
+          - touch--1--filled
           - touch--2
+          - touch--2--filled
           - touch--interaction
       - name: User
         members:
@@ -1316,9 +1343,11 @@ categories:
           - hospital
           - hospital-bed
           - hotel
+          - lifesaver
           - location
           - location--company
           - location--company--filled
+          - location--filled
           - location--hazard
           - location--hazard--filled
           - location--heart
@@ -1531,6 +1560,7 @@ categories:
           - bluetooth
           - bluetooth--off
           - bot
+          - breaking-change
           - building--insights-1
           - building--insights-2
           - building--insights-3
@@ -1547,6 +1577,9 @@ categories:
           - code--reference
           - connection-signal
           - connection-signal--off
+          - connection--receive
+          - connection--send
+          - connection--two-way
           - debug
           - deployment-pattern
           - deployment-policy

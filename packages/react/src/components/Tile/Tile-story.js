@@ -24,6 +24,7 @@ import {
   TileAboveTheFoldContent,
   TileBelowTheFoldContent,
 } from '../Tile';
+import TextInput from '../TextInput';
 import TileGroup from '../TileGroup';
 import RadioTile from '../RadioTile';
 import Link from '../Link';
@@ -169,7 +170,12 @@ export const Expandable = () => (
       <div style={{ height: '200px' }}>Above the fold content here</div>
     </TileAboveTheFoldContent>
     <TileBelowTheFoldContent>
-      <div style={{ height: '400px' }}>Below the fold content here</div>
+      <div style={{ height: '400px' }}>
+        Below the fold content here
+        <TextInput id="test2" invalidText="A valid value is required" />
+      </div>
+      {/* TODO: Remove before merge */}
+      <Link>hello</Link>
     </TileBelowTheFoldContent>
   </ExpandableTile>
 );

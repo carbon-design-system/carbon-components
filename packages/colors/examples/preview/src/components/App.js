@@ -1,5 +1,21 @@
 import React from 'react';
-import { colors } from '@carbon/colors';
+import { colors, unstable_hoverColors } from '@carbon/colors';
+
+function getHoverColor(swatch, grade) {
+  for (const [key, value] of Object.entries(unstable_hoverColors)) {
+    if (!key.includes(swatch)) {
+      continue;
+    }
+
+    if (value[grade]) {
+      return value[grade];
+    }
+
+    return value;
+  }
+
+  throw new Error(`Unable to find hover color for: ${swatch}-${grade}`);
+}
 
 function Table({ children }) {
   return (
@@ -8,6 +24,7 @@ function Table({ children }) {
         <tr>
           <th>Token</th>
           <th>Value</th>
+          <th>Hover</th>
         </tr>
       </thead>
       <tbody>{children}</tbody>
@@ -36,6 +53,7 @@ export default function App() {
             return (
               <React.Fragment key={swatch}>
                 {Object.keys(colors[swatch]).map(grade => {
+                  const hoverColor = getHoverColor(swatch, grade);
                   return (
                     <tr key={`${swatch}-${grade}`}>
                       <td>
@@ -53,6 +71,20 @@ export default function App() {
                             }}
                           />
                           {colors[swatch][grade]}
+                        </div>
+                      </td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <div
+                            style={{
+                              width: 50,
+                              height: 50,
+                              backgroundColor: hoverColor,
+                              marginRight: '0.5rem',
+                              outline: '1px solid #8a3ffc',
+                            }}
+                          />
+                          {hoverColor}
                         </div>
                       </td>
                     </tr>

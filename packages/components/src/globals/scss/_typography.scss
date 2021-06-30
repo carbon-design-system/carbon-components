@@ -47,7 +47,9 @@ $base-font-size: 16px !default;
 }
 
 // 🔬 Experimental
+// stylelint-disable-next-line no-invalid-position-at-import-rule
 @import '../../globals/scss/vendor/@carbon/elements/scss/type/font-family';
+// stylelint-disable-next-line no-invalid-position-at-import-rule
 @import '../../globals/scss/vendor/@carbon/elements/scss/type/styles';
 
 /// Different type styles per token

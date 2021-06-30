@@ -2329,14 +2329,13 @@ exports[`DataTable should render 1`] = `
                   onChange={[Function]}
                   onFocus={[Function]}
                   placeholder="Filter table"
-                  size="sm"
                   tabIndex="0"
                   type="text"
                   value=""
                 >
                   <div
                     aria-labelledby="custom-id-search"
-                    className="bx--search bx--search--sm bx--toolbar-search-container-persistent"
+                    className="bx--search bx--search--xl bx--toolbar-search-container-persistent"
                     role="search"
                   >
                     <div
@@ -2437,7 +2436,7 @@ exports[`DataTable should render 1`] = `
                   }
                 }
               >
-                <ForwardRef(OverflowMenu)
+                <ForwardRef(FeatureToggle(OverflowMenu))
                   ariaLabel="Settings"
                   className="bx--toolbar-action bx--overflow-menu"
                   flipped={true}
@@ -2550,7 +2549,7 @@ exports[`DataTable should render 1`] = `
                       </ClickListener>
                     </OverflowMenu>
                   </ForwardRef(OverflowMenu)>
-                </ForwardRef(OverflowMenu)>
+                </ForwardRef(FeatureToggle(OverflowMenu))>
               </TableToolbarMenu>
               <Button
                 dangerDescription="danger"
@@ -3391,14 +3390,13 @@ exports[`DataTable sticky header should render 1`] = `
                   onChange={[Function]}
                   onFocus={[Function]}
                   placeholder="Filter table"
-                  size="sm"
                   tabIndex="0"
                   type="text"
                   value=""
                 >
                   <div
                     aria-labelledby="custom-id-search"
-                    className="bx--search bx--search--sm bx--toolbar-search-container-persistent"
+                    className="bx--search bx--search--xl bx--toolbar-search-container-persistent"
                     role="search"
                   >
                     <div
@@ -3499,7 +3497,7 @@ exports[`DataTable sticky header should render 1`] = `
                   }
                 }
               >
-                <ForwardRef(OverflowMenu)
+                <ForwardRef(FeatureToggle(OverflowMenu))
                   ariaLabel="Settings"
                   className="bx--toolbar-action bx--overflow-menu"
                   flipped={true}
@@ -3612,7 +3610,7 @@ exports[`DataTable sticky header should render 1`] = `
                       </ClickListener>
                     </OverflowMenu>
                   </ForwardRef(OverflowMenu)>
-                </ForwardRef(OverflowMenu)>
+                </ForwardRef(FeatureToggle(OverflowMenu))>
               </TableToolbarMenu>
               <Button
                 dangerDescription="danger"

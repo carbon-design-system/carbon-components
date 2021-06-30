@@ -75,14 +75,14 @@ For example:
 
 ```scss
 // CSS custom class name to set the fill of the icon to `yellow`
-svg.outer-icon-fill {
+svg.my-custom-class {
   fill: yellow;
 }
 
 // Use the `data-icon-path` attribute selector to target the inner path
 // where we want to set the fill to `black`. We also set `opacity` to `1` so
 // that this inner-path is visible.
-svg.outer-icon-fill [data-icon-path='inner-path'] {
+svg.my-custom-class [data-icon-path='inner-path'] {
   fill: black;
   opacity: 1;
 }

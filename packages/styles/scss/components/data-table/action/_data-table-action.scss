@@ -1,0 +1,587 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../../config' as *;
+@use '../../../motion' as *;
+@use '../../../spacing' as *;
+@use '../../../theme' as *;
+@use '../../../type' as *;
+@use '../../../utilities/button-reset';
+@use '../../../utilities/convert' as *;
+@use '../../../utilities/focus-outline' as *;
+@use '../../button/vars' as *;
+
+/// Data table action styles
+/// @access public
+/// @group data-table
+@mixin data-table-action {
+  //-------------------------------------------------
+  //TOOLBAR
+  //-------------------------------------------------
+  .#{$prefix}--table-toolbar {
+    // Need for batch actions
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: $spacing-09;
+    background-color: $layer;
+  }
+
+  .#{$prefix}--toolbar-content {
+    display: flex;
+    width: 100%;
+    height: $spacing-09;
+    justify-content: flex-end;
+    transform: translate3d(0, 0, 0);
+    transition: transform $duration-fast-02 motion(standard, productive),
+      clip-path $duration-fast-02 motion(standard, productive);
+  }
+
+  .#{$prefix}--batch-actions ~ .#{$prefix}--toolbar-content {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .#{$prefix}--toolbar-content .#{$prefix}--search .#{$prefix}--search-input {
+    // For toolbar animation with (esp.) persistent search box
+    background-color: transparent;
+  }
+
+  //-------------------------------------------------
+  //DEPRECATED v10/v9 search behaviour
+  //-------------------------------------------------
+  .#{$prefix}--batch-actions ~ .#{$prefix}--toolbar-search-container {
+    display: flex;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 110ms;
+  }
+
+  //-------------------------------------------------
+  //HIDDEN SEARCH - DEFAULT TOOLBAR
+  //-------------------------------------------------
+  .#{$prefix}--toolbar-search-container-expandable {
+    position: relative;
+    width: $spacing-09;
+    height: $spacing-09;
+    box-shadow: none;
+    cursor: pointer;
+    transition: width $transition--expansion $standard-easing,
+      background-color $duration-fast-02 motion(entrance, productive);
+
+    &:hover {
+      background-color: $field-hover;
+    }
+  }
+
+  .#{$prefix}--toolbar-search-container-expandable .#{$prefix}--search-input {
+    height: 100%;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .#{$prefix}--toolbar-search-container-expandable
+    .#{$prefix}--search-magnifier-icon {
+    left: 0;
+    width: $spacing-09;
+    height: $spacing-09;
+    padding: $spacing-05;
+  }
+
+  .#{$prefix}--toolbar-search-container-expandable.#{$prefix}--search--disabled
+    .#{$prefix}--search-magnifier-icon {
+    background-color: $layer-disabled;
+    cursor: not-allowed;
+    transition: background-color none;
+  }
+
+  .#{$prefix}--toolbar-search-container-disabled .#{$prefix}--search-input {
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--toolbar-search-container-expandable.#{$prefix}--search
+    .#{$prefix}--label {
+    visibility: hidden;
+  }
+
+  .#{$prefix}--toolbar-search-container-expandable.#{$prefix}--search
+    .#{$prefix}--search-close {
+    width: $spacing-09;
+    height: $spacing-09;
+
+    &::before {
+      top: rem(2px);
+      height: calc(100% - #{rem(4px)});
+      background-color: $field-hover;
+    }
+  }
+
+  .#{$prefix}--toolbar-search-container-expandable.#{$prefix}--search
+    .#{$prefix}--search-close:focus::before {
+    background-color: $focus;
+  }
+
+  //-------------------------------------------------
+  //ACTIVE SEARCH - DEFAULT TOOLBAR
+  //-------------------------------------------------
+
+  .#{$prefix}--toolbar-search-container-active.#{$prefix}--search {
+    width: 100%;
+  }
+
+  .#{$prefix}--toolbar-search-container-active .#{$prefix}--search-input {
+    opacity: 1;
+  }
+
+  .#{$prefix}--toolbar-search-container-active .#{$prefix}--label,
+  .#{$prefix}--toolbar-search-container-active .#{$prefix}--search-input {
+    padding: 0 $spacing-09;
+    cursor: text;
+  }
+
+  .#{$prefix}--toolbar-search-container-active
+    .#{$prefix}--search-input:focus
+    + .#{$prefix}--search-close {
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  .#{$prefix}--toolbar-search-container-active
+    .#{$prefix}--search-input:not(:placeholder-shown) {
+    border: none;
+    background-color: $field-hover;
+  }
+
+  .#{$prefix}--toolbar-search-container-active
+    .#{$prefix}--search-magnifier-icon:focus,
+  .#{$prefix}--toolbar-search-container-active
+    .#{$prefix}--search-magnifier-icon:active,
+  .#{$prefix}--toolbar-search-container-active
+    .#{$prefix}--search-magnifier-icon:hover {
+    border: none;
+    background-color: transparent;
+    outline: none;
+  }
+
+  //-------------------------------------------------
+  //SEARCH CLOSE BUTTON
+  //-------------------------------------------------
+  .#{$prefix}--toolbar-search-container-persistent .#{$prefix}--search-close,
+  .#{$prefix}--toolbar-search-container-persistent
+    .#{$prefix}--search-close:hover,
+  .#{$prefix}--toolbar-search-container-active .#{$prefix}--search-close,
+  .#{$prefix}--toolbar-search-container-active .#{$prefix}--search-close:hover {
+    border: none;
+    background-color: transparent;
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent
+    .#{$prefix}--search-close::before {
+    display: none;
+  }
+
+  //-------------------------------------------------
+  //TOOLBAR BUTTONS
+  //-------------------------------------------------
+  .#{$prefix}--overflow-menu.#{$prefix}--toolbar-action {
+    @include button-reset.reset;
+
+    display: flex;
+    width: $spacing-09;
+    height: $spacing-09;
+    padding: $spacing-05;
+    cursor: pointer;
+    transition: background $duration-fast-02 motion(entrance, productive);
+  }
+
+  // DEPRECATED prefer .#{$prefix}--overflow-menu.#{$prefix}--toolbar-action instead
+  .#{$prefix}--toolbar-action {
+    @include button-reset.reset;
+
+    display: flex;
+    width: $spacing-09;
+    height: $spacing-09;
+    cursor: pointer;
+    transition: background $duration-fast-02 motion(entrance, productive);
+  }
+
+  .#{$prefix}--toolbar-action:hover:not([disabled]) {
+    background-color: $field-hover;
+  }
+
+  .#{$prefix}--toolbar-action:hover[aria-expanded='true'] {
+    background-color: $layer;
+  }
+
+  .#{$prefix}--toolbar-action[disabled] {
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--toolbar-action[disabled] .#{$prefix}--toolbar-action__icon {
+    cursor: not-allowed;
+    fill: $icon-disabled;
+  }
+
+  .#{$prefix}--toolbar-action:focus:not([disabled]),
+  .#{$prefix}--toolbar-action:active:not([disabled]) {
+    @include focus-outline('outline');
+
+    &.#{$prefix}--toolbar-search-container-expandable {
+      // The focus style is handled by search input in it, need to avoid duplicate animation
+      outline: none;
+    }
+  }
+
+  .#{$prefix}--toolbar-action ~ .#{$prefix}--btn {
+    max-width: none;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--overflow-menu--data-table {
+    height: $spacing-09;
+  }
+
+  //-------------------------------------------------
+  //TOOLBAR BUTTON ICONS
+  //-------------------------------------------------
+  .#{$prefix}--toolbar-action__icon {
+    width: auto;
+    max-width: $spacing-05;
+    height: $spacing-05;
+    fill: $icon-primary;
+  }
+
+  //-------------------------------------------------
+  //PERSISTENT SEARCH - OPTIONAL TOOLBAR
+  //-------------------------------------------------
+  .#{$prefix}--toolbar-search-container-persistent {
+    position: relative;
+    width: 100%;
+    height: $spacing-09;
+    opacity: 1;
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent
+    + .#{$prefix}--toolbar-content {
+    position: relative;
+    width: auto;
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent .#{$prefix}--search {
+    position: initial;
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent
+    .#{$prefix}--search-magnifier-icon {
+    left: $spacing-05;
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent .#{$prefix}--search-input {
+    height: $spacing-09;
+    padding: 0 $spacing-09;
+    border: none;
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent
+    .#{$prefix}--search-input:focus:not([disabled]) {
+    @include focus-outline('outline');
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent
+    .#{$prefix}--search-input:hover:not([disabled]) {
+    background-color: $field-hover;
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent
+    .#{$prefix}--search-input:active:not([disabled]),
+  .#{$prefix}--toolbar-search-container-persistent
+    .#{$prefix}--search-input:not(:placeholder-shown) {
+    background-color: $field-hover;
+  }
+
+  .#{$prefix}--toolbar-search-container-persistent .#{$prefix}--search-close {
+    width: $spacing-09;
+    height: $spacing-09;
+  }
+
+  .#{$prefix}--batch-actions--active ~ .#{$prefix}--toolbar-search-container,
+  .#{$prefix}--batch-actions--active ~ .#{$prefix}--toolbar-content {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transform: translate3d(0, 48px, 0);
+    transition: transform $duration-fast-02 motion(standard, productive),
+      clip-path $duration-fast-02 motion(standard, productive);
+  }
+
+  //-------------------------------------------------
+  //BATCH ACTIONS
+  //-------------------------------------------------
+  .#{$prefix}--batch-actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    padding-right: $spacing-06;
+    padding-left: $spacing-06;
+    background-color: $background-brand;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    overflow-x: auto;
+    pointer-events: none;
+    transform: translate3d(0, 48px, 0);
+    transition: transform $duration-fast-02 motion(standard, productive),
+      clip-path $duration-fast-02 motion(standard, productive),
+      opacity $duration-fast-02 motion(standard, productive);
+    will-change: transform;
+  }
+
+  .#{$prefix}--batch-actions:focus {
+    @include focus-outline;
+  }
+
+  .#{$prefix}--batch-actions--active {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    pointer-events: all;
+    transform: translate3d(0, 0, 0);
+  }
+
+  //btns container
+  .#{$prefix}--action-list {
+    position: absolute;
+    right: 0;
+    display: flex;
+  }
+
+  .#{$prefix}--action-list .#{$prefix}--btn {
+    min-width: 0;
+    padding: $button-padding-ghost;
+    color: $text-on-color;
+  }
+
+  .#{$prefix}--action-list .#{$prefix}--btn:disabled {
+    color: $text-on-color-disabled;
+  }
+
+  .#{$prefix}--action-list .#{$prefix}--btn .#{$prefix}--btn__icon {
+    position: static;
+    margin-left: $spacing-03;
+    fill: $icon-on-color;
+  }
+
+  .#{$prefix}--action-list .#{$prefix}--btn .#{$prefix}--btn__icon .st0 {
+    fill: none;
+  }
+
+  .#{$prefix}--batch-download {
+    //makes it smaller to match other icons
+    padding: rem(1px);
+  }
+
+  // Override btn styles
+  .#{$prefix}--action-list .#{$prefix}--btn--primary:focus::before,
+  .#{$prefix}--action-list .#{$prefix}--btn--primary::before,
+  .#{$prefix}--action-list .#{$prefix}--btn--primary:focus::after,
+  .#{$prefix}--action-list .#{$prefix}--btn--primary::after {
+    display: none;
+  }
+
+  .#{$prefix}--action-list .#{$prefix}--btn--primary:focus {
+    outline: 2px solid $layer;
+    outline-offset: rem(-2px);
+  }
+
+  // cancel btn pseudo element
+  .#{$prefix}--action-list
+    .#{$prefix}--btn--primary:nth-child(3):hover
+    + .#{$prefix}--btn--primary.#{$prefix}--batch-summary__cancel::before,
+  .#{$prefix}--action-list
+    .#{$prefix}--btn--primary:nth-child(3):focus
+    + .#{$prefix}--btn--primary.#{$prefix}--batch-summary__cancel::before {
+    opacity: 0;
+  }
+
+  .#{$prefix}--btn--primary.#{$prefix}--batch-summary__cancel::before {
+    position: absolute;
+    //visually 16px spacing is 1px too low
+    top: rem(15px);
+    left: 0;
+    display: block;
+    width: rem(1px);
+    height: $spacing-05;
+    border: none;
+    background-color: $text-on-color;
+    content: '';
+    opacity: 1;
+    transition: opacity $duration-fast-02 motion(standard, productive);
+  }
+
+  .#{$prefix}--btn--primary.#{$prefix}--batch-summary__cancel:hover::before {
+    opacity: 0;
+    transition: opacity $transition--base $standard-easing;
+  }
+
+  // cancel btn
+  .#{$prefix}--batch-summary__cancel {
+    position: relative;
+    padding-right: $spacing-05;
+  }
+
+  // items selected text
+  .#{$prefix}--batch-summary {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    margin-left: $spacing-05;
+    color: $text-on-color;
+  }
+
+  .#{$prefix}--batch-summary__para {
+    @include type-style('body-short-01');
+  }
+
+  //-------------------------------------------------
+  //SMALL TOOLBAR
+  //-------------------------------------------------
+  // V11: remove --small
+  .#{$prefix}--table-toolbar--small,
+  .#{$prefix}--table-toolbar--sm {
+    height: rem(32px);
+
+    .#{$prefix}--toolbar-search-container-expandable,
+    .#{$prefix}--toolbar-search-container-persistent {
+      height: rem(32px);
+    }
+
+    .#{$prefix}--toolbar-search-container-expandable .#{$prefix}--search-input,
+    .#{$prefix}--toolbar-search-container-persistent .#{$prefix}--search-input {
+      height: rem(32px);
+    }
+
+    .#{$prefix}--toolbar-search-container-expandable .#{$prefix}--search-close,
+    .#{$prefix}--toolbar-search-container-persistent .#{$prefix}--search-close {
+      width: rem(32px);
+      height: rem(32px);
+    }
+
+    .#{$prefix}--toolbar-search-container-expandable
+      .#{$prefix}--search-magnifier-icon,
+    .#{$prefix}--toolbar-search-container-persistent
+      .#{$prefix}--search-magnifier-icon {
+      width: rem(32px);
+      height: rem(32px);
+      padding: $spacing-03;
+    }
+
+    .#{$prefix}--toolbar-action.#{$prefix}--toolbar-search-container-persistent {
+      width: 100%;
+    }
+
+    //hidden
+    .#{$prefix}--toolbar-search-container-expandable {
+      width: rem(32px);
+    }
+
+    .#{$prefix}--toolbar-search-container-expandable
+      .#{$prefix}--search
+      .#{$prefix}--search-input {
+      padding: 0 $spacing-09;
+    }
+
+    //active
+    .#{$prefix}--toolbar-search-container-active {
+      flex: auto;
+      transition: flex 175ms $standard-easing;
+    }
+
+    .#{$prefix}--toolbar-search-container-active .#{$prefix}--search-input {
+      visibility: inherit;
+    }
+
+    .#{$prefix}--toolbar-search-container-active
+      .#{$prefix}--search-input:focus {
+      @include focus-outline('outline');
+
+      background-color: $field-hover;
+    }
+
+    .#{$prefix}--toolbar-search-container-active
+      .#{$prefix}--search-input:active,
+    .#{$prefix}--toolbar-search-container-active
+      .#{$prefix}--search-input:not(:placeholder-shown) {
+      background-color: $field-hover;
+    }
+
+    .#{$prefix}--toolbar-search-container-active
+      .#{$prefix}--search-magnifier-icon:focus,
+    .#{$prefix}--toolbar-search-container-active
+      .#{$prefix}--search-magnifier-icon:active,
+    .#{$prefix}--toolbar-search-container-active
+      .#{$prefix}--search-magnifier-icon:hover {
+      @include focus-outline('reset');
+
+      background-color: transparent;
+    }
+  }
+
+  .#{$prefix}--search--disabled .#{$prefix}--search-magnifier-icon:hover {
+    background-color: transparent;
+  }
+
+  //-------------------------------------------------
+  // SMALL BATCH ACTIONS
+  //-------------------------------------------------
+  // V11: remove --small selector block
+  .#{$prefix}--table-toolbar--small
+    .#{$prefix}--batch-actions
+    .#{$prefix}--action-list,
+  .#{$prefix}--table-toolbar--sm
+    .#{$prefix}--batch-actions
+    .#{$prefix}--action-list {
+    height: rem(32px);
+  }
+
+  // V11: remove --small selector block
+  .#{$prefix}--table-toolbar--small .#{$prefix}--toolbar-action,
+  .#{$prefix}--table-toolbar--sm .#{$prefix}--toolbar-action {
+    width: rem(32px);
+    height: rem(32px);
+    padding: $spacing-03 0;
+  }
+
+  // V11: remove --small selector block
+  .#{$prefix}--table-toolbar--small .#{$prefix}--btn--primary,
+  .#{$prefix}--table-toolbar--sm .#{$prefix}--btn--primary {
+    height: rem(32px);
+    min-height: auto;
+    padding-top: calc(0.375rem - 3px);
+    padding-bottom: calc(0.375rem - 3px);
+  }
+
+  // V11: remove --small selector block
+  .#{$prefix}--table-toolbar--small
+    .#{$prefix}--btn--primary.#{$prefix}--batch-summary__cancel::before,
+  .#{$prefix}--table-toolbar--sm
+    .#{$prefix}--btn--primary.#{$prefix}--batch-summary__cancel::before {
+    top: rem(8px);
+  }
+
+  // V11: remove --small selector block
+  .#{$prefix}--table-toolbar--small
+    .#{$prefix}--toolbar-action
+    ~ .#{$prefix}--btn,
+  .#{$prefix}--table-toolbar--sm
+    .#{$prefix}--toolbar-action
+    ~ .#{$prefix}--btn {
+    overflow: hidden;
+    height: rem(32px);
+  }
+}

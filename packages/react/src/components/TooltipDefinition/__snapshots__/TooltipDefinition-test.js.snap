@@ -7,7 +7,7 @@ exports[`TooltipDefinition should allow the user to specify the direction 1`] = 
   direction="top"
   tooltipText="tooltip text"
 >
-  <div
+  <span
     className="bx--tooltip--definition bx--tooltip--a11y custom-class"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -21,14 +21,14 @@ exports[`TooltipDefinition should allow the user to specify the direction 1`] = 
     >
       tooltip trigger
     </button>
-    <div
+    <span
       className="bx--assistive-text"
       id="definition-tooltip-3"
       role="tooltip"
     >
       tooltip text
-    </div>
-  </div>
+    </span>
+  </span>
 </TooltipDefinition>
 `;
 
@@ -39,7 +39,7 @@ exports[`TooltipDefinition should render 1`] = `
   direction="bottom"
   tooltipText="tooltip text"
 >
-  <div
+  <span
     className="bx--tooltip--definition bx--tooltip--a11y custom-class"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -53,14 +53,14 @@ exports[`TooltipDefinition should render 1`] = `
     >
       tooltip trigger
     </button>
-    <div
+    <span
       className="bx--assistive-text"
       id="definition-tooltip-1"
       role="tooltip"
     >
       tooltip text
-    </div>
-  </div>
+    </span>
+  </span>
 </TooltipDefinition>
 `;
 
@@ -72,7 +72,7 @@ exports[`TooltipDefinition should support a custom trigger element class 1`] = `
   tooltipText="tooltip text"
   triggerClassName="custom-trigger-class"
 >
-  <div
+  <span
     className="bx--tooltip--definition bx--tooltip--a11y custom-class"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -86,13 +86,13 @@ exports[`TooltipDefinition should support a custom trigger element class 1`] = `
     >
       tooltip trigger
     </button>
-    <div
+    <span
       className="bx--assistive-text"
       id="definition-tooltip-2"
       role="tooltip"
     >
       tooltip text
-    </div>
-  </div>
+    </span>
+  </span>
 </TooltipDefinition>
 `;

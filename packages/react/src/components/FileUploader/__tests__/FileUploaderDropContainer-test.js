@@ -15,6 +15,11 @@ import { uploadFiles } from '../test-helpers';
 describe('FileUploaderDropContainer', () => {
   afterEach(cleanup);
 
+  it('should not have axe violations', async () => {
+    const { container } = render(<FileUploaderDropContainer />);
+    await expect(container).toHaveNoAxeViolations();
+  });
+
   it('should support a custom class name on the drop area', () => {
     const { container } = render(
       <FileUploaderDropContainer className="test" />

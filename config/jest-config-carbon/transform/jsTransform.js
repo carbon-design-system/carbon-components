@@ -7,7 +7,8 @@
 
 'use strict';
 
-const { createTransformer } = require('babel-jest');
+const { default: babelJest } = require('babel-jest');
+const { createTransformer } = babelJest;
 
 const babelOptions = {
   presets: [

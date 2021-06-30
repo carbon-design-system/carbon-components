@@ -1,0 +1,241 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+@use '../vars' as *;
+@use '../../../config' as *;
+@use '../../../motion' as *;
+@use '../../../spacing' as *;
+@use '../../../theme' as *;
+@use '../../../utilities/button-reset';
+@use '../../../utilities/convert' as *;
+@use '../../../utilities/focus-outline' as *;
+@use '../../../utilities/high-contrast-mode' as *;
+
+/// Data table sort styles
+/// @access public
+/// @group data-table
+@mixin data-table-sort {
+  // -------------------------------------
+  // Sortable table
+  // -------------------------------------
+  .#{$prefix}--data-table--sort th,
+  .#{$prefix}--data-table th[aria-sort] {
+    height: $spacing-09;
+    padding: 0;
+    border-top: none;
+    border-bottom: none;
+  }
+
+  // -------------------------------------
+  // Th > Button
+  // -------------------------------------
+  .#{$prefix}--table-sort {
+    @include button-reset.reset(false);
+
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: $spacing-05;
+    background-color: $layer-accent;
+    color: $text-primary;
+    font: inherit;
+    line-height: 1;
+    transition: background-color $duration-fast-01 motion(entrance, productive),
+      outline $duration-fast-01 motion(entrance, productive);
+  }
+
+  .#{$prefix}--table-sort:focus {
+    @include focus-outline('outline');
+  }
+
+  .#{$prefix}--table-sort:hover {
+    background: $data-table-column-hover;
+  }
+
+  // changes opacity when th is inactive (see line 161)
+  .#{$prefix}--table-sort:focus svg,
+  .#{$prefix}--table-sort:hover svg {
+    opacity: 1;
+  }
+
+  // Override for when `isSortable` is set on `DataTable` as well as `TableHeader`
+  .#{$prefix}--data-table.#{$prefix}--data-table--sort
+    th
+    > .#{$prefix}--table-header-label {
+    padding-right: $spacing-05;
+    padding-left: $spacing-05;
+  }
+
+  // -------------------------------------
+  // Th > Button > Span (span required for flex bugs in Safari)
+  // -------------------------------------
+  th .#{$prefix}--table-sort__flex {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // V11: Remove compact, short, tall
+  .#{$prefix}--data-table--sort:not(.#{$prefix}--data-table--compact):not(.#{$prefix}--data-table--short):not(.#{$prefix}--data-table--tall):not(.#{$prefix}--data-table--xs):not(.#{$prefix}--data-table--sm):not(.#{$prefix}--data-table--md):not(.#{$prefix}--data-table--xl)
+    th
+    .#{$prefix}--table-sort__flex {
+    /* IE11 workaround for align-items: center and min-height
+        https://github.com/philipwalton/flexbugs/issues/231 */
+    @media screen and (-ms-high-contrast: active),
+      screen and (-ms-high-contrast: none) {
+      height: 2.99rem;
+    }
+  }
+
+  // V11: remove compact
+  .#{$prefix}--data-table--compact.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort__flex,
+  .#{$prefix}--data-table--xs.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort__flex {
+    min-height: 1.5rem;
+  }
+
+  // V11: remove short
+  .#{$prefix}--data-table--short.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort__flex,
+  .#{$prefix}--data-table--sm.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort__flex {
+    min-height: 2rem;
+  }
+
+  .#{$prefix}--data-table--md.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort__flex {
+    min-height: 2.5rem;
+  }
+
+  // V11: remove tall
+  .#{$prefix}--data-table--tall.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort__flex,
+  .#{$prefix}--data-table--xl.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort__flex {
+    min-height: 4rem;
+    align-items: flex-start;
+  }
+
+  // -------------------------------------
+  //Th > Button > Svg (Sort Icons)
+  // -------------------------------------
+  // inactive icons
+  .#{$prefix}--table-sort .#{$prefix}--table-sort__icon-inactive {
+    display: block;
+  }
+
+  .#{$prefix}--table-sort .#{$prefix}--table-sort__icon {
+    display: none;
+  }
+
+  .#{$prefix}--table-sort__icon-unsorted {
+    width: rem(20px);
+    min-width: $spacing-05;
+    margin-right: $spacing-03;
+    margin-left: $spacing-03;
+    fill: $icon-primary;
+    opacity: 0;
+  }
+
+  .#{$prefix}--table-sort.#{$prefix}--table-sort--active {
+    background: $data-table-column-hover;
+  }
+
+  // active icons
+  .#{$prefix}--table-sort.#{$prefix}--table-sort--active
+    .#{$prefix}--table-sort__icon-unsorted {
+    display: none;
+  }
+
+  .#{$prefix}--table-sort.#{$prefix}--table-sort--active
+    .#{$prefix}--table-sort__icon {
+    display: block;
+    opacity: 1;
+  }
+
+  .#{$prefix}--table-sort--ascending .#{$prefix}--table-sort__icon {
+    transform: rotate(180deg);
+  }
+
+  .#{$prefix}--table-sort__icon {
+    width: rem(20px);
+    min-width: $spacing-05;
+    margin-right: $spacing-03;
+    margin-left: $spacing-03;
+    fill: $icon-primary;
+    opacity: 1;
+    transform: rotate(0);
+    transition: transform $transition--base $standard-easing;
+  }
+
+  //----------------------------------------------------------------------------
+  // Compact, Short, Tall Sortable
+  //----------------------------------------------------------------------------
+  // Sortable compact
+  // V11: remove compact
+  .#{$prefix}--data-table--compact.#{$prefix}--data-table--sort th,
+  .#{$prefix}--data-table--xs.#{$prefix}--data-table--sort th {
+    height: rem(24px);
+  }
+
+  // Sortable Short
+  // V11: remove short
+  .#{$prefix}--data-table--short.#{$prefix}--data-table--sort th,
+  .#{$prefix}--data-table--sm.#{$prefix}--data-table--sort th {
+    height: rem(32px);
+  }
+
+  // Sortable Medium
+  // V11: remove short
+  .#{$prefix}--data-table--md.#{$prefix}--data-table--sort th {
+    height: rem(40px);
+  }
+
+  // Sortable Tall
+  // V11: remove tall
+  .#{$prefix}--data-table--tall.#{$prefix}--data-table--sort th,
+  .#{$prefix}--data-table--xl.#{$prefix}--data-table--sort th {
+    height: rem(64px);
+  }
+
+  // V11: remove tall
+  .#{$prefix}--data-table--tall.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort,
+  .#{$prefix}--data-table--xl.#{$prefix}--data-table--sort
+    th
+    .#{$prefix}--table-sort {
+    display: inline-block;
+    height: rem(64px);
+  }
+
+  // V11: remove tall
+  .#{$prefix}--data-table--tall .#{$prefix}--table-sort__icon-unsorted,
+  .#{$prefix}--data-table--tall .#{$prefix}--table-sort__icon,
+  .#{$prefix}--data-table--xl .#{$prefix}--table-sort__icon-unsorted,
+  .#{$prefix}--data-table--xl .#{$prefix}--table-sort__icon {
+    margin-top: rem(13px);
+  }
+
+  // Windows HCM fix
+  .#{$prefix}--table-sort__icon,
+  .#{$prefix}--table-sort__icon-unsorted {
+    @include high-contrast-mode('icon-fill');
+  }
+}

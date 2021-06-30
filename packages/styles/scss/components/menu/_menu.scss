@@ -1,0 +1,128 @@
+//
+// Copyright IBM Corp. 2020
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/box-shadow' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/z-index' as *;
+
+/// Menu styles
+/// @access public
+/// @group menu
+@mixin menu {
+  .#{$prefix}--menu {
+    @include box-shadow;
+
+    position: fixed;
+    z-index: z('modal');
+    min-width: 13rem;
+    max-width: 18rem;
+    padding: $spacing-02 0;
+    background-color: $layer;
+    visibility: hidden;
+  }
+
+  .#{$prefix}--menu--open {
+    visibility: visible;
+
+    &:focus {
+      @include focus-outline('border');
+    }
+  }
+
+  .#{$prefix}--menu--invisible {
+    opacity: 0;
+  }
+
+  .#{$prefix}--menu-option {
+    position: relative;
+    height: $spacing-07;
+    background-color: $layer;
+    color: $text-primary;
+    cursor: pointer;
+    transition: background-color $duration-fast-01 motion(standard, productive);
+
+    &:focus {
+      @include focus-outline('outline');
+    }
+  }
+
+  .#{$prefix}--menu-option--active,
+  .#{$prefix}--menu-option:hover {
+    background-color: $layer-hover;
+  }
+
+  .#{$prefix}--menu-option--danger:hover,
+  .#{$prefix}--menu-option--danger:focus {
+    background-color: $button-danger-primary;
+    color: $text-on-color;
+  }
+
+  .#{$prefix}--menu-option > .#{$prefix}--menu {
+    margin-top: calc(#{$spacing-02} * -1);
+  }
+
+  .#{$prefix}--menu-option__content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 $spacing-05;
+  }
+
+  .#{$prefix}--menu-option__content--disabled {
+    background-color: $layer;
+    color: $text-disabled;
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--menu-option__content--disabled .#{$prefix}--menu-option__label,
+  .#{$prefix}--menu-option__content--disabled .#{$prefix}--menu-option__info,
+  .#{$prefix}--menu-option__content--disabled .#{$prefix}--menu-option__icon {
+    color: $text-disabled;
+  }
+
+  .#{$prefix}--menu-option__content--indented .#{$prefix}--menu-option__label {
+    margin-left: $spacing-05;
+  }
+
+  .#{$prefix}--menu-option__label {
+    @include type-style('body-short-01');
+
+    overflow: hidden;
+    flex-grow: 1;
+    // add top/bottom padding to make sure letters are not cut off by hidden overflow
+    padding: $spacing-02 0;
+    text-align: start;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--menu-option__info {
+    display: inline-flex;
+    margin-left: $spacing-05;
+  }
+
+  .#{$prefix}--menu-option__icon {
+    display: flex;
+    width: 1rem;
+    height: 1rem;
+    align-items: center;
+    margin-right: $spacing-03;
+  }
+
+  .#{$prefix}--menu-divider {
+    width: 100%;
+    height: 1px;
+    margin: $spacing-02 0;
+    background-color: $border-subtle;
+  }
+}

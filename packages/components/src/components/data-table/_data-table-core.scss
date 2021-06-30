@@ -103,6 +103,16 @@
     vertical-align: middle;
   }
 
+  .#{$prefix}--data-table th[align='right'],
+  .#{$prefix}--data-table td[align='right'] {
+    text-align: right;
+  }
+
+  .#{$prefix}--data-table th[align='center'],
+  .#{$prefix}--data-table td[align='center'] {
+    text-align: center;
+  }
+
   .#{$prefix}--data-table th {
     padding-right: $spacing-05;
     padding-left: $spacing-05;
@@ -114,10 +124,6 @@
     // Do not use `position: relative`, as its behavior is undefined for many table elements: https://www.w3.org/TR/CSS21/visuren.html#propdef-position
     position: static;
     width: auto;
-  }
-
-  .#{$prefix}--data-table .#{$prefix}--table-header-label {
-    text-align: left;
   }
 
   .#{$prefix}--data-table td,

@@ -1,0 +1,72 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../../config' as *;
+@use '../../../spacing' as *;
+@use '../../../theme' as *;
+@use '../../../utilities/convert' as *;
+@use '../../../utilities/skeleton' as *;
+
+/// Data table skeleton styles
+/// @access public
+/// @group data-table
+@mixin data-table-skeleton {
+  .#{$prefix}--data-table.#{$prefix}--skeleton th {
+    padding-left: 1rem;
+    vertical-align: middle;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--skeleton th span,
+  .#{$prefix}--data-table.#{$prefix}--skeleton td span {
+    @include skeleton;
+
+    display: block;
+
+    width: rem(64px);
+    height: rem(16px);
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--skeleton tr:hover td {
+    border-color: $border-subtle;
+    background: transparent;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--skeleton tr:hover td:first-of-type,
+  .#{$prefix}--data-table.#{$prefix}--skeleton tr:hover td:last-of-type {
+    border-color: $border-subtle;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--skeleton .#{$prefix}--table-sort {
+    pointer-events: none;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--skeleton th span {
+    background: $skeleton-element;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--skeleton th span::before {
+    background: $skeleton-background;
+  }
+
+  .#{$prefix}--data-table-container.#{$prefix}--skeleton
+    .#{$prefix}--data-table-header__title {
+    @include skeleton;
+
+    width: rem(120px);
+    height: rem(24px);
+  }
+
+  .#{$prefix}--data-table-container.#{$prefix}--skeleton
+    .#{$prefix}--data-table-header__description {
+    @include skeleton;
+
+    width: rem(160px);
+    height: rem(16px);
+
+    margin-top: $spacing-03;
+  }
+}

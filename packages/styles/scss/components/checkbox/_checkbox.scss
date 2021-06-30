@@ -1,0 +1,196 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../form';
+@use '../../config' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/skeleton' as *;
+@use '../../utilities/visually-hidden' as *;
+
+@mixin checkbox {
+  // Spacing between checkboxes
+  .#{$prefix}--form-item.#{$prefix}--checkbox-wrapper {
+    margin-bottom: $spacing-02;
+  }
+
+  // Spacing above collection of checkboxes
+  .#{$prefix}--form-item.#{$prefix}--checkbox-wrapper:first-of-type {
+    margin-top: rem(3px);
+  }
+
+  // Shift collection of checkboxes up if label is present
+  // to account for the 2px top margin for the first checkbox
+  .#{$prefix}--label + .#{$prefix}--form-item.#{$prefix}--checkbox-wrapper {
+    margin-top: -#{$spacing-01};
+  }
+
+  // Spacing below collection of checkboxes
+  .#{$prefix}--form-item.#{$prefix}--checkbox-wrapper:last-of-type {
+    margin-bottom: rem(3px);
+  }
+
+  // Visually, we'll hide the checkbox input and create our own styled version
+  // to match the specs.
+  .#{$prefix}--checkbox {
+    @include visually-hidden;
+  }
+
+  // The label corresponds to the content inside of the `label` tag. Since we're
+  // creating our own checkbox style, we'll need to position this in order to
+  // accomodate the spacing needed for the checkbox.
+  .#{$prefix}--checkbox-label {
+    @include reset;
+    @include type-style('body-short-01');
+
+    position: relative;
+    display: flex;
+    min-height: rem(24px);
+    padding-top: rem(3px);
+    padding-left: rem(20px);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .#{$prefix}--checkbox-label-text {
+    // Add extra spacing when label is present
+    padding-left: rem(6px);
+  }
+
+  // Required because `$css--reset: true` cannot currently apply to this `::before` and `::after`
+  .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox-label::after {
+    box-sizing: border-box;
+  }
+
+  // Spacing for presentational checkbox
+  .#{$prefix}--checkbox-label::before {
+    // We need to position the pseudo-element absolutely in the space that we've
+    // created with the padding from the label itself. We position only with
+    // `top` since we don't want the checkbox to be centered vertically with the
+    // text overflows.
+    position: absolute;
+    top: rem(2px);
+    left: 0;
+
+    // According to the spec, we'll want the bounding box for our checkbox to
+    // be 16px. The border size will be what will be updated during the
+    // different checkbox states.
+    width: rem(16px);
+    height: rem(16px);
+    border: 1px solid $icon-primary;
+    // increase left margin for #6480
+    margin: rem(2px) rem(2px) rem(2px) rem(3px);
+
+    // Checkboxes with a background color look visually off against a parent container.
+    background-color: transparent;
+    border-radius: 1px;
+    content: '';
+  }
+
+  // Create the appearance of the check in the `after` pseudo-element
+  .#{$prefix}--checkbox-label::after {
+    position: absolute;
+    top: rem(8px);
+    left: rem(7px);
+    width: rem(9px);
+    height: rem(5px);
+    border-bottom: 2px solid $icon-inverse;
+    border-left: 2px solid $icon-inverse;
+    margin-top: rem(-3px) #{'/*rtl:0rem*/'};
+    background: none;
+    content: '';
+    transform: scale(0) rotate(-45deg);
+    transform-origin: bottom right #{'/*rtl:center*/'};
+  }
+
+  //----------------------------------------------
+  // Checked
+  // ---------------------------------------------
+
+  // Update properties for checked checkbox
+  .#{$prefix}--checkbox:checked + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox:indeterminate + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-state='true']::before,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-state='mixed']::before {
+    border-width: 1px;
+    border-color: $icon-primary;
+    background-color: $icon-primary;
+  }
+
+  // Display the check
+  .#{$prefix}--checkbox:checked + .#{$prefix}--checkbox-label::after,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-state='true']::after {
+    transform: scale(1) rotate(-45deg) #{'/*rtl:scale(1.2) rotate3d(.5, 1, 0, 158deg)*/'};
+  }
+
+  // Indeterminate symbol
+  .#{$prefix}--checkbox:indeterminate + .#{$prefix}--checkbox-label::after,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-state='mixed']::after {
+    top: rem(11px);
+    width: rem(8px);
+    border-bottom: 2px solid $icon-inverse;
+    border-left: 0 solid $icon-inverse;
+    transform: scale(1) rotate(0deg);
+  }
+
+  //----------------------------------------------
+  // Focus
+  // ---------------------------------------------
+
+  // Unchecked
+  .#{$prefix}--checkbox:focus + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox-label__focus::before,
+  // Checked
+  .#{$prefix}--checkbox:checked:focus + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-state='true'].#{$prefix}--checkbox-label__focus::before,
+  // Indeterminate
+  .#{$prefix}--checkbox:indeterminate:focus + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-state='mixed'].#{$prefix}--checkbox-label__focus::before {
+    outline: 2px solid $focus;
+    outline-offset: 1px;
+  }
+
+  //----------------------------------------------
+  // Disabled
+  // ---------------------------------------------
+
+  .#{$prefix}--checkbox:disabled + .#{$prefix}--checkbox-label,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-disabled='true'] {
+    color: $text-disabled;
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--checkbox:disabled + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-disabled='true']::before {
+    border-color: $icon-disabled;
+  }
+
+  .#{$prefix}--checkbox:checked:disabled + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox:indeterminate:disabled
+    + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-state='true'][data-contained-checkbox-disabled='true']::before,
+  .#{$prefix}--checkbox-label[data-contained-checkbox-state='mixed'][data-contained-checkbox-disabled='true']::before {
+    background-color: $icon-disabled;
+  }
+
+  //-----------------------------------------------
+  // Skeleton
+  //-----------------------------------------------
+
+  .#{$prefix}--checkbox-label-text.#{$prefix}--skeleton {
+    @include skeleton;
+
+    width: rem(100px);
+    height: $spacing-05;
+
+    // Add extra spacing when label is present
+    margin: rem(1px) 0 0 rem(6px);
+  }
+}

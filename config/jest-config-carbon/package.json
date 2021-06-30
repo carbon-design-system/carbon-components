@@ -2,7 +2,7 @@
   "name": "jest-config-carbon",
   "private": true,
   "description": "Jest configuration and preset for Carbon",
-  "version": "0.4.0-rc.0",
+  "version": "0.5.0",
   "license": "Apache-2.0",
   "main": "index.js",
   "repository": {
@@ -27,14 +27,15 @@
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
     "@babel/runtime": "^7.14.0",
-    "accessibility-checker": "^3.1.1",
-    "axe-core": "^4.1.1",
-    "babel-jest": "^26.6.3",
-    "chalk": "^4.1.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "enzyme-to-json": "^3.3.5",
-    "jest-circus": "^26.0.1"
+    "accessibility-checker": "^3.1.8",
+    "axe-core": "^4.2.2",
+    "babel-jest": "^27.0.5",
+    "chalk": "^4.1.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
+    "jest-circus": "^27.0.5",
+    "jest-watch-typeahead": "^0.6.4"
   },
   "devDependencies": {
     "react": "^17.0.1",

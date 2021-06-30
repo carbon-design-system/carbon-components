@@ -1,0 +1,350 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/box-shadow' as *;
+@use '../../utilities/button-reset';
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/convert' as *;
+
+/// Overflow menu styles
+/// @access public
+/// @group overflow-menu
+@mixin overflow-menu {
+  .#{$prefix}--overflow-menu,
+  .#{$prefix}--overflow-menu__trigger {
+    @include button-reset.reset;
+    @include reset;
+    @include focus-outline('reset');
+
+    position: relative;
+    display: flex;
+    width: rem(40px);
+    height: rem(40px);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: outline $duration-fast-02 motion(entrance, productive),
+      background-color $duration-fast-02 motion(entrance, productive);
+
+    &:focus {
+      @include focus-outline('outline');
+    }
+
+    &:hover {
+      background-color: $background-hover;
+    }
+  }
+
+  .#{$prefix}--overflow-menu--sm {
+    width: rem(32px);
+    height: rem(32px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--overflow-menu--xl,
+  .#{$prefix}--overflow-menu--lg {
+    width: rem(48px);
+    height: rem(48px);
+  }
+
+  // Overwrite Icon Tooltip focus styles
+  .#{$prefix}--overflow-menu__trigger.#{$prefix}--tooltip--a11y.#{$prefix}--tooltip__trigger:focus {
+    @include focus-outline('outline');
+
+    svg {
+      outline: none;
+    }
+  }
+
+  .#{$prefix}--overflow-menu.#{$prefix}--overflow-menu--open,
+  .#{$prefix}--overflow-menu.#{$prefix}--overflow-menu--open
+    .#{$prefix}--overflow-menu__trigger {
+    @include box-shadow;
+
+    background-color: $layer;
+    transition: none;
+  }
+
+  .#{$prefix}--overflow-menu--light.#{$prefix}--overflow-menu--open,
+  .#{$prefix}--overflow-menu--light.#{$prefix}--overflow-menu--open
+    .#{$prefix}--overflow-menu__trigger {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--overflow-menu__icon {
+    width: rem(16px);
+    height: rem(16px);
+    fill: $icon-primary;
+  }
+
+  .#{$prefix}--overflow-menu-options {
+    @include reset;
+    @include box-shadow;
+
+    position: absolute;
+    z-index: z('floating');
+    top: 32px;
+    left: 0;
+    display: none;
+    width: rem(160px);
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: $layer;
+    list-style: none;
+
+    &::after {
+      position: absolute;
+      display: block;
+      background-color: $layer;
+      content: '';
+      transition: background-color $duration-fast-02
+        motion(entrance, productive);
+    }
+  }
+
+  .#{$prefix}--overflow-menu.#{$prefix}--overflow-menu--open:hover {
+    background-color: $layer;
+  }
+
+  .#{$prefix}--overflow-menu-options--light {
+    background-color: $field-02;
+    &::after {
+      background-color: $field-02;
+    }
+  }
+
+  .#{$prefix}--overflow-menu.#{$prefix}--overflow-menu--light.#{$prefix}--overflow-menu--open:hover {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--overflow-menu-options[data-floating-menu-direction='bottom']::after {
+    top: rem(-3px);
+    left: 0;
+    width: rem(40px);
+    height: rem(3px);
+  }
+
+  .#{$prefix}--overflow-menu-options[data-floating-menu-direction='top']::after {
+    bottom: rem(-8px);
+    left: 0;
+    width: rem(40px);
+    height: rem(8px);
+  }
+
+  .#{$prefix}--overflow-menu-options[data-floating-menu-direction='left']::after {
+    top: 0;
+    right: rem(-6px);
+    width: rem(6px);
+    height: rem(40px);
+  }
+
+  .#{$prefix}--overflow-menu-options[data-floating-menu-direction='right']::after {
+    top: 0;
+    left: rem(-6px);
+    width: rem(6px);
+    height: rem(40px);
+  }
+
+  .#{$prefix}--overflow-menu-options--sm.#{$prefix}--overflow-menu-options {
+    &[data-floating-menu-direction='bottom']::after,
+    &[data-floating-menu-direction='top']::after {
+      width: rem(32px);
+    }
+    &[data-floating-menu-direction='left']::after,
+    &[data-floating-menu-direction='right']::after {
+      height: rem(32px);
+    }
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--overflow-menu-options--xl.#{$prefix}--overflow-menu-options,
+  .#{$prefix}--overflow-menu-options--lg.#{$prefix}--overflow-menu-options {
+    &[data-floating-menu-direction='bottom']::after,
+    &[data-floating-menu-direction='top']::after {
+      width: rem(48px);
+    }
+    &[data-floating-menu-direction='left']::after,
+    &[data-floating-menu-direction='right']::after {
+      height: rem(48px);
+    }
+  }
+
+  .#{$prefix}--overflow-menu--flip.#{$prefix}--overflow-menu-options[data-floating-menu-direction='top']::after,
+  .#{$prefix}--overflow-menu--flip.#{$prefix}--overflow-menu-options[data-floating-menu-direction='bottom']::after {
+    right: 0;
+    left: auto;
+  }
+
+  .#{$prefix}--overflow-menu--flip.#{$prefix}--overflow-menu-options[data-floating-menu-direction='left']::after,
+  .#{$prefix}--overflow-menu--flip.#{$prefix}--overflow-menu-options[data-floating-menu-direction='right']::after {
+    top: auto;
+    bottom: 0;
+  }
+
+  .#{$prefix}--overflow-menu-options--open {
+    display: flex;
+  }
+
+  .#{$prefix}--overflow-menu-options__content {
+    width: 100%;
+  }
+
+  .#{$prefix}--overflow-menu-options__option {
+    @include reset;
+
+    display: flex;
+    width: 100%;
+    height: rem(40px);
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+    transition: background-color $duration-fast-02 motion(entrance, productive);
+  }
+
+  .#{$prefix}--overflow-menu-options--sm
+    .#{$prefix}--overflow-menu-options__option {
+    height: rem(32px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--overflow-menu-options--xl
+    .#{$prefix}--overflow-menu-options__option,
+  .#{$prefix}--overflow-menu-options--lg
+    .#{$prefix}--overflow-menu-options__option {
+    height: rem(48px);
+  }
+
+  .#{$prefix}--overflow-menu--divider {
+    border-top: 1px solid $border-subtle;
+  }
+
+  .#{$prefix}--overflow-menu--light .#{$prefix}--overflow-menu--divider {
+    border-top: 1px solid $decorative-01;
+  }
+
+  a.#{$prefix}--overflow-menu-options__btn::before {
+    display: inline-block;
+    height: 100%;
+    content: '';
+    vertical-align: middle;
+  }
+
+  .#{$prefix}--overflow-menu-options__btn {
+    @include type-style('body-short-01');
+    @include focus-outline('reset');
+
+    display: inline-flex;
+    width: 100%;
+    max-width: 11.25rem;
+    height: 100%;
+    align-items: center;
+    padding: 0 $spacing-05;
+    border: none;
+    background-color: transparent;
+    color: $text-02;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 400;
+    text-align: left;
+    transition: outline $duration-fast-02 motion(entrance, productive),
+      background-color $duration-fast-02 motion(entrance, productive),
+      color $duration-fast-02 motion(entrance, productive);
+
+    &:hover {
+      color: $text-01;
+    }
+
+    &:focus {
+      @include focus-outline('outline');
+    }
+
+    &::-moz-focus-inner {
+      border: none;
+    }
+  }
+
+  .#{$prefix}--overflow-menu-options__btn svg {
+    fill: $icon-secondary;
+  }
+
+  .#{$prefix}--overflow-menu-options__btn:hover svg {
+    fill: $icon-primary;
+  }
+
+  .#{$prefix}--overflow-menu-options__option-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--overflow-menu-options__option:hover {
+    background-color: $layer-hover;
+  }
+
+  .#{$prefix}--overflow-menu-options__option--danger
+    .#{$prefix}--overflow-menu-options__btn:hover,
+  .#{$prefix}--overflow-menu-options__option--danger
+    .#{$prefix}--overflow-menu-options__btn:focus {
+    background-color: $button-danger-primary;
+    color: $text-on-color;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  .#{$prefix}--overflow-menu-options__option--disabled:hover {
+    background-color: $layer;
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--overflow-menu-options__option--disabled
+    .#{$prefix}--overflow-menu-options__btn {
+    color: $text-disabled;
+    pointer-events: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      @include focus-outline('reset');
+
+      background-color: $layer;
+    }
+  }
+
+  .#{$prefix}--overflow-menu-options__option--disabled
+    .#{$prefix}--overflow-menu-options__btn
+    svg {
+    fill: $icon-disabled;
+  }
+
+  .#{$prefix}--overflow-menu--flip {
+    left: -140px;
+
+    &::before {
+      left: 145px;
+    }
+  }
+
+  // Windows HCM fix
+  /* stylelint-disable */
+  .#{$prefix}--overflow-menu:focus,
+  .#{$prefix}--overflow-menu-options__btn:focus {
+    @include high-contrast-mode('focus');
+  }
+
+  .#{$prefix}--overflow-menu svg {
+    @include high-contrast-mode('icon-fill');
+  }
+  /*stylelint-enable */
+}

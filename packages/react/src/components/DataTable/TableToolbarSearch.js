@@ -98,7 +98,6 @@ const TableToolbarSearch = ({
   return (
     <Search
       disabled={disabled}
-      size="sm"
       className={searchClasses}
       value={value}
       id={typeof id !== 'undefined' ? id : uniqueId.toString()}

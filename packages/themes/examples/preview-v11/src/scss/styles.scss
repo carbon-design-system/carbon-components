@@ -1,0 +1,160 @@
+//
+// Copyright IBM Corp. 2018, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+// Reset
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body,
+#__next {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+h1 {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+table {
+  text-align: left;
+  vertical-align: middle;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table,
+tr,
+td,
+th {
+  border: 1px solid black;
+}
+
+td,
+th {
+  padding: 1rem;
+}
+
+th {
+  position: sticky;
+  top: var(--header-height);
+  background: white;
+}
+
+[id] {
+  scroll-margin-top: calc(var(--header-height) + 4rem);
+}
+
+:root {
+  --header-height: 4rem;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 0 1rem;
+  height: var(--header-height);
+  z-index: 100;
+}
+
+.content {
+  padding-top: var(--header-height);
+  padding-bottom: 2rem;
+  position: relative;
+}
+
+.theme-value {
+  display: flex;
+  align-items: flex-end;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.content-center {
+  align-content: center;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-columns-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.col-start-2 {
+  grid-column-start: 2;
+}
+
+.gap {
+  grid-gap: 1rem;
+}
+
+// Components
+.color-preview {
+  width: 50px;
+  height: 50px;
+  background: var(--color-preview-color);
+  outline: 1px solid #8a3ffc;
+  margin-right: 1rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.hex-value {
+  color: #6f6f6f;
+  font-size: 14px;
+}

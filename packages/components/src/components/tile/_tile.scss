@@ -18,6 +18,10 @@
 /// @access private
 /// @group tile
 @mixin tile {
+  .#{$prefix}--tile-group {
+    @include reset;
+  }
+
   .#{$prefix}--tile {
     position: relative;
     display: block;
@@ -47,6 +51,9 @@
     &:hover {
       background: $layer-hover;
     }
+  }
+  .#{$prefix}--tile--expandable .#{$prefix}--link {
+    color: $link-secondary;
   }
 
   .#{$prefix}--tile--clickable,

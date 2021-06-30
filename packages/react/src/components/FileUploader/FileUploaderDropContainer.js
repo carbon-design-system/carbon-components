@@ -115,22 +115,22 @@ function FileUploaderDropContainer({
         {...rest}>
         <div className={dropareaClasses} role={role || 'button'}>
           {labelText}
-          <input
-            type="file"
-            id={uid}
-            className={`${prefix}--file-input`}
-            ref={inputRef}
-            tabIndex="-1"
-            disabled={disabled}
-            accept={accept}
-            name={name}
-            multiple={multiple}
-            onChange={handleChange}
-            onClick={(evt) => {
-              evt.target.value = null;
-            }}
-          />
         </div>
+        <input
+          type="file"
+          id={uid}
+          className={`${prefix}--file-input`}
+          ref={inputRef}
+          tabIndex="-1"
+          disabled={disabled}
+          accept={accept}
+          name={name}
+          multiple={multiple}
+          onChange={handleChange}
+          onClick={(evt) => {
+            evt.target.value = null;
+          }}
+        />
       </label>
     </div>
   );

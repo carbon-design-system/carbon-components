@@ -7,11 +7,14 @@
 
 import { useEffect } from 'react';
 
-export function useNoInteractiveChildren(ref, message) {
+export function useNoInteractiveChildren(
+  ref,
+  message = 'component should have no interactive child nodes'
+) {
   if (__DEV__) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      const node = getInteractiveContent(ref.current);
+      const node = ref.current ? getInteractiveContent(ref.current) : false;
 
       if (node) {
         throw new Error(

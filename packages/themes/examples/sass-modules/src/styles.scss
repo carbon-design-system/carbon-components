@@ -13,11 +13,16 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
-html, body, #__next, .container {
+html,
+body,
+#__next,
+.container {
   width: 100%;
   height: 100%;
 }

@@ -1543,11 +1543,25 @@
     - bookmark
   sizes:
     - 32
+- name: bookmark--add
+  friendly_name: Bookmark add
+  aliases: 
+    - flag
+    - marker
+    - operations
+    - bookmark
+    - plus
+    - add
+  sizes:
+    - 32
 - name: bookmark--filled
   friendly_name: Bookmark filled
   aliases:
-    - bookmark filled
+    - bookmark 
+    - filled
     - operations
+    - flag
+    - marker
   sizes:
     - 32
 - name: boolean
@@ -1641,6 +1655,13 @@
     - branch
     - operations
     - instruction
+  sizes:
+    - 32
+- name: breaking-change
+  friendly_name: Breaking change
+  aliases: 
+    - breaking
+    - change
   sizes:
     - 32
 - name: brightness-contrast
@@ -3800,6 +3821,53 @@
     - associate
   sizes:
     - 32
+- name: connect--recursive
+  friendly_name: Connect recursive
+  aliases: 
+    - connection
+    - recursive
+  sizes:
+    - 32
+- name: connect--source
+  friendly_name: Connect source
+  aliases: 
+    - connection
+    - source
+  sizes:
+    - 32
+- name: connect--target
+  friendly_name: Connect target
+  aliases: 
+    - connection
+    - target
+  sizes:
+    - 32
+- name: connection--receive
+  friendly_name: Connection receive
+  aliases: 
+    - connection
+    - receive
+    - incoming
+    - input
+  sizes:
+    - 32
+- name: connection--send
+  friendly_name: Connection send
+  aliases: 
+    - connection
+    - send
+    - outgoing
+    - output
+  sizes:
+    - 32
+- name: connection--two-way
+  friendly_name: Connection two-way
+  aliases: 
+    - connection
+    - input
+    - output
+  sizes:
+    - 32
 - name: connection-signal
   friendly_name: Connection signal
   aliases:
@@ -3871,6 +3939,14 @@
     - light
     - dark
     - comparison
+  sizes:
+    - 32
+- name: convert-to-cloud
+  friendly_name: Convert to cloud
+  aliases: 
+    - convert
+    - push
+    - send
   sizes:
     - 32
 - name: copy
@@ -4599,6 +4675,20 @@
     - van
     - shipping
     - ecommerce
+  sizes:
+    - 32
+- name: delivery--add
+  friendly_name: Delivery add
+  aliases: 
+    - truck
+    - delivery
+    - transportation
+    - shopping
+    - van
+    - shipping
+    - ecommerce
+    - plus
+    - add
   sizes:
     - 32
 - name: delivery--parcel
@@ -6495,6 +6585,28 @@
     - organize
     - folder
     - folder off
+- name: folder--open
+  friendly_name: Folder open
+  aliases: 
+    - file
+    - save
+    - document
+    - organize
+    - folder
+    - folder open
+  sizes:
+    - 32
+- name: folder--parent
+  friendly_name: Folder parent
+  aliases: 
+    - file
+    - save
+    - document
+    - organize
+    - folder
+    - folder parent
+  sizes:
+    - 32
 - name: folder--shared
   friendly_name: Folder shared
   sizes:
@@ -6773,6 +6885,77 @@
     - globe
   sizes:
     - 32
+- name: glyph--caution
+  friendly_name: Glyph caution
+  aliases: 
+    - caution
+    - warning
+    - triangle
+    - filled
+  sizes:
+    - glyph
+- name: glyph--caution-inverted
+  friendly_name: Glyph caution inverted
+  aliases: 
+    - caution
+    - warning
+    - inverted 
+    - triangle
+    - filled
+  sizes:
+    - glyph
+- name: glyph--circle-fill
+  friendly_name: Glyph circle fill
+  aliases: 
+    - circle
+    - filled
+    - solid
+    - round
+  sizes:
+    - glyph
+- name: glyph--circle-stroke
+  friendly_name: Glyph circle stroke
+  aliases: 
+    - stroke
+    - circle
+    - round
+    - outlined
+  sizes:
+    - glyph
+- name: glyph--critical
+  friendly_name: Glyph critical
+  aliases: 
+    - critical
+    - warning
+    - caution
+    - slash
+  sizes:
+    - glyph
+- name: glyph--incomplete
+  friendly_name: Glyph incomplete
+  aliases: 
+    - incomplete
+    - round
+    - half filled
+    - circle
+  sizes:
+    - glyph
+- name: glyph--square-fill
+  friendly_name: Glyph square fill
+  aliases: 
+    - square
+    - filled
+    - box
+  sizes:
+    - glyph
+- name: glyph--undefined
+  friendly_name: Glyph undefined
+  aliases: 
+    - square
+    - filled
+    - diamond 
+  sizes:
+    - glyph
 - name: gradient
   friendly_name: Gradient
   aliases:
@@ -8191,6 +8374,16 @@
     - document
   sizes:
     - 32
+- name: lifesaver
+  friendly_name: lifesaver
+  aliases: 
+    - life preserver
+    - help
+    - boating
+    - travel
+    - recreation
+  sizes:
+    - 32
 - name: light
   friendly_name: Light
   aliases:
@@ -8389,6 +8582,24 @@
     - gps
     - filled
     - location
+  sizes:
+    - 32
+- name: location--filled
+  friendly_name: Location filled
+  aliases: 
+    - place
+    - locate
+    - gps
+    - destination
+    - map
+    - pin
+    - site
+    - area
+    - legend
+    - location
+    - hazard
+    - travel
+    - filled
   sizes:
     - 32
 - name: location--hazard
@@ -10646,6 +10857,16 @@
     - formatting
   sizes:
     - 32
+- name: parameter
+  friendly_name: Parameter
+  aliases: 
+    - parameter
+    - code
+    - snippet
+    - value
+    - data
+  sizes:
+    - 32
 - name: parent-child
   friendly_name: Parent child
   aliases:
@@ -12362,8 +12583,10 @@
   sizes:
     - 32
 - name: scan--disabled
-  friendly_name: scan--disabled
-  aliases: []
+  friendly_name: Scan disabled
+  aliases: 
+    - scan
+    - disabled
   sizes:
     - 32
 - name: scatter-matrix
@@ -12458,6 +12681,18 @@
   sizes:
     - 16
     - 32
+- name: search--locate
+  friendly_name: Search locate
+  aliases: 
+    - find
+    - investigate
+    - explore
+    - look
+    - locate
+    - discover
+    - identify
+  sizes:
+    - 32
 - name: security
   friendly_name: Security
   aliases:
@@ -12478,6 +12713,16 @@
   aliases:
     - select 02
     - formatting
+  sizes:
+    - 32
+- name: select--window
+  friendly_name: Select window
+  aliases: 
+    - select
+    - formatting
+    - window
+    - pointer
+    - arrow
   sizes:
     - 32
 - name: send
@@ -14088,6 +14333,17 @@
     - typography
     - alphabet
     - editor
+- name: text--font
+  friendly_name: Text font
+  aliases: 
+    - letter
+    - typography
+    - alphabet
+    - editor
+    - font
+    - typeface
+  sizes:
+    - 32
 - name: text--footnote
   friendly_name: Text footnote
   aliases:
@@ -14350,6 +14606,17 @@
     - disagree
   sizes:
     - 32
+- name: thumbs-down--filled
+  friendly_name: Thumbs down filled
+  aliases: 
+    - dislike
+    - hand
+    - down vote
+    - 'no'
+    - disagree
+    - filled
+  sizes:
+    - 32
 - name: thumbs-up
   friendly_name: Thumbs up
   aliases:
@@ -14358,6 +14625,17 @@
     - up vote
     - 'yes'
     - agree
+  sizes:
+    - 32
+- name: thumbs-up--filled
+  friendly_name: Thumbs up filled
+  aliases: 
+    - like
+    - hand
+    - up vote
+    - 'yes'
+    - agree
+    - filled
   sizes:
     - 32
 - name: thunderstorm
@@ -14492,6 +14770,45 @@
     - click
     - mobile
     - device
+- name: touch--1--filled
+  friendly_name: Touch 1 filled
+  aliases: 
+    - hand
+    - tap
+    - press
+    - click
+    - mobile
+    - device
+    - filled
+  sizes:
+    - 32
+- name: touch--1-down
+  friendly_name: Touch 1 down
+  aliases: 
+    - hand
+    - tap
+    - depress
+    - click
+    - mobile
+    - device
+    - down
+    - hold
+  sizes:
+    - 32
+- name: touch--1-down--filled
+  friendly_name: Touch 1 down filled
+  aliases: 
+    - hand
+    - tap
+    - depress
+    - click
+    - mobile
+    - device
+    - down
+    - hold
+    - filled
+  sizes:
+    - 32
 - name: touch--2
   friendly_name: Touch 2
   sizes:
@@ -14503,6 +14820,18 @@
     - click
     - mobile
     - device
+- name: touch--2--filled
+  friendly_name: Touch 2 filled
+  aliases: 
+    - hand
+    - tap
+    - press
+    - click
+    - mobile
+    - device
+    - filled
+  sizes:
+    - 32
 - name: touch--interaction
   friendly_name: Touch interaction
   aliases:
@@ -16003,6 +16332,17 @@
     - size
     - enlarge
     - detail
+  sizes:
+    - 32
+- name: zoom--fit
+  friendly_name: Zoom fit
+  aliases: 
+    - expand
+    - inspect
+    - size
+    - enlarge
+    - detail
+    - fit
   sizes:
     - 32
 - name: zoom--in

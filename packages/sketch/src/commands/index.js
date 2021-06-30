@@ -12,7 +12,11 @@ import 'regenerator-runtime/runtime';
 // triggered by having separate entrypoints. Most notably we would encounter
 // parse errors because the bundlers were being generated incorrectly during
 // incremental rebuilds.
-export { sync as syncColors, generate as generateColors } from './colors';
+export {
+  sync as syncColors,
+  syncColorVars,
+  generate as generateColors,
+} from './colors';
 export { generate as generateIcons } from './icons';
 export { syncSmallIcons, syncLargeIcons } from './icons';
 export { sync as syncThemes, generate as generateThemes } from './themes';

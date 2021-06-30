@@ -143,8 +143,24 @@
     margin-right: $carbon--spacing-05;
   }
 
-  .#{$prefix}--toast-notification__details {
-    margin-right: $carbon--spacing-05;
+  @if feature-flag-enabled('enable-v11-release') {
+    .#{$prefix}--toast-notification__content {
+      @include type-style('body-short-01');
+
+      margin-top: $carbon--spacing-05;
+      margin-right: $carbon--spacing-05;
+      margin-bottom: $carbon--spacing-05;
+      word-break: break-word;
+    }
+
+    .#{$prefix}--toast-notification--low-contrast
+      .#{$prefix}--toast-notification__content {
+      color: $text-primary;
+    }
+  } @else {
+    .#{$prefix}--toast-notification__details {
+      margin-right: $carbon--spacing-05;
+    }
   }
 
   .#{$prefix}--toast-notification__close-button {
@@ -186,39 +202,41 @@
     fill: $icon-primary;
   }
 
-  .#{$prefix}--toast-notification__title {
-    @include type-style('productive-heading-01');
+  @if not feature-flag-enabled('enable-v11-release') {
+    .#{$prefix}--toast-notification__title {
+      @include type-style('productive-heading-01');
 
-    margin-top: $carbon--spacing-05;
-    font-weight: 600;
-    word-break: break-word;
-  }
+      margin-top: $carbon--spacing-05;
+      font-weight: 600;
+      word-break: break-word;
+    }
 
-  .#{$prefix}--toast-notification__subtitle {
-    @include type-style('body-short-01');
-
-    margin-top: 0;
-    margin-bottom: $carbon--spacing-05;
-    color: $text-inverse;
-    word-break: break-word;
-  }
-
-  .#{$prefix}--toast-notification--low-contrast
     .#{$prefix}--toast-notification__subtitle {
-    color: $text-primary;
-  }
+      @include type-style('body-short-01');
 
-  .#{$prefix}--toast-notification__caption {
-    @include type-style('body-short-01');
+      margin-top: 0;
+      margin-bottom: $carbon--spacing-05;
+      color: $text-inverse;
+      word-break: break-word;
+    }
 
-    padding-top: $carbon--spacing-03;
-    margin-bottom: $carbon--spacing-05;
-    color: $text-inverse;
-  }
+    .#{$prefix}--toast-notification--low-contrast
+      .#{$prefix}--toast-notification__subtitle {
+      color: $text-primary;
+    }
 
-  .#{$prefix}--toast-notification--low-contrast
     .#{$prefix}--toast-notification__caption {
-    color: $text-primary;
+      @include type-style('body-short-01');
+
+      padding-top: $carbon--spacing-03;
+      margin-bottom: $carbon--spacing-05;
+      color: $text-inverse;
+    }
+
+    .#{$prefix}--toast-notification--low-contrast
+      .#{$prefix}--toast-notification__caption {
+      color: $text-primary;
+    }
   }
 
   // Windows HCM fix

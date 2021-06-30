@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { Tile, Button, UnorderedList, ListItem } from 'carbon-components-react';
 
 export default function LayoutsPage() {
   return (
@@ -16,19 +15,15 @@ export default function LayoutsPage() {
         <section className="bx--css-grid">
           <div className="bx--col-span-4">
             <p>Title</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-4">
             <p>Title</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-4">
             <p>Title</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-4">
             <p>Title</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
         </section>
       </article>
@@ -38,15 +33,12 @@ export default function LayoutsPage() {
         <section className="bx--css-grid--12">
           <div className="bx--col-span-4">
           <p>Some text</p>
-          <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-4">
             <p>Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-4">
             <p>Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
         </section>
       </article>
@@ -54,26 +46,22 @@ export default function LayoutsPage() {
       <h2>Narrow</h2>
       <article className="example">
         <section className="bx--css-grid bx--css-grid--narrow">
-        <UnorderedList className="bx--col-span-100 bx--gutter-start">
+        {/* <UnorderedList className="bx--col-span-100 bx--gutter-start">
         <ListItem>All columns get a negative margin, a 'hang by default', placing the left edge of the container in the gutter.</ListItem>
         <ListItem>Text must manually be given an additional .bx--gutter-start class applying padding-left to align text the column definition.</ListItem>
         <ListItem>Container elements should have padding built in (like Tile) so that type aligns as expected.</ListItem>
-      </UnorderedList>
+      </UnorderedList> */}
           <div className="bx--col-span-25">
             <p className="bx--gutter-start">Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-25">
             <p className="bx--gutter-start">Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-25">
             <p className="bx--gutter-start">Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-25">
             <p className="bx--gutter-start">Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
         </section>
       </article>
@@ -83,25 +71,21 @@ export default function LayoutsPage() {
         <section className="bx--css-grid bx--css-grid--condensed">
           <div className="bx--col-span-25">
             <p>Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-25">
             <p>Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-25">
             <p>Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-25">
             <p>Some text</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-50">
-            <Tile>The row-gap property provides consistent vertical guttering</Tile>
+            {/* <Tile>The row-gap property provides consistent vertical guttering</Tile> */}
           </div>
           <div className="bx--col-span-50">
-          <Tile>The row-gap property provides consistent vertical guttering</Tile>
+          {/* <Tile>The row-gap property provides consistent vertical guttering</Tile> */}
           </div>
         </section>
       </article>
@@ -111,12 +95,10 @@ export default function LayoutsPage() {
         <section className="bx--css-grid">
           <div className="bx--col-span-4">
             <p>Wide</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-12 bx--subgrid bx--css-grid--narrow">
             <div className="bx--col-span-100">
               <p className="bx--gutter-start">Narrow</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
         </section>
@@ -127,12 +109,10 @@ export default function LayoutsPage() {
         <section className="bx--css-grid">
           <div className="bx--col-span-4">
             <p>Wide</p>
-            <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
           </div>
           <div className="bx--col-span-12 bx--subgrid bx--css-grid--condensed">
             <div className="bx--col-span-100">
               <p>Condensed</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
         </section>
@@ -145,25 +125,21 @@ export default function LayoutsPage() {
           <div className="bx--col-span-4 bx--subgrid bx--css-grid--narrow">
             <div className="bx--col-span-100">
               <p className="bx--gutter-start">Narrow</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-12 bx--subgrid bx--css-grid--condensed">
             <div className="bx--col-span-100">
               <p>Condensed</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-12 bx--subgrid bx--css-grid--condensed">
             <div className="bx--col-span-100">
               <p>Condensed</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-4 bx--subgrid bx--css-grid--narrow">
             <div className="bx--col-span-100">
               <p className="bx--gutter-start">Narrow</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
         </section>
@@ -176,25 +152,21 @@ export default function LayoutsPage() {
           <div className="bx--col-span-4 bx--subgrid bx--css-grid">
             <div className="bx--col-span-100">
               <p>Wide subgrid</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-12 bx--subgrid bx--css-grid--condensed">
             <div className="bx--col-span-100">
               <p>Condensed subgrid</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-12 bx--subgrid bx--css-grid--condensed">
             <div className="bx--col-span-100">
               <p>Condensed subgrid</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-4 bx--subgrid bx--css-grid">
             <div className="bx--col-span-100">
               <p>Wide subgrid</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
         </section>
@@ -206,25 +178,21 @@ export default function LayoutsPage() {
           <div className="bx--col-span-4 bx--subgrid bx--css-grid--narrow">
             <div className="bx--col-span-100">
               <p className="bx--gutter-start">Narrow subgrid</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-12 bx--subgrid bx--css-grid">
             <div className="bx--col-span-100">
               <p>Wide subgrid</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-12 bx--subgrid bx--css-grid">
             <div className="bx--col-span-100">
               <p>Wide subgrid</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
           <div className="bx--col-span-4 bx--subgrid bx--css-grid--narrow">
             <div className="bx--col-span-100">
               <p className="bx--gutter-start">Narrow subgrid</p>
-              <Tile><p>As well as a Tile</p><Button>With a button inside</Button></Tile>
             </div>
           </div>
         </section>

@@ -1,0 +1,993 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'mixins' as *;
+@use 'vars' as *;
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/text-overflow' as *;
+
+/// Data table core styles
+/// @access public
+/// @group data-table
+@mixin data-table {
+  //----------------------------------------------------------------------------
+  // Container
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table-container {
+    // Allow space for focus styles
+    padding-top: $spacing-01;
+  }
+
+  .#{$prefix}--data-table-content {
+    overflow-x: auto;
+  }
+
+  //----------------------------------------------------------------------------
+  // Table title text
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table-header {
+    padding: $spacing-05 0 $spacing-06 $spacing-05;
+    background: $layer;
+  }
+
+  .#{$prefix}--data-table-header__title {
+    @include type-style('productive-heading-03');
+
+    color: $text-primary;
+  }
+
+  .#{$prefix}--data-table-header__description {
+    @include type-style('body-short-01');
+
+    color: $text-secondary;
+  }
+
+  //----------------------------------------------------------------------------
+  // Data table
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .#{$prefix}--data-table thead {
+    @include type-style('productive-heading-01');
+
+    background-color: $layer-accent;
+  }
+
+  .#{$prefix}--data-table tbody {
+    @include type-style('body-short-01');
+
+    width: 100%;
+    background-color: $layer;
+  }
+
+  .#{$prefix}--data-table tr {
+    width: 100%;
+    height: $spacing-09;
+    border: none;
+  }
+
+  .#{$prefix}--data-table tbody tr,
+  .#{$prefix}--data-table tbody tr td,
+  .#{$prefix}--data-table tbody tr th {
+    transition: background-color $duration-fast-01 motion(entrance, productive);
+  }
+
+  .#{$prefix}--data-table tbody tr:hover {
+    background: $layer-hover;
+  }
+
+  .#{$prefix}--data-table tbody tr:hover td,
+  .#{$prefix}--data-table tbody tr:hover th {
+    border-top: 1px solid $layer-hover;
+    border-bottom: 1px solid $layer-hover;
+    background: $layer-hover;
+    color: $text-primary;
+  }
+
+  .#{$prefix}--data-table tbody tr:hover td .#{$prefix}--link,
+  .#{$prefix}--data-table tbody tr:hover th .#{$prefix}--link {
+    color: $link-secondary;
+  }
+
+  .#{$prefix}--data-table th,
+  .#{$prefix}--data-table td {
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .#{$prefix}--data-table th {
+    padding-right: $spacing-05;
+    padding-left: $spacing-05;
+    background-color: $layer-accent;
+    color: $text-primary;
+  }
+
+  .#{$prefix}--data-table th:last-of-type {
+    // Do not use `position: relative`, as its behavior is undefined for many table elements: https://www.w3.org/TR/CSS21/visuren.html#propdef-position
+    position: static;
+    width: auto;
+  }
+
+  .#{$prefix}--data-table .#{$prefix}--table-header-label {
+    text-align: left;
+  }
+
+  .#{$prefix}--data-table td,
+  .#{$prefix}--data-table tbody th {
+    padding-right: $spacing-05;
+    padding-left: $spacing-05;
+    border-top: 1px solid $layer;
+    border-bottom: 1px solid $border-subtle;
+    background: $layer;
+    color: $text-secondary;
+
+    + td:first-of-type {
+      padding-left: $spacing-04;
+    }
+  }
+
+  @supports (-moz-appearance: none) {
+    .#{$prefix}--data-table td {
+      // Fix to show borders in ff
+      background-clip: padding-box;
+    }
+  }
+
+  // Form Control Overrides
+
+  .#{$prefix}--data-table .#{$prefix}--list-box input[role='combobox'],
+  .#{$prefix}--data-table .#{$prefix}--list-box input[type='text'],
+  .#{$prefix}--data-table .#{$prefix}--dropdown,
+  .#{$prefix}--data-table .#{$prefix}--list-box,
+  .#{$prefix}--data-table .#{$prefix}--number input[type='number'],
+  .#{$prefix}--data-table .#{$prefix}--number__control-btn::before,
+  .#{$prefix}--data-table .#{$prefix}--number__control-btn::after,
+  .#{$prefix}--data-table .#{$prefix}--text-input,
+  .#{$prefix}--data-table .#{$prefix}--select-input {
+    background-color: $field-02;
+  }
+
+  // Overflow Menu Overrides
+  .#{$prefix}--data-table
+    td.#{$prefix}--table-column-menu
+    .#{$prefix}--overflow-menu[aria-expanded='false']:focus {
+    @include focus-outline('outline');
+  }
+
+  .#{$prefix}--data-table
+    td.#{$prefix}--table-column-menu
+    .#{$prefix}--overflow-menu[aria-expanded='true']:focus {
+    outline: none;
+  }
+
+  @media screen and (hover: hover),
+    (-ms-high-contrast: active),
+    (-ms-high-contrast: none) {
+    .#{$prefix}--data-table
+      td.#{$prefix}--table-column-menu
+      .#{$prefix}--overflow-menu
+      .#{$prefix}--overflow-menu__icon {
+      opacity: 0;
+    }
+  }
+
+  .#{$prefix}--data-table
+    td.#{$prefix}--table-column-menu
+    .#{$prefix}--overflow-menu.#{$prefix}--overflow-menu--open
+    .#{$prefix}--overflow-menu__icon {
+    opacity: 1;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--data-table--visible-overflow-menu
+    td.#{$prefix}--table-column-menu
+    .#{$prefix}--overflow-menu
+    .#{$prefix}--overflow-menu__icon,
+  .#{$prefix}--data-table
+    td.#{$prefix}--table-column-menu
+    .#{$prefix}--overflow-menu:hover
+    .#{$prefix}--overflow-menu__icon,
+  .#{$prefix}--data-table
+    td.#{$prefix}--table-column-menu
+    .#{$prefix}--overflow-menu:focus
+    .#{$prefix}--overflow-menu__icon,
+  .#{$prefix}--data-table
+    tr:hover
+    td.#{$prefix}--table-column-menu
+    .#{$prefix}--overflow-menu
+    .#{$prefix}--overflow-menu__icon {
+    opacity: 1;
+  }
+
+  .#{$prefix}--table-row--menu-option
+    .#{$prefix}--overflow-menu-options__btn
+    .#{$prefix}--overflow-menu-options__option-content
+    svg {
+    position: relative;
+    // Used to center svg without setting display flex //display block needed for overflow text truncation
+    top: rem(3px);
+    margin-right: $spacing-03;
+  }
+
+  .#{$prefix}--data-table .#{$prefix}--overflow-menu,
+  .#{$prefix}--data-table .#{$prefix}--overflow-menu__trigger {
+    &:hover {
+      background-color: $layer-selected-hover;
+    }
+  }
+
+  .#{$prefix}--data-table--selected .#{$prefix}--overflow-menu,
+  .#{$prefix}--data-table--selected .#{$prefix}--overflow-menu__trigger {
+    &:hover {
+      background-color: $layer-hover;
+    }
+  }
+
+  .#{$prefix}--data-table--selected .#{$prefix}--link {
+    color: $link-secondary;
+  }
+
+  // V11: Remove compact, short styles
+  .#{$prefix}--data-table--compact td.#{$prefix}--table-column-menu,
+  .#{$prefix}--data-table--xs td.#{$prefix}--table-column-menu,
+  .#{$prefix}--data-table--short td.#{$prefix}--table-column-menu,
+  .#{$prefix}--data-table--sm td.#{$prefix}--table-column-menu {
+    height: rem(24px);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  // V11: Remove short styles
+  .#{$prefix}--data-table--short td.#{$prefix}--table-column-menu,
+  .#{$prefix}--data-table--sm td.#{$prefix}--table-column-menu {
+    height: rem(32px);
+  }
+
+  .#{$prefix}--data-table--md td.#{$prefix}--table-column-menu {
+    height: rem(40px);
+  }
+
+  // V11: Remove tall styles
+  .#{$prefix}--data-table--tall .#{$prefix}--table-column-menu,
+  .#{$prefix}--data-table--xl .#{$prefix}--table-column-menu {
+    padding-top: $spacing-03;
+  }
+
+  //----------------------------------------------------------------------------
+  //ZEBRA
+  //----------------------------------------------------------------------------
+
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:not(.#{$prefix}--parent-row):nth-child(odd)
+    td {
+    border-bottom: 1px solid $layer;
+  }
+
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:not(.#{$prefix}--parent-row):nth-child(even)
+    td {
+    border-top: 1px solid $layer-accent;
+    border-bottom: 1px solid $layer-accent;
+    background-color: $layer-accent;
+  }
+
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:not(.#{$prefix}--parent-row):hover
+    td {
+    border-top: 1px solid $layer-hover;
+    border-bottom: 1px solid $layer-hover;
+    background-color: $layer-hover;
+  }
+
+  //----------------------------------------------------------------------------
+  // Select
+  //----------------------------------------------------------------------------
+  .#{$prefix}--table-column-checkbox .#{$prefix}--checkbox-label {
+    padding-left: 0;
+  }
+
+  .#{$prefix}--data-table th.#{$prefix}--table-column-checkbox {
+    // Do not use `position: relative`, as its behavior is undefined for many table elements: https://www.w3.org/TR/CSS21/visuren.html#propdef-position
+    position: static;
+    width: rem(32px);
+    background: $layer-accent;
+    transition: background-color $duration-fast-01 motion(entrance, productive);
+  }
+
+  .#{$prefix}--data-table
+    .#{$prefix}--table-column-checkbox
+    .#{$prefix}--checkbox:focus
+    + .#{$prefix}--checkbox-label::before {
+    //make checkbox focus larger to match expansion btn focus
+    outline-offset: rem(6px);
+  }
+
+  .#{$prefix}--data-table--compact
+    .#{$prefix}--table-column-checkbox
+    .#{$prefix}--checkbox:focus
+    + .#{$prefix}--checkbox-label::before,
+  .#{$prefix}--data-table--xs
+    .#{$prefix}--table-column-checkbox
+    .#{$prefix}--checkbox:focus
+    + .#{$prefix}--checkbox-label::before {
+    //make checkbox match expansion button focus size
+    outline-offset: rem(2px);
+  }
+
+  .#{$prefix}--data-table thead th.#{$prefix}--table-column-checkbox,
+  .#{$prefix}--data-table tbody td.#{$prefix}--table-column-checkbox,
+  .#{$prefix}--data-table thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table tbody td.#{$prefix}--table-expand {
+    min-width: 0;
+  }
+
+  .#{$prefix}--data-table thead th.#{$prefix}--table-column-checkbox,
+  .#{$prefix}--data-table tbody td.#{$prefix}--table-column-checkbox {
+    // spacing between checkbox / chevron and next cell should be 8px / 0.5rem
+    padding-right: rem(4px);
+    padding-left: 1rem;
+  }
+
+  .#{$prefix}--data-table thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table tbody td.#{$prefix}--table-expand {
+    width: rem(32px);
+    height: rem(32px);
+  }
+
+  // V11: Remove compact
+  .#{$prefix}--data-table--compact thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--compact tbody td.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--xs thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--xs tbody td.#{$prefix}--table-expand {
+    width: rem(24px);
+    height: rem(24px);
+    padding: 0 0 0 0.5rem;
+  }
+
+  // V11: remove short
+  .#{$prefix}--data-table--short thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--short tbody td.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--sm thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--sm tbody td.#{$prefix}--table-expand {
+    width: rem(32px);
+    height: rem(32px);
+    padding: 0;
+    padding-left: 0.5rem;
+  }
+
+  .#{$prefix}--data-table--md thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--md tbody td.#{$prefix}--table-expand {
+    width: rem(40px);
+    height: rem(40px);
+    padding: rem(4px) 0 rem(4px) rem(8px);
+  }
+
+  // V11: remove tall
+  .#{$prefix}--data-table--tall thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--tall tbody td.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--xl thead th.#{$prefix}--table-expand,
+  .#{$prefix}--data-table--xl tbody td.#{$prefix}--table-expand {
+    height: rem(64px);
+    padding-top: rem(10px);
+    padding-bottom: rem(22px);
+  }
+
+  // V11: remove tall
+  .#{$prefix}--data-table--tall .#{$prefix}--table-column-checkbox,
+  .#{$prefix}--data-table--xl .#{$prefix}--table-column-checkbox {
+    padding-top: rem(13px);
+  }
+
+  // V11: remove tall
+  .#{$prefix}--data-table--tall .#{$prefix}--table-column-radio,
+  .#{$prefix}--data-table--xl .#{$prefix}--table-column-radio {
+    padding-top: $spacing-05;
+  }
+
+  .#{$prefix}--date-table tbody th.#{$prefix}--table-column-checkbox:hover {
+    background: $data-table-column-hover;
+  }
+
+  //----------------------------------------------------------------------------
+  // Radio
+  //----------------------------------------------------------------------------
+  .#{$prefix}--table-column-radio {
+    width: 48px;
+  }
+
+  .#{$prefix}--table-column-radio .#{$prefix}--radio-button__appearance {
+    margin-right: rem(-2px);
+  }
+
+  // default selected row + zebra select - even child
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:nth-child(odd).#{$prefix}--data-table--selected
+    td,
+  tr.#{$prefix}--data-table--selected td {
+    border-top: 1px solid $layer-selected;
+    // Bottom border acts as separator from other rows
+    border-bottom: 1px solid $layer-active;
+    background-color: $layer-selected;
+    color: $text-primary;
+  }
+
+  // First row
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:first-of-type:nth-child(odd).#{$prefix}--data-table--selected
+    td,
+  tr.#{$prefix}--data-table--selected:first-of-type td {
+    // Top border acts as separator from thead
+    border-top: 1px solid $layer-active;
+  }
+
+  // last row + zebra select last
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:last-of-type:nth-child(odd).#{$prefix}--data-table--selected
+    td,
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:last-of-type:nth-child(even).#{$prefix}--data-table--selected
+    td,
+  tr.#{$prefix}--data-table--selected:last-of-type td {
+    // Doesn't need separators
+    border-top: 1px solid $layer-selected;
+    border-bottom: 1px solid $layer-selected;
+  }
+
+  // zebra select - odd child
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:nth-child(even).#{$prefix}--data-table--selected
+    td {
+    border-bottom: 1px solid $layer-active;
+  }
+
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:nth-child(even).#{$prefix}--data-table--selected:hover
+    td {
+    border-bottom: 1px solid $data-table-column-hover;
+  }
+
+  // hover + zebra select - even child
+  .#{$prefix}--data-table--zebra
+    tbody
+    tr:nth-child(odd).#{$prefix}--data-table--selected:hover
+    td,
+  .#{$prefix}--data-table tbody .#{$prefix}--data-table--selected:hover td {
+    border-top: 1px solid $data-table-column-hover;
+    border-bottom: 1px solid $data-table-column-hover;
+    background: $data-table-column-hover;
+    color: $text-primary;
+  }
+
+  // selected overflow menu
+  .#{$prefix}--data-table--selected
+    .#{$prefix}--overflow-menu
+    .#{$prefix}--overflow-menu__icon {
+    opacity: 1;
+  }
+
+  // V11: Remove this compact block
+  //----------------------------------------------------------------------------
+  // Compact
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table--compact thead tr,
+  .#{$prefix}--data-table--compact tbody tr,
+  .#{$prefix}--data-table--compact tbody tr th {
+    height: rem(24px);
+  }
+
+  .#{$prefix}--data-table--compact .#{$prefix}--table-header-label {
+    padding-top: rem(2px);
+    padding-bottom: rem(2px);
+  }
+
+  .#{$prefix}--data-table--compact td,
+  .#{$prefix}--data-table--compact tbody tr th {
+    padding-top: rem(2px);
+    padding-bottom: rem(2px);
+  }
+
+  .#{$prefix}--data-table--compact .#{$prefix}--overflow-menu {
+    width: rem(32px);
+    height: 100%;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--data-table--compact
+    .#{$prefix}--table-column-checkbox {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--data-table--compact
+    .#{$prefix}--table-column-checkbox
+    .#{$prefix}--checkbox-label {
+    height: rem(23px);
+    // 24px row - 1px border
+    min-height: rem(23px);
+  }
+
+  //----------------------------------------------------------------------------
+  // Extra Small
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table--xs thead tr,
+  .#{$prefix}--data-table--xs tbody tr,
+  .#{$prefix}--data-table--xs tbody tr th {
+    height: rem(24px);
+  }
+
+  .#{$prefix}--data-table--xs .#{$prefix}--table-header-label {
+    padding-top: rem(2px);
+    padding-bottom: rem(2px);
+  }
+
+  .#{$prefix}--data-table--xs td,
+  .#{$prefix}--data-table--xs tbody tr th {
+    padding-top: rem(2px);
+    padding-bottom: rem(2px);
+  }
+
+  .#{$prefix}--data-table--xs .#{$prefix}--overflow-menu {
+    width: rem(32px);
+    height: calc(100% + 1px);
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--data-table--xs
+    .#{$prefix}--table-column-checkbox {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--data-table--xs
+    .#{$prefix}--table-column-checkbox
+    .#{$prefix}--checkbox-label {
+    height: rem(23px);
+    // 24px row - 1px border
+    min-height: rem(23px);
+  }
+
+  // V11: Remove this short block
+  //----------------------------------------------------------------------------
+  // Short
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table--short thead tr,
+  .#{$prefix}--data-table--short tbody tr,
+  .#{$prefix}--data-table--short tbody tr th {
+    height: rem(32px);
+  }
+
+  .#{$prefix}--data-table--short .#{$prefix}--table-header-label {
+    padding-top: rem(7px);
+    padding-bottom: rem(7px);
+  }
+
+  .#{$prefix}--data-table--short td,
+  .#{$prefix}--data-table--short tbody tr th {
+    padding-top: rem(7px);
+    padding-bottom: rem(6px);
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--data-table--short
+    .#{$prefix}--table-column-checkbox {
+    padding-top: rem(3px);
+    padding-bottom: rem(3px);
+  }
+
+  .#{$prefix}--data-table--short .#{$prefix}--overflow-menu {
+    height: 100%;
+  }
+
+  //----------------------------------------------------------------------------
+  // Small
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table--sm thead tr,
+  .#{$prefix}--data-table--sm tbody tr,
+  .#{$prefix}--data-table--sm tbody tr th {
+    height: rem(32px);
+  }
+
+  .#{$prefix}--data-table--sm .#{$prefix}--table-header-label {
+    padding-top: rem(7px);
+    padding-bottom: rem(7px);
+  }
+
+  .#{$prefix}--data-table--sm td,
+  .#{$prefix}--data-table--sm tbody tr th {
+    padding-top: rem(7px);
+    padding-bottom: rem(6px);
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--data-table--sm
+    .#{$prefix}--table-column-checkbox {
+    padding-top: rem(3px);
+    padding-bottom: rem(3px);
+  }
+
+  .#{$prefix}--data-table--sm .#{$prefix}--overflow-menu {
+    height: calc(100% + 1px);
+  }
+
+  //----------------------------------------------------------------------------
+  // Medium
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table--md thead tr,
+  .#{$prefix}--data-table--md tbody tr,
+  .#{$prefix}--data-table--md tbody tr th {
+    height: rem(40px);
+  }
+
+  .#{$prefix}--data-table--md .#{$prefix}--table-header-label {
+    padding-top: rem(7px);
+    padding-bottom: rem(7px);
+  }
+
+  .#{$prefix}--data-table--md td,
+  .#{$prefix}--data-table--md tbody tr th {
+    padding-top: rem(7px);
+    padding-bottom: rem(6px);
+  }
+
+  .#{$prefix}--data-table.#{$prefix}--data-table--md
+    .#{$prefix}--table-column-checkbox {
+    padding-top: rem(3px);
+    padding-bottom: rem(3px);
+  }
+
+  .#{$prefix}--data-table--md .#{$prefix}--table-column-menu {
+    padding-top: rem(3px);
+    padding-bottom: rem(3px);
+  }
+
+  // V11: remove this tall block
+  //----------------------------------------------------------------------------
+  // Tall
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table--tall thead tr,
+  .#{$prefix}--data-table--tall tbody tr,
+  .#{$prefix}--data-table--tall tbody tr th {
+    height: rem(64px);
+  }
+
+  .#{$prefix}--data-table--tall .#{$prefix}--table-header-label {
+    padding-top: $spacing-05;
+    padding-bottom: $spacing-05;
+  }
+
+  .#{$prefix}--data-table--tall td,
+  .#{$prefix}--data-table--tall tbody tr th {
+    padding-top: 1rem;
+  }
+
+  .#{$prefix}--data-table--tall th,
+  .#{$prefix}--data-table--tall td {
+    vertical-align: top;
+  }
+
+  .#{$prefix}--data-table--tall .#{$prefix}--data-table--cell-secondary-text {
+    @include type-style('label-01');
+  }
+
+  //----------------------------------------------------------------------------
+  // Extra Large
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table--xl thead tr,
+  .#{$prefix}--data-table--xl tbody tr,
+  .#{$prefix}--data-table--xl tbody tr th {
+    height: rem(64px);
+  }
+
+  .#{$prefix}--data-table--xl .#{$prefix}--table-header-label {
+    padding-top: $spacing-05;
+    padding-bottom: $spacing-05;
+  }
+
+  .#{$prefix}--data-table--xl td,
+  .#{$prefix}--data-table--xl tbody tr th {
+    padding-top: 1rem;
+  }
+
+  .#{$prefix}--data-table--xl th,
+  .#{$prefix}--data-table--xl td {
+    vertical-align: top;
+  }
+
+  .#{$prefix}--data-table--xl .#{$prefix}--data-table--cell-secondary-text {
+    @include type-style('label-01');
+  }
+
+  //----------------------------------------------------------------------------
+  // Static
+  //----------------------------------------------------------------------------
+  .#{$prefix}--data-table--static {
+    width: auto;
+  }
+
+  // -------------
+  // Sticky header
+  // -------------
+  .#{$prefix}--data-table_inner-container {
+    background-color: $layer-accent;
+    transform: translateZ(0);
+  }
+
+  .#{$prefix}--data-table--sticky-header {
+    display: block;
+    overflow-y: scroll;
+
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+      display: flex;
+    }
+
+    thead {
+      position: sticky;
+      z-index: 1;
+      top: 0;
+      overflow: scroll;
+      width: 100%;
+      // Hides ie scrollbar
+      -ms-overflow-style: none;
+      will-change: transform;
+    }
+
+    thead tr th {
+      border-bottom: 1px solid $layer-active;
+    }
+
+    tbody {
+      flex-direction: column;
+      // Hides ie scrollbar
+      -ms-overflow-style: none;
+      overflow-x: scroll;
+      will-change: transform;
+    }
+
+    tr.#{$prefix}--parent-row.#{$prefix}--expandable-row {
+      height: auto;
+      min-height: 3rem;
+    }
+
+    tr.#{$prefix}--expandable-row:not(.#{$prefix}--parent-row) {
+      height: auto;
+    }
+
+    .#{$prefix}--table-expand {
+      max-width: rem(48px);
+    }
+
+    thead .#{$prefix}--table-expand {
+      align-items: center;
+    }
+
+    .#{$prefix}--parent-row {
+      min-height: 3rem;
+    }
+
+    // V11: remove compact, tall, and short
+    &:not(.#{$prefix}--data-table--compact):not(.#{$prefix}--data-table--xs):not(.#{$prefix}--data-table--tall):not(.#{$prefix}--data-table--xl):not(.#{$prefix}--data-table--short):not(.#{$prefix}--data-table--sm)
+      td:not(.#{$prefix}--table-column-menu):not(.#{$prefix}--table-column-checkbox) {
+      padding-top: rem(14px);
+    }
+
+    // Taken from L125 _data-table-expandable
+    // Used to hide white line when parent row is hovered when child is expanded
+    tr.#{$prefix}--parent-row.#{$prefix}--expandable-row:hover
+      + tr[data-child-row]
+      td {
+      border-top: 1px solid $layer-hover;
+    }
+
+    tr.#{$prefix}--expandable-row:last-of-type {
+      overflow: hidden;
+    }
+
+    tr.#{$prefix}--data-table--selected:first-of-type td {
+      border-top: none;
+    }
+
+    // Selectable fix
+    thead th.#{$prefix}--table-column-checkbox,
+    tbody tr td.#{$prefix}--table-column-checkbox {
+      width: rem(36px);
+      min-width: rem(36px);
+      align-items: center;
+    }
+
+    // V11: remove tall
+    &.#{$prefix}--data-table--tall thead th.#{$prefix}--table-column-checkbox,
+    &.#{$prefix}--data-table--xl thead th.#{$prefix}--table-column-checkbox,
+    &.#{$prefix}--data-table--tall td.#{$prefix}--table-column-checkbox,
+    &.#{$prefix}--data-table--xl td.#{$prefix}--table-column-checkbox {
+      align-items: flex-start;
+    }
+
+    // Overflow fix
+    /* When using sticky header, with a selection element in the first column, we need to set the last item to a fixed width to match the table body. We only want this to happen when the last table header does not have any text */
+    th.#{$prefix}--table-column-checkbox ~ th:last-of-type:empty {
+      max-width: rem(64px);
+    }
+
+    th:empty:not(.#{$prefix}--table-expand) {
+      max-width: 2.25rem;
+    }
+
+    td.#{$prefix}--table-column-menu {
+      height: auto;
+      align-items: center;
+      padding-top: 0;
+    }
+
+    //hides webkit scrollbar
+    thead::-webkit-scrollbar,
+    tbody::-webkit-scrollbar {
+      display: none;
+    }
+
+    //hides ff scrollbar
+    @-moz-document url-prefix() {
+      thead,
+      tbody {
+        scrollbar-width: none;
+      }
+    }
+
+    tbody tr:last-of-type {
+      border-bottom: 0;
+    }
+
+    th:not(.#{$prefix}--table-column-checkbox):not(.#{$prefix}--table-column-menu):not(.#{$prefix}--table-expand):not(.#{$prefix}--table-column-icon),
+    td:not(.#{$prefix}--table-column-checkbox):not(.#{$prefix}--table-column-menu):not(.#{$prefix}--table-expand):not(.#{$prefix}--table-column-icon) {
+      width: 100%;
+      min-width: 0;
+    }
+
+    // V11: remove compact, short, tall
+    &.#{$prefix}--data-table--compact tr:not(.#{$prefix}--expandable-row),
+    &.#{$prefix}--data-table--xs tr:not(.#{$prefix}--expandable-row),
+    &.#{$prefix}--data-table--short tr:not(.#{$prefix}--expandable-row),
+    &.#{$prefix}--data-table--sm tr:not(.#{$prefix}--expandable-row),
+    &.#{$prefix}--data-table--tall tr:not(.#{$prefix}--expandable-row),
+    &.#{$prefix}--data-table--xl tr:not(.#{$prefix}--expandable-row) {
+      height: auto;
+    }
+
+    // Compact
+    // V11: remove compact
+    &.#{$prefix}--data-table--compact tr:not(.#{$prefix}--expandable-row),
+    &.#{$prefix}--data-table--xs tr:not(.#{$prefix}--expandable-row) {
+      min-height: rem(24px);
+    }
+
+    // Short
+    // V11: remove short
+    &.#{$prefix}--data-table--short tr:not(.#{$prefix}--expandable-row),
+    &.#{$prefix}--data-table--sm tr:not(.#{$prefix}--expandable-row) {
+      min-height: rem(32px);
+    }
+
+    // Tall
+    // V11: remove tall
+    &.#{$prefix}--data-table--tall tr:not(.#{$prefix}--expandable-row),
+    &.#{$prefix}--data-table--xl tr:not(.#{$prefix}--expandable-row) {
+      min-height: rem(64px);
+    }
+
+    // Expansion overrides
+    // V11: remove compact
+    &.#{$prefix}--data-table--compact tr td.#{$prefix}--table-expand,
+    &.#{$prefix}--data-table--xs tr td.#{$prefix}--table-expand {
+      padding-top: rem(4px);
+    }
+
+    // V11: remove short
+    &.#{$prefix}--data-table--short tr td.#{$prefix}--table-expand,
+    &.#{$prefix}--data-table--sm tr td.#{$prefix}--table-expand {
+      padding-top: rem(8px);
+    }
+
+    .#{$prefix}--table-header-label {
+      @include text-overflow;
+
+      max-width: calc(100% - 10px);
+      // Needed to reduce 1px jump when toggling between variations
+      padding-top: rem(15px);
+      padding-bottom: 1rem;
+      overflow-y: hidden;
+    }
+
+    // V11: remove compact
+    &.#{$prefix}--data-table--compact th .#{$prefix}--table-header-label,
+    &.#{$prefix}--data-table--xs th .#{$prefix}--table-header-label {
+      padding-top: rem(3px);
+      padding-bottom: 0;
+    }
+
+    // V11: remove short
+    &.#{$prefix}--data-table--short th .#{$prefix}--table-header-label,
+    &.#{$prefix}--data-table--sm th .#{$prefix}--table-header-label {
+      padding-top: rem(8px);
+      padding-bottom: 0;
+    }
+
+    // V11: remove tall
+    &.#{$prefix}--data-table--tall th .#{$prefix}--table-header-label,
+    &.#{$prefix}--data-table--xl th .#{$prefix}--table-header-label {
+      padding-top: 1rem;
+    }
+
+    // V11: remove tall
+    &.#{$prefix}--data-table--tall th.#{$prefix}--table-expand,
+    &.#{$prefix}--data-table--xl th.#{$prefix}--table-expand {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    // With dynamic content overrides
+    // V11: remove compact, short
+    &.#{$prefix}--data-table--compact
+      tr.#{$prefix}--parent-row
+      .#{$prefix}--table-column-checkbox,
+    &.#{$prefix}--data-table--short
+      tr.#{$prefix}--parent-row
+      .#{$prefix}--table-column-checkbox,
+    &.#{$prefix}--data-table--xs
+      tr.#{$prefix}--parent-row
+      .#{$prefix}--table-column-checkbox,
+    &.#{$prefix}--data-table--sm
+      tr.#{$prefix}--parent-row
+      .#{$prefix}--table-column-checkbox {
+      align-items: flex-start;
+    }
+  }
+
+  @include sticky-header($max-width: 100%);
+
+  // -------------------
+  // with boolean column
+  // -------------------
+  .#{$prefix}--data-table .bx--form-item.bx--checkbox-wrapper:last-of-type {
+    margin: 0;
+  }
+
+  // V11: remove short, compact
+  .#{$prefix}--data-table--short
+    .#{$prefix}--form-item.#{$prefix}--checkbox-wrapper:last-of-type,
+  .#{$prefix}--data-table--compact
+    .#{$prefix}--form-item.#{$prefix}--checkbox-wrapper:last-of-type,
+  .#{$prefix}--data-table--xs
+    .#{$prefix}--form-item.#{$prefix}--checkbox-wrapper:last-of-type,
+  .#{$prefix}--data-table--sm
+    .#{$prefix}--form-item.#{$prefix}--checkbox-wrapper:last-of-type {
+    margin: rem(-3px) 0;
+  }
+
+  // Windows HCM fix
+  // stylelint-disable-next-line no-duplicate-selectors
+  .#{$prefix}--data-table-content {
+    @include high-contrast-mode('outline');
+  }
+}

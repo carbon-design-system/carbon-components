@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 'use strict';
 
 const restrictedGlobals = require('eslint-restricted-globals');

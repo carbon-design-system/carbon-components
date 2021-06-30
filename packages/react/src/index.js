@@ -225,3 +225,4 @@ export {
   Heading as unstable_Heading,
   Section as unstable_Section,
 } from './components/Heading';
+export { default as unstable_ProgressBar } from './components/ProgressBar';

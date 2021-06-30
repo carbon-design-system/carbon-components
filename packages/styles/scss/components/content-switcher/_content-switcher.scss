@@ -1,0 +1,192 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+
+@mixin content-switcher {
+  .#{$prefix}--content-switcher {
+    display: flex;
+    width: 100%;
+    height: rem(40px);
+    justify-content: space-evenly;
+  }
+
+  .#{$prefix}--content-switcher--sm {
+    height: rem(32px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--content-switcher--xl,
+  .#{$prefix}--content-switcher--lg {
+    height: rem(48px);
+  }
+
+  .#{$prefix}--content-switcher-btn {
+    @include reset;
+    @include font-family('sans');
+    @include focus-outline('reset');
+    @include type-style('body-short-01');
+
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    width: 100%;
+    align-items: center;
+    padding: $spacing-03 $spacing-05;
+    border: none;
+    border-top: rem(1px) solid $border-inverse;
+    border-bottom: rem(1px) solid $border-inverse;
+    margin: 0;
+    background-color: transparent;
+    color: $text-secondary;
+    text-align: left;
+    text-decoration: none;
+    transition: all $duration-fast-01 motion(standard, productive);
+    white-space: nowrap;
+
+    &:focus {
+      z-index: 3;
+      border-color: $focus;
+      box-shadow: inset 0 0 0 2px $focus, inset 0 0 0 3px $focus-inset;
+    }
+
+    &:hover {
+      color: $text-primary;
+      cursor: pointer;
+    }
+
+    &:hover,
+    &:active {
+      z-index: 3;
+      background-color: $layer-hover;
+      color: $text-primary;
+    }
+
+    &:disabled {
+      border-color: $border-disabled;
+      background-color: transparent;
+      color: $text-disabled;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &:disabled:first-child,
+    &:disabled:last-child {
+      border-color: $border-disabled;
+    }
+  }
+
+  .#{$prefix}--content-switcher-btn:first-child {
+    border-left: rem(1px) solid $border-inverse;
+    border-bottom-left-radius: rem(4px);
+    border-top-left-radius: rem(4px);
+  }
+
+  .#{$prefix}--content-switcher-btn:last-child {
+    border-right: rem(1px) solid $border-inverse;
+    border-bottom-right-radius: rem(4px);
+    border-top-right-radius: rem(4px);
+  }
+
+  .#{$prefix}--content-switcher--selected,
+  .#{$prefix}--content-switcher--selected:first-child,
+  .#{$prefix}--content-switcher--selected:last-child {
+    border: 0;
+  }
+
+  .#{$prefix}--content-switcher-btn::before {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    display: block;
+    width: rem(1px);
+    height: rem(16px);
+    background-color: $border-subtle;
+    content: '';
+  }
+
+  .#{$prefix}--content-switcher-btn:first-of-type::before {
+    display: none;
+  }
+
+  .#{$prefix}--content-switcher-btn:focus::before,
+  .#{$prefix}--content-switcher-btn:focus
+    + .#{$prefix}--content-switcher-btn::before,
+  .#{$prefix}--content-switcher-btn:hover::before,
+  .#{$prefix}--content-switcher-btn:hover
+    + .#{$prefix}--content-switcher-btn::before,
+  .#{$prefix}--content-switcher--selected::before,
+  .#{$prefix}--content-switcher--selected
+    + .#{$prefix}--content-switcher-btn::before {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--content-switcher-btn:disabled::before,
+  .#{$prefix}--content-switcher-btn:disabled:hover
+    + .#{$prefix}--content-switcher-btn:disabled::before {
+    background-color: $border-disabled;
+  }
+
+  .#{$prefix}--content-switcher-btn.#{$prefix}--content-switcher--selected:disabled
+    + .#{$prefix}--content-switcher-btn::before,
+  .#{$prefix}--content-switcher-btn.#{$prefix}--content-switcher--selected:disabled:hover
+    + .#{$prefix}--content-switcher-btn::before {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--content-switcher__icon {
+    fill: $icon-secondary;
+    transition: fill $duration-fast-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--content-switcher__icon + span {
+    margin-left: $spacing-03;
+  }
+
+  .#{$prefix}--content-switcher__label {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--content-switcher-btn:hover .#{$prefix}--content-switcher__icon,
+  .#{$prefix}--content-switcher-btn:focus .#{$prefix}--content-switcher__icon {
+    fill: $icon-primary;
+  }
+
+  .#{$prefix}--content-switcher-btn.#{$prefix}--content-switcher--selected {
+    z-index: 3;
+    background-color: $layer-selected-inverse;
+    color: $text-inverse;
+
+    &:disabled {
+      background-color: $layer-selected-disabled;
+      color: $text-disabled;
+    }
+  }
+
+  .#{$prefix}--content-switcher-btn.#{$prefix}--content-switcher--selected
+    .#{$prefix}--content-switcher__icon {
+    fill: $icon-inverse;
+  }
+
+  // Windows HCM fix
+  // stylelint-disable-next-line no-duplicate-selectors
+  .#{$prefix}--content-switcher-btn:focus {
+    @include high-contrast-mode('focus');
+  }
+}

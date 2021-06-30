@@ -1,0 +1,94 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+//-----------------------------
+// List
+//-----------------------------
+
+@use '../../config' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type';
+@use '../../utilities/component-reset';
+@use '../../utilities/convert';
+
+/// List styles
+/// @access public
+/// @group list
+@mixin list {
+  .#{$prefix}--list--nested,
+  .#{$prefix}--list--unordered,
+  .#{$prefix}--list--ordered,
+  .#{$prefix}--list--ordered--native {
+    @include component-reset.reset;
+    @include type.type-style('body-long-01');
+
+    list-style: none;
+  }
+
+  .#{$prefix}--list--expressive,
+  .#{$prefix}--list--expressive .#{$prefix}--list--nested {
+    @include type.type-style('body-long-02');
+  }
+
+  .#{$prefix}--list--ordered--native {
+    list-style: decimal;
+  }
+
+  .#{$prefix}--list__item {
+    color: $text-primary;
+  }
+
+  .#{$prefix}--list--nested {
+    margin-left: convert.rem(32px);
+  }
+
+  .#{$prefix}--list--nested .#{$prefix}--list__item {
+    padding-left: $spacing-02;
+  }
+
+  .#{$prefix}--list--ordered:not(.#{$prefix}--list--nested) {
+    counter-reset: item;
+  }
+
+  .#{$prefix}--list--ordered:not(.#{$prefix}--list--nested)
+    > .#{$prefix}--list__item {
+    position: relative;
+  }
+
+  .#{$prefix}--list--ordered:not(.#{$prefix}--list--nested)
+    > .#{$prefix}--list__item::before {
+    position: absolute;
+    left: convert.rem(-24px);
+    content: counter(item) '.';
+    counter-increment: item;
+  }
+
+  .#{$prefix}--list--ordered.#{$prefix}--list--nested,
+  .#{$prefix}--list--ordered--native.#{$prefix}--list--nested {
+    list-style-type: lower-latin;
+  }
+
+  .#{$prefix}--list--unordered > .#{$prefix}--list__item {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      left: calc(-1 * #{$spacing-05});
+      // – en dash
+      content: '\002013';
+    }
+  }
+
+  .#{$prefix}--list--unordered.#{$prefix}--list--nested
+    > .#{$prefix}--list__item::before {
+    // offset to account for smaller ▪ vs –
+    left: calc(-1 * #{$spacing-04});
+    // ▪ square
+    content: '\0025AA';
+  }
+}

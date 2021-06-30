@@ -81,9 +81,9 @@ export function NotificationButton({
   });
 
   return (
-    // eslint-disable-next-line react/button-has-type
     <button
       {...rest}
+      // eslint-disable-next-line react/button-has-type
       type={type}
       aria-label={iconDescription}
       title={iconDescription}

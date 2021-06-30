@@ -98,6 +98,7 @@ import {
 If you're looking for more examples on how to use `@carbon/themes`, we have some
 examples that you can check out:
 
+- [preview-v11](./examples/preview-v11)
 - [sass-modules](./examples/sass-modules)
 
 ## 🙌 Contributing

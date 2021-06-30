@@ -1,0 +1,100 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type';
+@use '../../utilities/component-reset';
+@use '../../utilities/focus-outline' as *;
+
+/// Link styles
+/// @access public
+/// @group link
+@mixin link {
+  .#{$prefix}--link {
+    @include component-reset.reset;
+    @include type.type-style('body-short-01');
+
+    display: inline-flex;
+    color: $link-primary;
+    outline: none;
+    text-decoration: none;
+    transition: color $duration-fast-01 motion(standard, productive);
+
+    &:hover {
+      color: $link-primary-hover;
+      text-decoration: underline;
+    }
+
+    &:active,
+    &:active:visited,
+    &:active:visited:hover {
+      color: $text-primary;
+      text-decoration: underline;
+    }
+
+    &:focus {
+      @include focus-outline;
+    }
+
+    &:visited {
+      color: $link-primary;
+    }
+
+    &:visited:hover {
+      color: $link-primary-hover;
+    }
+  }
+
+  .#{$prefix}--link--disabled,
+  .#{$prefix}--link--disabled:hover {
+    @include component-reset.reset;
+    @include type.type-style('body-short-01');
+
+    color: $text-disabled;
+    cursor: not-allowed;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .#{$prefix}--link.#{$prefix}--link--visited:visited {
+    color: $link-visited;
+  }
+
+  .#{$prefix}--link.#{$prefix}--link--visited:visited:hover {
+    color: $link-primary-hover;
+  }
+
+  .#{$prefix}--link.#{$prefix}--link--inline {
+    text-decoration: underline;
+
+    &:focus,
+    &:visited {
+      text-decoration: none;
+    }
+  }
+
+  .#{$prefix}--link--disabled.#{$prefix}--link--inline {
+    text-decoration: underline;
+  }
+
+  .#{$prefix}--link--sm {
+    @include type.type-style('helper-text-01');
+  }
+
+  .#{$prefix}--link--lg {
+    @include type.type-style('body-short-02');
+  }
+
+  .#{$prefix}--link__icon {
+    display: inline-flex;
+    align-self: center;
+    margin-left: $spacing-03;
+  }
+}

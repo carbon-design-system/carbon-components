@@ -1,0 +1,527 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'vars' as *;
+@use 'mixins' as *;
+@use '../../config' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline';
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/skeleton' as *;
+@use '../../utilities/tooltip' as *;
+@use '../../utilities/visually-hidden' as *;
+
+@mixin button {
+  .#{$prefix}--btn {
+    @include button-base;
+  }
+
+  // Reset intrisic padding in Firefox (see #731)
+  .#{$prefix}--btn::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+
+  .#{$prefix}--btn--primary {
+    @include button-theme(
+      $button-primary,
+      transparent,
+      $text-on-color,
+      $button-primary-hover,
+      currentColor,
+      $button-primary-active
+    );
+
+    &:hover {
+      color: $text-on-color;
+    }
+  }
+
+  .#{$prefix}--btn--secondary {
+    @include button-theme(
+      $button-secondary,
+      transparent,
+      $text-on-color,
+      $button-secondary-hover,
+      currentColor,
+      $button-secondary-active
+    );
+
+    &:hover,
+    &:focus {
+      color: $text-on-color;
+    }
+  }
+
+  .#{$prefix}--btn--tertiary {
+    @include button-theme(
+      transparent,
+      $button-tertiary,
+      $button-tertiary,
+      $button-tertiary-hover,
+      currentColor,
+      $button-tertiary-active
+    );
+
+    &:hover {
+      color: $text-inverse;
+    }
+
+    &:focus {
+      background-color: $button-tertiary;
+      color: $text-inverse;
+    }
+
+    &:active {
+      border-color: transparent;
+      background-color: $button-tertiary-active;
+      color: $text-inverse;
+    }
+
+    &:disabled,
+    &:hover:disabled,
+    &:focus:disabled,
+    &.#{$prefix}--btn--disabled,
+    &.#{$prefix}--btn--disabled:hover,
+    &.#{$prefix}--btn--disabled:focus {
+      background: transparent;
+      color: $text-on-color-disabled;
+      outline: none;
+    }
+  }
+
+  .#{$prefix}--btn--ghost {
+    @include button-theme(
+      transparent,
+      transparent,
+      $link-primary,
+      $background-hover,
+      currentColor,
+      $background-active
+    );
+
+    padding: $button-padding-ghost;
+
+    .#{$prefix}--btn__icon {
+      position: static;
+      margin-left: $spacing-03;
+    }
+
+    &:hover,
+    &:active {
+      color: $link-primary-hover;
+    }
+
+    &:active {
+      background-color: $background-active;
+    }
+
+    &:disabled,
+    &:hover:disabled,
+    &:focus:disabled,
+    &.#{$prefix}--btn--disabled,
+    &.#{$prefix}--btn--disabled:hover,
+    &.#{$prefix}--btn--disabled:focus {
+      border-color: transparent;
+      background: transparent;
+      color: $text-on-color-disabled;
+      outline: none;
+    }
+
+    &.#{$prefix}--btn--sm {
+      padding: $button-padding-ghost-sm;
+    }
+
+    // V11: remove field
+    &.#{$prefix}--btn--field,
+    &.#{$prefix}--btn--md {
+      padding: $button-padding-ghost-field;
+    }
+  }
+
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--tooltip__trigger {
+    @include tooltip--trigger('icon', 'bottom');
+
+    svg,
+    &:hover svg,
+    &:focus svg {
+      fill: currentColor;
+    }
+
+    &.#{$prefix}--btn--disabled.#{$prefix}--tooltip--a11y::before,
+    &.#{$prefix}--btn--disabled.#{$prefix}--tooltip--a11y::after,
+    &.#{$prefix}--btn--disabled .#{$prefix}--assistive-text {
+      overflow: hidden;
+      margin: -1px;
+      clip: rect(0, 0, 0, 0);
+      opacity: 0;
+    }
+  }
+
+  // Allow pointer events on tooltip when tooltip is visible
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only:not(.#{$prefix}--tooltip--hidden)
+    .#{$prefix}--assistive-text {
+    pointer-events: all;
+  }
+
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--tooltip__trigger:focus {
+    border-color: $focus;
+  }
+
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--tooltip__trigger:active:not([disabled]) {
+    border-color: transparent;
+  }
+
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--tooltip__trigger:focus
+    svg {
+    outline-color: transparent;
+  }
+
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--tooltip__trigger[disabled]:hover,
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--tooltip__trigger[disabled]:focus,
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--tooltip__trigger[disabled]:active {
+    cursor: not-allowed;
+    fill: $icon-on-color-disabled;
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--btn--icon-only--top {
+    @include tooltip--trigger('icon', 'top');
+    @include tooltip--placement('icon', 'top', 'center');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('icon', 'top', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('icon', 'top', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('icon', 'top', 'end');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--btn--icon-only--right {
+    @include tooltip--trigger('icon', 'right');
+    @include tooltip--placement('icon', 'right', 'center');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('icon', 'right', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('icon', 'right', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('icon', 'right', 'end');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--btn--icon-only--bottom {
+    @include tooltip--trigger('icon', 'bottom');
+    @include tooltip--placement('icon', 'bottom', 'center');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('icon', 'bottom', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('icon', 'bottom', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('icon', 'bottom', 'end');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--btn--icon-only--left {
+    @include tooltip--trigger('icon', 'left');
+    @include tooltip--placement('icon', 'left', 'center');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('icon', 'left', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('icon', 'left', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('icon', 'left', 'end');
+    }
+  }
+
+  .#{$prefix}--btn--icon-only {
+    padding-right: rem(15px);
+    padding-left: rem(15px);
+
+    .#{$prefix}--btn__icon {
+      position: static;
+    }
+
+    &.#{$prefix}--btn--ghost .#{$prefix}--btn__icon,
+    &.#{$prefix}--btn--danger--ghost .#{$prefix}--btn__icon {
+      margin: 0;
+    }
+  }
+
+  .#{$prefix}--btn--icon-only.#{$prefix}--btn--selected {
+    background: $background-selected;
+  }
+
+  .#{$prefix}--btn path[data-icon-path='inner-path'] {
+    fill: none;
+  }
+
+  .#{$prefix}--btn--ghost.#{$prefix}--btn--icon-only
+    .#{$prefix}--btn__icon
+    path:not([data-icon-path]):not([fill='none']),
+  .#{$prefix}--btn--ghost.#{$prefix}--btn--icon-only .#{$prefix}--btn__icon {
+    fill: $icon-primary;
+  }
+
+  .#{$prefix}--btn--ghost.#{$prefix}--btn--icon-only[disabled]
+    .#{$prefix}--btn__icon
+    path:not([data-icon-path]):not([fill='none']),
+  .#{$prefix}--btn--ghost.#{$prefix}--btn--icon-only[disabled]
+    .#{$prefix}--btn__icon,
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--btn--ghost[disabled]:hover
+    .#{$prefix}--btn__icon {
+    fill: $icon-on-color-disabled;
+  }
+
+  .#{$prefix}--btn--ghost.#{$prefix}--btn--icon-only[disabled] {
+    cursor: not-allowed;
+  }
+
+  // V11: remove field
+  .#{$prefix}--btn--field.#{$prefix}--btn--icon-only,
+  .#{$prefix}--btn--md.#{$prefix}--btn--icon-only {
+    padding-right: rem(11px);
+    padding-left: rem(11px);
+  }
+
+  .#{$prefix}--btn--sm.#{$prefix}--btn--icon-only {
+    padding-right: rem(7px);
+    padding-left: rem(7px);
+  }
+
+  .#{$prefix}--btn--danger {
+    @include button-theme(
+      $button-danger-primary,
+      transparent,
+      $text-on-color,
+      $button-danger-hover,
+      currentColor,
+      $button-danger-active
+    );
+
+    &:hover {
+      color: $text-on-color;
+    }
+
+    // TODO: deprecate single dash tertiary
+    &-tertiary,
+    &--tertiary {
+      @include button-theme(
+        transparent,
+        $button-danger-secondary,
+        $button-danger-secondary,
+        $button-danger-hover,
+        currentColor,
+        $button-danger-active
+      );
+
+      &:hover {
+        border-color: $button-danger-hover;
+        color: $text-on-color;
+      }
+
+      &:focus {
+        background-color: $button-danger-primary;
+        color: $text-on-color;
+      }
+
+      &:active {
+        border-color: $button-danger-active;
+        color: $text-on-color;
+      }
+
+      &:disabled,
+      &:hover:disabled,
+      &:focus:disabled,
+      &.#{$prefix}--btn--disabled,
+      &.#{$prefix}--btn--disabled:hover,
+      &.#{$prefix}--btn--disabled:focus {
+        background: transparent;
+        color: $text-on-color-disabled;
+        outline: none;
+      }
+    }
+
+    // TODO: deprecate single dash ghost
+    &-ghost,
+    &--ghost {
+      @include button-theme(
+        transparent,
+        transparent,
+        $button-danger-secondary,
+        $button-danger-hover,
+        currentColor,
+        $button-danger-active
+      );
+
+      padding: $button-padding-ghost;
+
+      .#{$prefix}--btn__icon {
+        position: static;
+        margin-left: $spacing-03;
+      }
+
+      &:hover,
+      &:active {
+        color: $text-on-color;
+      }
+
+      &:disabled,
+      &:hover:disabled,
+      &:focus:disabled,
+      &.#{$prefix}--btn--disabled,
+      &.#{$prefix}--btn--disabled:hover,
+      &.#{$prefix}--btn--disabled:focus {
+        border-color: transparent;
+        background: transparent;
+        color: $text-disabled;
+        outline: none;
+      }
+
+      &.#{$prefix}--btn--sm {
+        padding: $button-padding-ghost-sm;
+      }
+
+      // V11: Remove field
+      &.#{$prefix}--btn--field,
+      &.#{$prefix}--btn--md {
+        padding: $button-padding-ghost-field;
+      }
+    }
+  }
+
+  .#{$prefix}--btn--sm {
+    min-height: rem(32px);
+    padding: $button-padding-sm;
+  }
+
+  // V11: change xl to 2xl
+  .#{$prefix}--btn--xl:not(.#{$prefix}--btn--icon-only) {
+    @include button-padding-large;
+
+    min-height: rem(80px);
+  }
+
+  // V11: change lg to xl
+  .#{$prefix}--btn--lg:not(.#{$prefix}--btn--icon-only) {
+    @include button-padding-large;
+
+    min-height: rem(64px);
+  }
+
+  // V11: Remove field
+  .#{$prefix}--btn--field,
+  .#{$prefix}--btn--md {
+    min-height: rem(40px);
+    padding: $button-padding-field;
+  }
+
+  //expressive styles
+  .#{$prefix}--btn--expressive {
+    @include type-style('body-short-02');
+
+    min-height: 3rem;
+  }
+
+  .#{$prefix}--btn--icon-only.#{$prefix}--btn--expressive {
+    padding: 12px 13px;
+    //default size 48px
+  }
+
+  .#{$prefix}--btn.#{$prefix}--btn--expressive .#{$prefix}--btn__icon {
+    width: rem(20px);
+    height: rem(20px);
+  }
+
+  .#{$prefix}--btn-set .#{$prefix}--btn.#{$prefix}--btn--expressive {
+    max-width: rem(320px);
+  }
+
+  // Skeleton State
+  .#{$prefix}--btn.#{$prefix}--skeleton {
+    @include skeleton;
+
+    width: rem(150px);
+  }
+
+  // button set styles
+  .#{$prefix}--btn-set {
+    display: flex;
+  }
+
+  .#{$prefix}--btn-set--stacked {
+    flex-direction: column;
+  }
+
+  .#{$prefix}--btn-set .#{$prefix}--btn {
+    width: 100%;
+    // 196px from design kit
+    max-width: rem(196px);
+
+    &:not(:focus) {
+      box-shadow: rem(-1px) 0 0 0 $button-separator;
+    }
+
+    &:first-of-type:not(:focus) {
+      box-shadow: inherit;
+    }
+  }
+
+  .#{$prefix}--btn-set .#{$prefix}--btn:focus + .#{$prefix}--btn {
+    box-shadow: inherit;
+  }
+
+  .#{$prefix}--btn-set--stacked .#{$prefix}--btn:not(:focus) {
+    box-shadow: 0 rem(-1px) 0 0 $button-separator;
+  }
+
+  .#{$prefix}--btn-set--stacked .#{$prefix}--btn:first-of-type:not(:focus) {
+    box-shadow: inherit;
+  }
+
+  .#{$prefix}--btn-set .#{$prefix}--btn.#{$prefix}--btn--disabled {
+    box-shadow: rem(-1px) 0 0 0 $icon-on-color-disabled;
+
+    &:first-of-type {
+      box-shadow: none;
+    }
+  }
+
+  .#{$prefix}--btn-set--stacked .#{$prefix}--btn.#{$prefix}--btn--disabled {
+    box-shadow: 0 rem(-1px) 0 0 $layer-selected-disabled;
+
+    &:first-of-type {
+      box-shadow: none;
+    }
+  }
+
+  // Windows HCM fix
+  .#{$prefix}--btn:focus {
+    @include high-contrast-mode('focus');
+  }
+}

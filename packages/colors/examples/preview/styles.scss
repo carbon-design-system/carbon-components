@@ -1,0 +1,54 @@
+//
+// Copyright IBM Corp. 2018, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+
+// Reset
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 1rem;
+}
+
+table {
+  text-align: left;
+  vertical-align: middle;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table,
+tr,
+td,
+th {
+  border: 1px solid black;
+}
+
+td,
+th {
+  padding: 1rem;
+}
+
+code {
+  font-size: 1rem;
+  font-family: inherit;
+}

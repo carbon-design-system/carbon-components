@@ -4,9 +4,14 @@
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
 //
-@use 'z-index';
-@use 'box-shadow';
-@use 'convert';
+
+@use 'box-shadow' as *;
+@use 'convert' as *;
+@use 'focus-outline' as *;
+@use 'z-index' as *;
+@use '../config' as *;
+@use '../motion' as *;
+@use '../theme' as *;
 @use '../type';
 
 // Tooltip
@@ -120,7 +125,7 @@
 
   &::before,
   &::after {
-    transition: opacity $duration--fast-01 motion(standard, productive);
+    transition: opacity $duration-fast-01 motion(standard, productive);
   }
 
   &.#{$prefix}--tooltip--a11y::before,
@@ -191,7 +196,7 @@
     .#{$prefix}--assistive-text,
     + .#{$prefix}--assistive-text,
     &.#{$prefix}--tooltip--a11y::before {
-      animation: tooltip-fade $duration--fast-01 motion(standard, productive);
+      animation: tooltip-fade $duration-fast-01 motion(standard, productive);
     }
   }
 

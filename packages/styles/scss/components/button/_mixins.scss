@@ -1,0 +1,106 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'vars' as *;
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/component-reset';
+@use '../../utilities/convert' as *;
+
+@mixin button-base {
+  @include component-reset.reset;
+  @include type-style('body-short-01');
+
+  position: relative;
+  display: inline-flex;
+  max-width: rem(320px);
+  min-height: $button-height;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: $button-padding;
+  // Fix to remove added margins on buttons in safari (see #5155)
+  margin: 0;
+  border-radius: $button-border-radius;
+  cursor: pointer;
+  outline: none;
+  text-align: left;
+  text-decoration: none;
+  transition: background $duration-fast-01 motion(entrance, productive),
+    box-shadow $duration-fast-01 motion(entrance, productive),
+    border-color $duration-fast-01 motion(entrance, productive),
+    outline $duration-fast-01 motion(entrance, productive);
+  vertical-align: top;
+
+  &:disabled,
+  &:hover:disabled,
+  &:focus:disabled,
+  &.#{$prefix}--btn--disabled,
+  &.#{$prefix}--btn--disabled:hover,
+  &.#{$prefix}--btn--disabled:focus {
+    border-color: $button-disabled;
+    background: $button-disabled;
+    box-shadow: none;
+    color: $text-on-color-disabled;
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--btn__icon {
+    position: absolute;
+    right: rem(16px);
+    width: rem(16px);
+    height: rem(16px);
+    flex-shrink: 0;
+  }
+}
+
+/// Button variant styles
+/// @access private
+/// @group button
+@mixin button-theme(
+  $bg-color,
+  $border-color,
+  $font-color,
+  $hover-bg-color,
+  $icon-color,
+  $active-color
+) {
+  border-width: $button-outline-width;
+  border-style: solid;
+  border-color: $border-color;
+  background-color: $bg-color;
+  color: $font-color;
+
+  &:hover {
+    background-color: $hover-bg-color;
+  }
+
+  &:focus {
+    border-color: $focus;
+    box-shadow: inset 0 0 0 $button-outline-width $focus,
+      inset 0 0 0 $button-border-width $background;
+  }
+
+  &:active {
+    background-color: $active-color;
+  }
+
+  .#{$prefix}--btn__icon,
+  .#{$prefix}--btn__icon path:not([data-icon-path]):not([fill='none']) {
+    fill: $icon-color;
+  }
+}
+
+@mixin button-padding-large {
+  align-items: baseline;
+  padding-top: $spacing-05;
+  padding-right: $spacing-10;
+  padding-left: $spacing-05;
+}

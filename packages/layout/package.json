@@ -1,7 +1,7 @@
 {
   "name": "@carbon/layout",
   "description": "Layout helpers for digital and software products using the Carbon Design System",
-  "version": "10.25.0-rc.0",
+  "version": "10.26.0",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,10 +29,10 @@
     "clean": "rimraf es lib umd scss/generated scss/modules/generated"
   },
   "devDependencies": {
-    "@carbon/cli": "^10.24.0-rc.0",
-    "@carbon/cli-reporter": "^10.4.0",
+    "@carbon/cli": "^10.25.0",
+    "@carbon/cli-reporter": "^10.5.0",
     "@carbon/scss-generator": "^10.13.0",
-    "@carbon/test-utils": "^10.16.0-rc.0",
+    "@carbon/test-utils": "^10.16.0",
     "core-js": "^3.6.5",
     "rimraf": "^3.0.0"
   },

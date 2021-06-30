@@ -41,19 +41,31 @@
 
 <!-- Style overrides -->
 <style>
+  body {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  }
+
   body a[href='/?path=/settings/about'] {
     display: none;
   }
 
-  .simplebar-content form span {
+  .os-content form span {
     font-weight: 600;
   }
 
-  .simplebar-content a button {
+  .os-content a button {
     color: #161616;
   }
 
-  .simplebar-content .sidebar-item.selected {
+  button.sidebar-item svg {
+    color: #161616;
+  }
+
+  a.sidebar-item[data-selected='true'] {
+    color: #161616;
+  }
+
+  a.sidebar-item[data-selected='true'] svg {
     color: #161616;
   }
 </style>

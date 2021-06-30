@@ -1,0 +1,4 @@
+@forward 'tooltip';
+@use 'tooltip';
+
+@include tooltip.tooltip;

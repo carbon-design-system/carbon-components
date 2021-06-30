@@ -18,7 +18,7 @@ jobs:
           command: yarn install --immutable --immutable-cache --check-cache
       - run:
           name: Build packages
-          command: yarn build
+          command: yarn build --ignore '@carbon/sketch'
       - run:
           name: Run Continuous Integration checks
           command: |

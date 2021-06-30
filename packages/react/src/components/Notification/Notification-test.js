@@ -12,7 +12,7 @@ import {
   NotificationTextDetails,
   ToastNotification,
   InlineNotification,
-} from '../Notification';
+} from './Notification';
 import { shallow, mount } from 'enzyme';
 import { settings } from 'carbon-components';
 

@@ -11,6 +11,12 @@
       "handler": "syncColors"
     },
     {
+      "name": "Sync color variables",
+      "identifier": "carbon.elements.colors.syncvars",
+      "script": "commands/index.js",
+      "handler": "syncColorVars"
+    },
+    {
       "name": "Generate color page",
       "identifier": "carbon.elements.colors.generate",
       "script": "commands/index.js",
@@ -77,6 +83,7 @@
         "title": "Colors",
         "items": [
           "carbon.elements.colors.sync",
+          "carbon.elements.colors.syncvars",
           "carbon.elements.colors.generate"
         ]
       },
@@ -97,7 +104,10 @@
       },
       {
         "title": "Type",
-        "items": ["carbon.elements.type.sync", "carbon.elements.type.generate"]
+        "items": [
+          "carbon.elements.type.sync",
+          "carbon.elements.type.generate"
+        ]
       },
       {
         "title": "Test",

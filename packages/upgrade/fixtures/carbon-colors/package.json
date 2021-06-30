@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@carbon/colors": "0.0.1-alpha.27",
-    "@carbon/motion": "0.0.1-alpha.27",
-    "carbon-components": "9.x"
-  }
-}

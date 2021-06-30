@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`v11 background token group 1`] = `
+Array [
+  "background",
+  "background-active",
+  "background-selected",
+  "background-selected-hover",
+  "background-hover",
+  "background-brand",
+  "background-inverse",
+  "background-inverse-hover",
+]
+`;
+
+exports[`v11 border token group 1`] = `
+Array [
+  "border-subtle-00",
+  "border-subtle-01",
+  "border-subtle-selected-01",
+  "border-subtle-02",
+  "border-subtle-selected-02",
+  "border-subtle-03",
+  "border-subtle-selected-03",
+  "border-strong-01",
+  "border-strong-02",
+  "border-strong-03",
+  "border-inverse",
+  "border-interactive",
+  "border-disabled",
+]
+`;
+
+exports[`v11 field token group 1`] = `
+Array [
+  "field-01",
+  "field-hover-01",
+  "field-02",
+  "field-hover-02",
+  "field-03",
+  "field-hover-03",
+  "field-disabled",
+]
+`;
+
+exports[`v11 focus token group 1`] = `
+Array [
+  "focus",
+  "focus-inset",
+  "focus-inverse",
+]
+`;
+
+exports[`v11 icon token group 1`] = `
+Array [
+  "icon-primary",
+  "icon-secondary",
+  "icon-inverse",
+  "icon-on-color",
+  "icon-on-color-disabled",
+  "icon-disabled",
+]
+`;
+
+exports[`v11 layer token group 1`] = `
+Array [
+  "layer-01",
+  "layer-active-01",
+  "layer-hover-01",
+  "layer-selected-01",
+  "layer-selected-hover-01",
+  "layer-02",
+  "layer-active-02",
+  "layer-hover-02",
+  "layer-selected-02",
+  "layer-selected-hover-02",
+  "layer-03",
+  "layer-active-03",
+  "layer-hover-03",
+  "layer-selected-03",
+  "layer-selected-hover-03",
+  "layer-disabled",
+  "layer-selected-inverse",
+  "layer-selected-disabled",
+  "layer-accent-01",
+  "layer-accent-active-01",
+  "layer-accent-hover-01",
+  "layer-accent-02",
+  "layer-accent-active-02",
+  "layer-accent-hover-02",
+  "layer-accent-03",
+  "layer-accent-active-03",
+  "layer-accent-hover-03",
+]
+`;
+
+exports[`v11 link token group 1`] = `
+Array [
+  "link-primary",
+  "link-primary-hover",
+  "link-secondary",
+  "link-inverse",
+  "link-visited",
+]
+`;
+
+exports[`v11 skeleton token group 1`] = `
+Array [
+  "skeleton-background",
+  "skeleton-element",
+]
+`;
+
+exports[`v11 support token group 1`] = `
+Array [
+  "support-error",
+  "support-success",
+  "support-warning",
+  "support-info",
+  "support-error-inverse",
+  "support-success-inverse",
+  "support-warning-inverse",
+  "support-info-inverse",
+  "support-caution-major",
+  "support-caution-minor",
+  "support-caution-undefined",
+]
+`;
+
+exports[`v11 text token group 1`] = `
+Array [
+  "text-primary",
+  "text-secondary",
+  "text-placeholder",
+  "text-helper",
+  "text-error",
+  "text-inverse",
+  "text-on-color",
+  "text-on-color-disabled",
+  "text-disabled",
+]
+`;
+
+exports[`v11 v11 token group 1`] = `
+Array [
+  "background",
+  "background-active",
+  "background-selected",
+  "background-selected-hover",
+  "background-hover",
+  "background-brand",
+  "background-inverse",
+  "background-inverse-hover",
+  "layer-01",
+  "layer-active-01",
+  "layer-hover-01",
+  "layer-selected-01",
+  "layer-selected-hover-01",
+  "layer-02",
+  "layer-active-02",
+  "layer-hover-02",
+  "layer-selected-02",
+  "layer-selected-hover-02",
+  "layer-03",
+  "layer-active-03",
+  "layer-hover-03",
+  "layer-selected-03",
+  "layer-selected-hover-03",
+  "layer-disabled",
+  "layer-selected-inverse",
+  "layer-selected-disabled",
+  "layer-accent-01",
+  "layer-accent-active-01",
+  "layer-accent-hover-01",
+  "layer-accent-02",
+  "layer-accent-active-02",
+  "layer-accent-hover-02",
+  "layer-accent-03",
+  "layer-accent-active-03",
+  "layer-accent-hover-03",
+  "field-01",
+  "field-hover-01",
+  "field-02",
+  "field-hover-02",
+  "field-03",
+  "field-hover-03",
+  "field-disabled",
+  "interactive",
+  "border-subtle-00",
+  "border-subtle-01",
+  "border-subtle-selected-01",
+  "border-subtle-02",
+  "border-subtle-selected-02",
+  "border-subtle-03",
+  "border-subtle-selected-03",
+  "border-strong-01",
+  "border-strong-02",
+  "border-strong-03",
+  "border-inverse",
+  "border-interactive",
+  "border-disabled",
+  "text-primary",
+  "text-secondary",
+  "text-placeholder",
+  "text-helper",
+  "text-error",
+  "text-inverse",
+  "text-on-color",
+  "text-on-color-disabled",
+  "text-disabled",
+  "link-primary",
+  "link-primary-hover",
+  "link-secondary",
+  "link-inverse",
+  "link-visited",
+  "icon-primary",
+  "icon-secondary",
+  "icon-inverse",
+  "icon-on-color",
+  "icon-on-color-disabled",
+  "icon-disabled",
+  "support-error",
+  "support-success",
+  "support-warning",
+  "support-info",
+  "support-error-inverse",
+  "support-success-inverse",
+  "support-warning-inverse",
+  "support-info-inverse",
+  "support-caution-major",
+  "support-caution-minor",
+  "support-caution-undefined",
+  "highlight",
+  "overlay",
+  "toggle-off",
+  "focus",
+  "focus-inset",
+  "focus-inverse",
+  "skeleton-background",
+  "skeleton-element",
+]
+`;

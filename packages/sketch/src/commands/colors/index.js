@@ -5,5 +5,5 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export { sync } from './sync';
+export { sync, syncColorVars } from './sync';
 export { generate } from './generate';

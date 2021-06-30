@@ -1,7 +1,7 @@
 {
   "name": "@carbon/colors",
   "description": "Colors for digital and software products using the Carbon Design System",
-  "version": "10.26.0-rc.0",
+  "version": "10.27.0",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -35,16 +35,16 @@
     "clean": "rimraf css es lib umd scss index.scss"
   },
   "devDependencies": {
-    "@carbon/cli": "^10.24.0-rc.0",
-    "@carbon/cli-reporter": "^10.4.0",
+    "@carbon/cli": "^10.25.0",
+    "@carbon/cli-reporter": "^10.5.0",
     "@carbon/scss-generator": "^10.13.0",
-    "@carbon/test-utils": "^10.16.0-rc.0",
+    "@carbon/test-utils": "^10.16.0",
     "change-case": "^4.1.1",
-    "core-js": "^3.6.5",
     "fs-extra": "^8.1.0",
     "node-sass": "^6.0.0",
     "rimraf": "^3.0.0"
   },
+  "sideEffects": false,
   "eyeglass": {
     "exports": false,
     "name": "@carbon/colors",

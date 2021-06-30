@@ -91,41 +91,41 @@
   // content, while the other is rendered above of the popover content.
 
   //-----------------------------------------------------------------------------
-  // Top
+  // Bottom
   //-----------------------------------------------------------------------------
-  .#{$prefix}--popover--top {
+  .#{$prefix}--popover--bottom {
     bottom: 0;
     left: 50%;
     transform: translate(-50%, calc(100% + var(--cds-popover-offset)));
   }
 
-  @include place-caret(top) {
+  @include place-caret(bottom) {
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
   }
 
-  // Top-left
-  .#{$prefix}--popover--top-left {
+  // Bottom left
+  .#{$prefix}--popover--bottom-left {
     bottom: 0;
     left: 0;
     transform: translateY(calc(100% + var(--cds-popover-offset)));
   }
 
-  @include place-caret(top-left) {
+  @include place-caret(bottom-left) {
     top: 0;
     left: 0;
     transform: translate(var(--cds-popover-caret-offset), -50%) rotate(45deg);
   }
 
-  // Top-right
-  .#{$prefix}--popover--top-right {
+  // Bottom right
+  .#{$prefix}--popover--bottom-right {
     right: 0;
     bottom: 0;
     transform: translateY(calc(100% + var(--cds-popover-offset)));
   }
 
-  @include place-caret(top-right) {
+  @include place-caret(bottom-right) {
     top: 0;
     right: 0;
     transform: translate(calc(-1 * var(--cds-popover-caret-offset)), -50%)
@@ -133,9 +133,9 @@
   }
 
   // Hover area
-  .#{$prefix}--popover--top.#{$prefix}--popover::before,
-  .#{$prefix}--popover--top-left.#{$prefix}--popover::before,
-  .#{$prefix}--popover--top-right.#{$prefix}--popover::before {
+  .#{$prefix}--popover--bottom.#{$prefix}--popover::before,
+  .#{$prefix}--popover--bottom-left.#{$prefix}--popover::before,
+  .#{$prefix}--popover--bottom-right.#{$prefix}--popover::before {
     top: 0;
     right: 0;
     left: 0;
@@ -144,41 +144,41 @@
   }
 
   //-----------------------------------------------------------------------------
-  // Bottom
+  // TOP
   //-----------------------------------------------------------------------------
-  .#{$prefix}--popover--bottom {
+  .#{$prefix}--popover--top {
     bottom: 100%;
     left: 50%;
     transform: translate(-50%, calc(-1 * var(--cds-popover-offset)));
   }
 
-  @include place-caret(bottom) {
+  @include place-caret(top) {
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 50%) rotate(45deg);
   }
 
-  // Bottom left
-  .#{$prefix}--popover--bottom-left {
+  // Top left
+  .#{$prefix}--popover--top-left {
     bottom: 100%;
     left: 0;
     transform: translateY(calc(-1 * var(--cds-popover-offset)));
   }
 
-  @include place-caret(bottom-left) {
+  @include place-caret(top-left) {
     bottom: 0;
     left: 0;
     transform: translate(var(--cds-popover-caret-offset), 50%) rotate(45deg);
   }
 
-  // Bottom right
-  .#{$prefix}--popover--bottom-right {
+  // Top right
+  .#{$prefix}--popover--top-right {
     right: 0;
     bottom: 100%;
     transform: translateY(calc(-1 * var(--cds-popover-offset)));
   }
 
-  @include place-caret(bottom-right) {
+  @include place-caret(top-right) {
     right: 0;
     bottom: 0;
     transform: translate(calc(-1 * var(--cds-popover-caret-offset)), 50%)
@@ -186,9 +186,9 @@
   }
 
   // Hover area
-  .#{$prefix}--popover--bottom.#{$prefix}--popover::before,
-  .#{$prefix}--popover--bottom-left.#{$prefix}--popover::before,
-  .#{$prefix}--popover--bottom-right.#{$prefix}--popover::before {
+  .#{$prefix}--popover--top.#{$prefix}--popover::before,
+  .#{$prefix}--popover--top-left.#{$prefix}--popover::before,
+  .#{$prefix}--popover--top-right.#{$prefix}--popover::before {
     right: 0;
     bottom: 0;
     left: 0;
@@ -197,41 +197,41 @@
   }
 
   //-----------------------------------------------------------------------------
-  // Left
+  // Right
   //-----------------------------------------------------------------------------
-  .#{$prefix}--popover--left {
+  .#{$prefix}--popover--right {
     top: 50%;
     left: 100%;
     transform: translate(var(--cds-popover-offset), -50%);
   }
 
-  @include place-caret(left) {
+  @include place-caret(right) {
     top: 50%;
     left: 0;
     transform: translate(-50%, -50%) rotate(45deg);
   }
 
-  // Left top
-  .#{$prefix}--popover--left-top {
+  // Right top
+  .#{$prefix}--popover--right-top {
     top: 0;
     left: 100%;
     transform: translateX($popover-offset);
   }
 
-  @include place-caret(left-top) {
+  @include place-caret(right-top) {
     top: 0;
     left: 0;
     transform: translate(-50%, var(--cds-popover-caret-offset)) rotate(45deg);
   }
 
-  // Left bottom
-  .#{$prefix}--popover--left-bottom {
+  // Right bottom
+  .#{$prefix}--popover--right-bottom {
     bottom: 0;
     left: 100%;
     transform: translateX(var(--cds-popover-offset));
   }
 
-  @include place-caret(left-bottom) {
+  @include place-caret(right-bottom) {
     bottom: 0;
     left: 0;
     transform: translate(-50%, calc(-1 * var(--cds-popover-caret-offset)))
@@ -239,9 +239,9 @@
   }
 
   // Hover area
-  .#{$prefix}--popover--left.#{$prefix}--popover::before,
-  .#{$prefix}--popover--left-top.#{$prefix}--popover::before,
-  .#{$prefix}--popover--left-bottom.#{$prefix}--popover::before {
+  .#{$prefix}--popover--right.#{$prefix}--popover::before,
+  .#{$prefix}--popover--right-top.#{$prefix}--popover::before,
+  .#{$prefix}--popover--right-bottom.#{$prefix}--popover::before {
     top: 0;
     bottom: 0;
     left: 0;
@@ -250,41 +250,41 @@
   }
 
   //-----------------------------------------------------------------------------
-  // Right
+  // Left
   //-----------------------------------------------------------------------------
-  .#{$prefix}--popover--right {
+  .#{$prefix}--popover--left {
     top: 50%;
     right: 100%;
     transform: translate(calc(-1 * var(--cds-popover-offset)), -50%);
   }
 
-  @include place-caret(right) {
+  @include place-caret(left) {
     top: 50%;
     right: 0;
     transform: translate(50%, -50%) rotate(45deg);
   }
 
-  // Right top
-  .#{$prefix}--popover--right-top {
+  // Left top
+  .#{$prefix}--popover--left-top {
     top: 0;
     right: 100%;
     transform: translateX(calc(-1 * var(--cds-popover-offset)));
   }
 
-  @include place-caret(right-top) {
+  @include place-caret(left-top) {
     top: 0;
     right: 0;
     transform: translate(50%, var(--cds-popover-caret-offset)) rotate(45deg);
   }
 
-  // Right bottom
-  .#{$prefix}--popover--right-bottom {
+  // Left bottom
+  .#{$prefix}--popover--left-bottom {
     right: 100%;
     bottom: 0;
     transform: translateX(calc(-1 * var(--cds-popover-offset)));
   }
 
-  @include place-caret(right-bottom) {
+  @include place-caret(left-bottom) {
     right: 0;
     bottom: 0;
     transform: translate(50%, calc(-1 * var(--cds-popover-caret-offset)))
@@ -292,9 +292,9 @@
   }
 
   // Hover area
-  .#{$prefix}--popover--right.#{$prefix}--popover::before,
-  .#{$prefix}--popover--right-top.#{$prefix}--popover::before,
-  .#{$prefix}--popover--right-bottom.#{$prefix}--popover::before {
+  .#{$prefix}--popover--left.#{$prefix}--popover::before,
+  .#{$prefix}--popover--left-top.#{$prefix}--popover::before,
+  .#{$prefix}--popover--left-bottom.#{$prefix}--popover::before {
     top: 0;
     right: 0;
     bottom: 0;

@@ -9,7 +9,11 @@ import cx from 'classnames';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import * as colors from '@carbon/colors';
-import { themes, formatTokenName, unstable__meta as meta } from '@carbon/themes';
+import {
+  themes,
+  formatTokenName,
+  unstable__meta as meta,
+} from '@carbon/themes';
 
 const mountNode = document.getElementById('root');
 function render(element) {
@@ -24,7 +28,7 @@ const colorNameLookup = Object.keys(colors).reduce(
   {}
 );
 
-const tokens = meta.colors.flatMap(color => color.tokens);
+const tokens = meta.colors.flatMap((color) => color.tokens);
 
 function App() {
   return (
@@ -66,13 +70,13 @@ function App() {
                 <thead>
                   <tr>
                     <th>Token</th>
-                    {Object.keys(themes).map(theme => (
+                    {Object.keys(themes).map((theme) => (
                       <th key={theme}>{theme} theme</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {tokens.map(token => (
+                  {tokens.map((token) => (
                     <tr key={token} id={token}>
                       <td>
                         <a href={`#${token}`}>
@@ -81,7 +85,7 @@ function App() {
                           </pre>
                         </a>
                       </td>
-                      {Object.keys(themes).map(theme => {
+                      {Object.keys(themes).map((theme) => {
                         const color = themes[theme][token];
                         return (
                           <td key={theme}>
@@ -259,29 +263,44 @@ function ThemeSwitcher() {
       </div>
       <div className="bx--row">
         <div className="bx--col">
-          <p>Current theme: <code>{theme}</code></p>
+          <p>
+            Current theme: <code>{theme}</code>
+          </p>
           <div>
             <p>Change theme</p>
-            <button onClick={() => setTheme('white')}><code>white</code></button>
-            <button onClick={() => setTheme('g10')}><code>g10</code></button>
-            <button onClick={() => setTheme('g90')}><code>g90</code></button>
-            <button onClick={() => setTheme('g100')}><code>g100</code></button>
+            <button onClick={() => setTheme('white')}>
+              <code>white</code>
+            </button>
+            <button onClick={() => setTheme('g10')}>
+              <code>g10</code>
+            </button>
+            <button onClick={() => setTheme('g90')}>
+              <code>g90</code>
+            </button>
+            <button onClick={() => setTheme('g100')}>
+              <code>g100</code>
+            </button>
           </div>
           <div className={className}>
             <p>Tokens</p>
-            {['field-01', 'field-02', 'inverse-01', 'inverse-02'].map(token => (
-              <div
-                key={token}
-                style={{ width: 100, height: 100, background: `var(--${token})` }}>
-                <code>{token}</code>
-              </div>
-            ))}
+            {['field-01', 'field-02', 'inverse-01', 'inverse-02'].map(
+              (token) => (
+                <div
+                  key={token}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    background: `var(--${token})`,
+                  }}>
+                  <code>{token}</code>
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 }
-
 
 render(<App />);

@@ -2,7 +2,7 @@
   "name": "@carbon/styles",
   "private": true,
   "description": "Styles for the Carbon Design System",
-  "version": "0.7.0-rc.0",
+  "version": "0.9.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -18,15 +18,15 @@
     "react"
   ],
   "dependencies": {
-    "@carbon/colors": "^10.26.0-rc.0",
-    "@carbon/feature-flags": "^0.5.0-rc.0",
-    "@carbon/grid": "^10.28.0-rc.0",
-    "@carbon/layout": "^10.25.0-rc.0",
-    "@carbon/motion": "^10.19.0-rc.0",
-    "@carbon/themes": "^10.35.0-rc.0",
-    "@carbon/type": "^10.29.0-rc.0"
+    "@carbon/colors": "^10.27.0",
+    "@carbon/feature-flags": "^0.5.0",
+    "@carbon/grid": "^10.30.0",
+    "@carbon/layout": "^10.26.0",
+    "@carbon/motion": "^10.20.0",
+    "@carbon/themes": "^10.37.0",
+    "@carbon/type": "^10.30.0"
   },
   "devDependencies": {
-    "@carbon/test-utils": "^10.16.0-rc.0"
+    "@carbon/test-utils": "^10.16.0"
   }
 }

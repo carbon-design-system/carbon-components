@@ -25,6 +25,7 @@ const pollForBrowserSync = (callback) => {
 /**
  * Normalize Fractal Component instance data so the data structure can be shared with non-Fractal environment.
  * @param {object} data The Fractal Component instance data
+ * @param {Array} data.items
  * @param {string} [data.notes] The notes of the component.
  * @param {Array<object>} [data.variants] The variants of the component.
  * @returns {object} The normalized version of the Fractal Component instance data.

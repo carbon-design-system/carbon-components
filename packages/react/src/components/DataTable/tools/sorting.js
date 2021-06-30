@@ -61,11 +61,12 @@ export const compareStrings = (a, b, locale = 'en') => {
  * @param {Array[string]} config.rowIds array of all the row ids in the table
  * @param {object} config.cellsById object containing a mapping of cell id to
  * cell
- * @param {string} config.direction the sort direction used to determine the
- * order the comparison is called in
  * @param {string} config.key the header key that we use to lookup the cell
  * @param {string} [config.locale] optional locale used in the comparison
  * function
+ * @param {string} config.sortDirection the sort direction used to determine the
+ * order the comparison is called in
+ * @param {Function} config.sortRow
  * @returns {Array[string]} array of sorted rowIds
  */
 export const sortRows = ({

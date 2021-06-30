@@ -28,7 +28,11 @@ export default function InlineLoading({
   const loadingClasses = classNames(`${prefix}--inline-loading`, className);
   const getLoading = () => {
     if (status === 'error') {
-      return <ErrorFilled16 className={`${prefix}--inline-loading--error`} />;
+      return (
+        <ErrorFilled16 className={`${prefix}--inline-loading--error`}>
+          <title>{iconDescription}</title>
+        </ErrorFilled16>
+      );
     }
     if (status === 'finished') {
       setTimeout(() => {
@@ -38,8 +42,9 @@ export default function InlineLoading({
       }, successDelay);
       return (
         <CheckmarkFilled16
-          className={`${prefix}--inline-loading__checkmark-container`}
-        />
+          className={`${prefix}--inline-loading__checkmark-container`}>
+          <title>{iconDescription}</title>
+        </CheckmarkFilled16>
       );
     }
     if (status === 'inactive' || status === 'active') {

@@ -1,0 +1,212 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../config' as *;
+@use '../../spacing' as *;
+@use '../../motion' as *;
+@use '../../type' as *;
+@use '../../breakpoint' as *;
+@use '../../theme' as *;
+@use '../../utilities/component-reset';
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+
+/// Pagination styles
+/// @access public
+/// @group pagination
+@mixin pagination {
+  .#{$prefix}--data-table-container + .#{$prefix}--pagination {
+    border-top: 0;
+  }
+
+  .#{$prefix}--pagination {
+    @include component-reset.reset;
+    @include type-style('body-short-01');
+
+    display: flex;
+    width: calc(100% - 1px);
+    min-height: 3rem;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid $border-subtle;
+    background-color: $layer;
+    overflow-x: auto;
+
+    @include breakpoint('md') {
+      overflow: initial;
+
+      .#{$prefix}--pagination__control-buttons {
+        display: flex;
+      }
+    }
+
+    // mobile friendly pagination
+    @include breakpoint-down('md') {
+      .#{$prefix}--pagination__left > *,
+      .#{$prefix}--pagination__right > * {
+        display: none;
+      }
+
+      .#{$prefix}--pagination__items-count {
+        display: initial;
+      }
+
+      .#{$prefix}--pagination__control-buttons {
+        display: flex;
+      }
+    }
+  }
+
+  .#{$prefix}--pagination .#{$prefix}--select {
+    height: 100%;
+    align-items: center;
+  }
+
+  .#{$prefix}--pagination .#{$prefix}--select-input--inline__wrapper {
+    display: flex;
+    height: 100%;
+  }
+
+  .#{$prefix}--pagination .#{$prefix}--select-input {
+    width: auto;
+    min-width: auto;
+    height: 3rem;
+  }
+
+  .#{$prefix}--pagination
+    .#{$prefix}--select--inline
+    .#{$prefix}--select-input {
+    padding: 0 2.25rem 0 $spacing-05;
+  }
+
+  .#{$prefix}--pagination .#{$prefix}--select-input:hover {
+    background: $background-hover;
+  }
+
+  .#{$prefix}--pagination .#{$prefix}--select__arrow {
+    top: 50%;
+    transform: translate(-0.5rem, -50%);
+  }
+
+  .#{$prefix}--pagination
+    .#{$prefix}--select__item-count
+    .#{$prefix}--select-input {
+    border-right: 1px solid $border-subtle;
+  }
+
+  .#{$prefix}--pagination
+    .#{$prefix}--select__page-number
+    .#{$prefix}--select-input {
+    border-left: 1px solid $border-subtle;
+  }
+
+  .#{$prefix}--pagination__left,
+  .#{$prefix}--pagination__right {
+    display: flex;
+    height: 3rem;
+    align-items: center;
+  }
+
+  .#{$prefix}--pagination__left > .#{$prefix}--form-item,
+  .#{$prefix}--pagination__right > .#{$prefix}--form-item {
+    height: 100%;
+  }
+
+  .#{$prefix}--pagination__left .#{$prefix}--pagination__text,
+  .#{$prefix}--pagination__right .#{$prefix}--pagination__text {
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--pagination__left .#{$prefix}--pagination__text {
+    margin-right: rem(1px);
+  }
+
+  .#{$prefix}--pagination__right .#{$prefix}--pagination__text {
+    margin-right: 1rem;
+    margin-left: rem(1px);
+  }
+
+  .#{$prefix}--pagination__left {
+    padding: 0 $spacing-05 0 0;
+
+    @include breakpoint('md') {
+      padding: 0 $spacing-05;
+    }
+  }
+
+  .#{$prefix}--pagination__text {
+    @include breakpoint('md') {
+      display: inline-block;
+    }
+  }
+
+  span.#{$prefix}--pagination__text {
+    margin-left: $spacing-05;
+    color: $text-secondary;
+  }
+
+  .#{$prefix}--pagination__button,
+  .#{$prefix}--btn--ghost.#{$prefix}--pagination__button {
+    @include component-reset.reset;
+
+    display: flex;
+    width: $spacing-09;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-left: 1px solid $border-subtle;
+    margin: 0;
+    background: none;
+    cursor: pointer;
+    fill: $icon-primary;
+    transition: outline $duration-fast-02 motion(standard, productive),
+      background-color $duration-fast-02 motion(standard, productive);
+  }
+
+  .#{$prefix}--pagination__button:focus,
+  .#{$prefix}--btn--ghost:focus.#{$prefix}--pagination__button {
+    @include focus-outline('outline');
+
+    border-left: 0;
+  }
+
+  .#{$prefix}--pagination__button:hover,
+  .#{$prefix}--btn--ghost:hover.#{$prefix}--pagination__button {
+    background: $layer-hover;
+  }
+
+  .#{$prefix}--pagination__button--no-index,
+  .#{$prefix}--btn--ghost.#{$prefix}--pagination__button--no-index {
+    cursor: not-allowed;
+    fill: $icon-disabled;
+  }
+
+  .#{$prefix}--pagination__button:disabled:hover,
+  .#{$prefix}--pagination__button--no-index:hover,
+  .#{$prefix}--btn--ghost:disabled:hover.#{$prefix}--pagination__button,
+  .#{$prefix}--btn--ghost:hover.#{$prefix}--pagination__button--no-index {
+    border-color: $border-subtle;
+    background: $layer;
+    cursor: not-allowed;
+    fill: $icon-disabled;
+  }
+
+  // Skeleton state
+  .#{$prefix}--pagination.#{$prefix}--skeleton .#{$prefix}--skeleton__text {
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
+
+  // Windows HCM fix
+  // stylelint-disable-next-line no-duplicate-selectors
+  .#{$prefix}--pagination__button,
+  .#{$prefix}--btn--ghost.#{$prefix}--pagination__button {
+    @include high-contrast-mode('outline');
+  }
+}

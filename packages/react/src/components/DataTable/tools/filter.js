@@ -16,6 +16,7 @@
  * @param {Array<object>} config.headers
  * @param {object} config.cellsById object containing a map of cell id to cell
  * @param {string} config.inputValue the current input value in the Table Search
+ * @param {Function} config.getCellId
  * @returns {Array<string>} rowIds
  */
 export const defaultFilterRows = ({

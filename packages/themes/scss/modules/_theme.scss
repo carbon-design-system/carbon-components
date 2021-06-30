@@ -14,12 +14,18 @@ $-custom-property-prefix: 'cds';
 
 /// @access public
 /// @group @carbon/themes
-@mixin theme($active-theme: $theme) {
+@mixin theme($active-theme: $theme, $component-tokens...) {
   $parent-theme: $theme;
   $theme: $active-theme !global;
 
   @each $token, $value in $theme {
     @include -custom-property($token, $value);
+  }
+
+  @each $group in $component-tokens {
+    @each $token, $value in $group {
+      @include -custom-property($token, $value);
+    }
   }
 
   @content;

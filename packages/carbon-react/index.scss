@@ -5,4 +5,7 @@
 // LICENSE file in the root directory of this source tree.
 //
 
-@forward '@carbon/styles';
+@forward '@carbon/styles' with (
+  $css--font-face: false,
+  $css--default-type: false,
+);

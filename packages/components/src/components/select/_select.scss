@@ -176,6 +176,10 @@
   .#{$prefix}--select-option {
     // For the options to show in IE11
     color: $text-primary;
+
+    &:disabled {
+      color: $text-disabled;
+    }
   }
 
   .#{$prefix}--select--inline {

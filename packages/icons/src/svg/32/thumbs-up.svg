@@ -1,1 +1,11 @@
-<svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1{fill:none;}</style></defs><title>thumbsup</title><path d="M26,11H20V6a3.64,3.64,0,0,0-3.24-4A3.22,3.22,0,0,0,16,2H14.43A1.51,1.51,0,0,0,13,3.17v.12L12,9.63,8.46,15H2V29H21c7.44,0,9-4.35,9-8V15a3.64,3.64,0,0,0-3.24-4A3.22,3.22,0,0,0,26,11ZM8,27H4V17H8Zm20-6c0,4.09-2.22,6-7,6H10V16.3l4-5.93L14.73,5l.14-1H16c1.44,0,2,.56,2,2v7h8c1.44,0,2,.56,2,2Z" transform="translate(0 0)"/><rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/></svg>
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <path d="M26,12H20V6a3.0033,3.0033,0,0,0-3-3H14.8672a2.0094,2.0094,0,0,0-1.98,1.7173l-.8453,5.9165L8.4648,16H2V30H23a7.0078,7.0078,0,0,0,7-7V16A4.0045,4.0045,0,0,0,26,12ZM8,28H4V18H8Zm20-5a5.0057,5.0057,0,0,1-5,5H10V17.3027l3.9578-5.9365L14.8672,5H17a1.0008,1.0008,0,0,1,1,1v8h8a2.0025,2.0025,0,0,1,2,2Z" transform="translate(0 0)"/>
+  <rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/>
+</svg>

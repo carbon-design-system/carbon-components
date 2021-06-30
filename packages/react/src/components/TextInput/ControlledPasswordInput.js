@@ -111,7 +111,11 @@ const ControlledPasswordInput = React.forwardRef(
     const input = (
       <>
         <input
-          {...textInputProps({ invalid, sharedTextInputProps, errorId })}
+          {...textInputProps({
+            invalid,
+            sharedTextInputProps,
+            invalidId: errorId,
+          })}
           data-toggle-password-visibility={type === 'password'}
         />
         <button

@@ -1,0 +1,226 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../config' as *;
+@use "../../type" as *;
+@use '../../motion';
+@use '../../theme' as *;
+@use "../../utilities/focus-outline" as *;
+@use "../../utilities/skeleton" as *;
+@use "../../utilities/high-contrast-mode" as *;
+@use '../../utilities/convert' as *;
+@use 'mixins' as *;
+
+@mixin structured-list {
+  .#{$prefix}--structured-list--selection .#{$prefix}--structured-list-td,
+  .#{$prefix}--structured-list--selection .#{$prefix}--structured-list-th {
+    @include padding--data-structured-list;
+  }
+  @if feature-flag-enabled('enable-v11-release') {
+    .#{$prefix}--structured-list-row--focused-within {
+      @include focus-outline('outline');
+    }
+  } @else {
+    .#{$prefix}--structured-list-input {
+      display: none;
+    }
+  }
+
+  .#{$prefix}--structured-list {
+    @include reset;
+
+    display: table;
+    width: 100%;
+    margin-bottom: 5rem;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    // Condensed list
+    &.#{$prefix}--structured-list--condensed .#{$prefix}--structured-list-td,
+    &.#{$prefix}--structured-list--condensed .#{$prefix}--structured-list-th {
+      @include padding-td--condensed;
+      //8px padding all over
+    }
+
+    .#{$prefix}--structured-list-row
+      .#{$prefix}--structured-list-td:first-of-type,
+    .#{$prefix}--structured-list-row
+      .#{$prefix}--structured-list-th:first-of-type {
+      padding-left: 1rem;
+      // specs require 16px spacing between columns
+      // 8px side padding between col creates 16 px, with exception of 1st col, which needs an override to be 16px
+    }
+
+    // Flush list
+    &.#{$prefix}--structured-list--flush
+      .#{$prefix}--structured-list-row
+      .#{$prefix}--structured-list-td,
+    &.#{$prefix}--structured-list--flush
+      .#{$prefix}--structured-list-row
+      .#{$prefix}--structured-list-th,
+    &.#{$prefix}--structured-list--flush
+      .#{$prefix}--structured-list-row
+      .#{$prefix}--structured-list-td:first-of-type,
+    &.#{$prefix}--structured-list--flush
+      .#{$prefix}--structured-list-row
+      .#{$prefix}--structured-list-th:first-of-type {
+      padding-right: 1rem;
+      padding-left: 0;
+    }
+  }
+
+  .#{$prefix}--structured-list-row {
+    display: table-row;
+    border-bottom: 1px solid $border-subtle;
+    transition: background-color motion.$duration-fast-02
+      motion(standard, productive);
+  }
+
+  .#{$prefix}--structured-list--selection
+    .#{$prefix}--structured-list-row:hover:not(.#{$prefix}--structured-list-row--header-row):not(.#{$prefix}--structured-list-row--selected) {
+    border-bottom: 1px solid $hover-row;
+    background-color: $hover-row;
+    cursor: pointer;
+  }
+
+  .#{$prefix}--structured-list-row.#{$prefix}--structured-list-row--selected {
+    background-color: $background-selected;
+  }
+
+  .#{$prefix}--structured-list-row.#{$prefix}--structured-list-row--header-row {
+    border-bottom: 1px solid $background-selected;
+    cursor: inherit;
+  }
+
+  @if not feature-flag-enabled('enable-v11-release') {
+    .#{$prefix}--structured-list-row:focus:not(.#{$prefix}--structured-list-row--header-row) {
+      @include focus-outline('outline');
+    }
+  }
+  .#{$prefix}--structured-list--selection
+    .#{$prefix}--structured-list-row:hover:not(.#{$prefix}--structured-list-row--header-row)
+    > .#{$prefix}--structured-list-td,
+  .#{$prefix}--structured-list-row.#{$prefix}--structured-list-row--selected
+    > .#{$prefix}--structured-list-td {
+    color: $text-primary;
+  }
+
+  .#{$prefix}--structured-list--selection
+    .#{$prefix}--structured-list-row:hover:not(.#{$prefix}--structured-list-row--header-row)
+    > .#{$prefix}--structured-list-td {
+    @if feature-flag-enable('enabled-2021-release') {
+      border-top: 1px solid $border-subtle;
+    } @else {
+      border-top: 1px solid $layer;
+    }
+  }
+
+  .#{$prefix}--structured-list-thead {
+    display: table-header-group;
+    vertical-align: middle;
+  }
+
+  .#{$prefix}--structured-list-th {
+    @include reset;
+    @include padding-th;
+    @include type-style('productive-heading-01');
+
+    display: table-cell;
+    height: rem(40px);
+    color: $text-primary;
+    font-weight: 600;
+    text-align: left;
+    text-transform: $structured-list-text-transform;
+    vertical-align: top;
+  }
+
+  .#{$prefix}--structured-list-tbody {
+    display: table-row-group;
+    vertical-align: middle;
+  }
+
+  .#{$prefix}--structured-list-td {
+    @include reset;
+    @include type-style('body-long-01');
+    @include padding-td;
+
+    position: relative;
+    display: table-cell;
+    max-width: 36rem;
+    color: $text-secondary;
+    @if feature-flag-enabled('enable-v11-release') {
+      border-top: 1px solid $border-subtle;
+    }
+
+    transition: color motion.$duration-fast-02 motion(standard, productive);
+  }
+
+  .#{$prefix}--structured-list-content--nowrap {
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--structured-list-svg {
+    display: inline-block;
+    fill: transparent;
+    transition: all motion.$duration-fast-02 motion(standard, productive);
+    vertical-align: middle;
+  }
+
+  .#{$prefix}--structured-list-input:checked
+    + .#{$prefix}--structured-list-row
+    .#{$prefix}--structured-list-svg,
+  .#{$prefix}--structured-list-input:checked
+    + .#{$prefix}--structured-list-td
+    .#{$prefix}--structured-list-svg {
+    fill: $icon-primary;
+  }
+
+  // Skeleton State
+  .#{$prefix}--structured-list.#{$prefix}--skeleton {
+    .#{$prefix}--structured-list-th {
+      &:first-child {
+        width: 8%;
+      }
+
+      &:nth-child(3n + 2) {
+        width: 30%;
+      }
+
+      &:nth-child(3n + 3) {
+        width: 15%;
+      }
+    }
+
+    span {
+      @include skeleton;
+
+      display: block;
+
+      width: 75%;
+      height: 1rem;
+    }
+  }
+
+  .#{$prefix}--structured-list.#{$prefix}--structured-list--selection.#{$prefix}--skeleton
+    .#{$prefix}--structured-list-th:first-child {
+    width: 5%;
+
+    span {
+      display: none;
+    }
+  }
+
+  // Windows HCM fix
+  .#{$prefix}--structured-list-input:checked
+    + .#{$prefix}--structured-list-td
+    .#{$prefix}--structured-list-svg {
+    @include high-contrast-mode('icon-fill');
+  }
+}

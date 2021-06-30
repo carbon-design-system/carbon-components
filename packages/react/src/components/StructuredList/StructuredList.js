@@ -167,7 +167,7 @@ export function StructuredListRow(props) {
       {children}
     </label>
   ) : (
-    <div {...other} className={classes}>
+    <div role="row" {...other} className={classes}>
       {children}
     </div>
   );

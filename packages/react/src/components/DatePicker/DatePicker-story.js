@@ -51,6 +51,7 @@ const props = {
     disable: array('Disable specific dates (disable)', ['07/15/2021'], ','),
     onClose: action('onClose'),
     onOpen: action('onOpen'),
+    onChange: action('onChange'),
   }),
   datePickerInput: () => ({
     id: 'date-picker-input-id',
@@ -87,6 +88,7 @@ const props = {
       'Icon description (iconDescription in <DatePickerInput>)',
       'Icon description'
     ),
+    onChange: action('onChange'),
   }),
 };
 

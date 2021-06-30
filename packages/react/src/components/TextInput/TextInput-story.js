@@ -52,7 +52,7 @@ const ControlledPasswordInputApp = React.forwardRef(
 );
 
 const props = {
-  TextInputProps: () => ({
+  SharedInputProps: () => ({
     className: 'some-class',
     id: 'test2',
     defaultValue: text(
@@ -79,6 +79,9 @@ const props = {
     inline: boolean('Inline variant (inline)', false),
     onClick: action('onClick'),
     onChange: action('onChange'),
+  }),
+  TextInputProps: () => ({
+    readOnly: boolean('Readonly variant (readOnly)', false),
   }),
   PasswordInputProps: () => ({
     tooltipPosition: select(
@@ -123,6 +126,7 @@ export default {
 export const Default = () => (
   <TextInput
     type={select('Form control type (type)', types, 'text')}
+    {...props.SharedInputProps()}
     {...props.TextInputProps()}
   />
 );
@@ -142,6 +146,7 @@ export const Fluid = () => (
   <FluidForm>
     <TextInput
       type={select('Form control type (type)', types, 'text')}
+      {...props.SharedInputProps()}
       {...props.TextInputProps()}
     />
   </FluidForm>
@@ -161,7 +166,7 @@ Fluid.parameters = {
 export const TogglePasswordVisibility = () => {
   return (
     <TextInput.PasswordInput
-      {...props.TextInputProps()}
+      {...props.SharedInputProps()}
       {...props.PasswordInputProps()}
     />
   );
@@ -187,7 +192,7 @@ export const FullyControlledTogglePasswordVisibility = () => {
 
   return (
     <ControlledPasswordInputApp
-      {...props.TextInputProps()}
+      {...props.SharedInputProps()}
       {...props.PasswordInputProps()}
     />
   );

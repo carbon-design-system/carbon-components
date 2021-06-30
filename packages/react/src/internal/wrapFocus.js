@@ -36,7 +36,7 @@ function elementOrParentIsFloatingMenu(
 /**
  * Ensures the focus is kept in the given `modalNode`, implementing "focus-wrap" behavior.
  * @param {object} options The options.
- * @param {Node} options.modalNode The DOM node of the inner modal.
+ * @param {Node} options.bodyNode
  * @param {Node} options.startTrapNode The DOM node of the focus sentinel the is placed earlier next to `modalNode`.
  * @param {Node} options.endTrapNode The DOM node of the focus sentinel the is placed next to `modalNode`.
  * @param {Node} options.currentActiveNode The DOM node that has focus.

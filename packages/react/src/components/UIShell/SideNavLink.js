@@ -82,6 +82,7 @@ SideNavLink.defaultProps = {
   large: false,
 };
 
+// eslint-disable-next-line react/display-name
 export const createCustomSideNavLink = (element) => (props) => {
   return <SideNavLink element={element} {...props} />;
 };

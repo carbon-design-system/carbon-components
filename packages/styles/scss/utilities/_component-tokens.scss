@@ -1,0 +1,27 @@
+//
+// Copyright IBM Corp. 2018, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'sass:map';
+
+/// Extract the component tokens from a given theme
+/// @param {SassMap} $tokens
+/// @param {SassMap} $theme
+/// @returns {SassMap}
+@function get-tokens($tokens, $theme) {
+  $result: ();
+
+  @each $key, $descriptor in $tokens {
+    $theme-values: map.get($descriptor, values);
+    @each $theme-value in $theme-values {
+      @if map.get($theme-value, theme) == $theme {
+        $result: map.set($result, $key, map.get($theme-value, value));
+      }
+    }
+  }
+
+  @return $result;
+}

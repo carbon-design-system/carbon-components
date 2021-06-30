@@ -1,0 +1,16 @@
+{
+  "name": "themes-examples-preview-v11",
+  "private": true,
+  "scripts": {
+    "develop": "next",
+    "build": "next build && next export -o build"
+  },
+  "dependencies": {
+    "@carbon/colors": "link:../../../colors",
+    "@carbon/themes": "link:../../",
+    "next": "^10.0.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "sass": "^1.32.7"
+  }
+}

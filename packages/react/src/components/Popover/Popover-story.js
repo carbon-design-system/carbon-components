@@ -226,14 +226,14 @@ export const Examples = () => {
       <Example
         className="position-relative mb-3"
         icon={CaretDown32}
-        align="top-left">
+        align="bottom-left">
         This is some text
       </Example>
 
       <Example
         className="position-relative mb-3"
         icon={CaretDown32}
-        align="top-left"
+        align="bottom-left"
         size="sm">
         This is some text
       </Example>
@@ -256,59 +256,59 @@ export const Examples = () => {
       <Example
         className="flex justify-end position-relative mb-3"
         icon={CaretDown32}
-        align="top-right">
-        This is some text
-      </Example>
-
-      <Example
-        className="flex justify-end position-relative mb-3"
-        icon={CaretDown32}
-        align="top-right"
-        size="sm">
-        This is some text
-      </Example>
-
-      <Example
-        className="position-relative mb-3"
-        icon={CaretUp32}
-        align="bottom-left">
-        This is some text
-      </Example>
-
-      <Example
-        className="position-relative mb-3"
-        icon={CaretUp32}
-        align="bottom-left"
-        size="sm">
-        This is some text
-      </Example>
-
-      <Example
-        className="flex justify-center position-relative mb-3"
-        icon={CaretUp32}
-        align="bottom">
-        This is some text
-      </Example>
-
-      <Example
-        className="flex justify-center position-relative mb-3"
-        icon={CaretUp32}
-        align="bottom"
-        size="sm">
-        This is some text
-      </Example>
-
-      <Example
-        className="flex justify-end position-relative mb-3"
-        icon={CaretUp32}
         align="bottom-right">
         This is some text
       </Example>
 
       <Example
         className="flex justify-end position-relative mb-3"
-        icon={CaretUp32}
+        icon={CaretDown32}
         align="bottom-right"
+        size="sm">
+        This is some text
+      </Example>
+
+      <Example
+        className="position-relative mb-3"
+        icon={CaretUp32}
+        align="top-left">
+        This is some text
+      </Example>
+
+      <Example
+        className="position-relative mb-3"
+        icon={CaretUp32}
+        align="top-left"
+        size="sm">
+        This is some text
+      </Example>
+
+      <Example
+        className="flex justify-center position-relative mb-3"
+        icon={CaretUp32}
+        align="top">
+        This is some text
+      </Example>
+
+      <Example
+        className="flex justify-center position-relative mb-3"
+        icon={CaretUp32}
+        align="top"
+        size="sm">
+        This is some text
+      </Example>
+
+      <Example
+        className="flex justify-end position-relative mb-3"
+        icon={CaretUp32}
+        align="top-right">
+        This is some text
+      </Example>
+
+      <Example
+        className="flex justify-end position-relative mb-3"
+        icon={CaretUp32}
+        align="top-right"
         size="sm">
         This is some text
       </Example>
@@ -318,7 +318,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretRight32}
-            align="left"
+            align="right"
             relative>
             This is some text
           </Example>
@@ -326,7 +326,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretRight32}
-            align="left"
+            align="right"
             size="sm"
             relative>
             This is some text
@@ -337,7 +337,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretRight32}
-            align="left-top"
+            align="right-top"
             relative>
             This is some text
           </Example>
@@ -345,7 +345,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretRight32}
-            align="left-top"
+            align="right-top"
             size="sm"
             relative>
             This is some text
@@ -356,7 +356,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretRight32}
-            align="left-bottom"
+            align="right-bottom"
             relative>
             This is some text
           </Example>
@@ -364,7 +364,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretRight32}
-            align="left-bottom"
+            align="right-bottom"
             size="sm"
             relative>
             This is some text
@@ -377,7 +377,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretLeft32}
-            align="right"
+            align="left"
             relative
             flip>
             This is some text
@@ -386,7 +386,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretLeft32}
-            align="right"
+            align="left"
             size="sm"
             relative
             flip>
@@ -398,7 +398,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretLeft32}
-            align="right-top"
+            align="left-top"
             relative
             flip>
             This is some text
@@ -407,7 +407,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretLeft32}
-            align="right-top"
+            align="left-top"
             size="sm"
             relative
             flip>
@@ -419,7 +419,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretLeft32}
-            align="right-bottom"
+            align="left-bottom"
             relative
             flip>
             This is some text
@@ -428,7 +428,7 @@ export const Examples = () => {
           <Example
             className="position-relative flex align-center mb-3"
             icon={CaretLeft32}
-            align="right-bottom"
+            align="left-bottom"
             size="sm"
             relative
             flip>
@@ -440,7 +440,7 @@ export const Examples = () => {
       <Example
         className="position-relative mb-3"
         icon={CaretDown32}
-        align="top-left">
+        align="bottom-left">
         Consectetur et sit accusamus laboriosam pariatur. Asperiores eius
         expedita eligendi beatae vero commodi harum Illo hic accusamus fugit
         commodi cupiditate Explicabo distinctio quisquam culpa fugit eius

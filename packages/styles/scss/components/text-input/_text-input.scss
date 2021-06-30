@@ -1,0 +1,392 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+//-----------------------------
+// Text
+//-----------------------------
+@use '../../config' as *;
+@use '../../colors' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../spacing' as *;
+@use '../../motion' as *;
+
+@use '../../utilities/component-reset';
+@use '../../utilities/placeholder-colors' as *;
+@use '../../utilities/tooltip' as *;
+@use '../../utilities/skeleton' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/convert' as *;
+
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/button-reset';
+@use '../form';
+
+/// Text input styles
+/// @access public
+/// @group text-input
+@mixin text-input {
+  .#{$prefix}--text-input {
+    @include reset;
+    @include type-style('body-short-01');
+    @include focus-outline('reset');
+
+    width: 100%;
+    height: rem(40px);
+    padding: 0 $spacing-05;
+    border: none;
+    border-bottom: 1px solid $border-strong;
+    background-color: $field;
+    color: $text-primary;
+    font-family: inherit;
+    transition: background-color $duration-fast-01 motion(standard, productive),
+      outline $duration-fast-01 motion(standard, productive);
+
+    &:focus,
+    &:active {
+      @include focus-outline('outline');
+    }
+
+    &-wrapper svg[hidden] {
+      display: none;
+    }
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--text-input--xl,
+  .#{$prefix}--text-input--lg {
+    height: rem(48px);
+  }
+
+  .#{$prefix}--text-input--sm {
+    height: rem(32px);
+  }
+
+  .#{$prefix}--password-input {
+    padding-right: $spacing-08;
+  }
+
+  .#{$prefix}--text-input--sm.#{$prefix}--password-input {
+    padding-right: $spacing-07;
+  }
+
+  .#{$prefix}--text-input--lg.#{$prefix}--password-input {
+    padding-right: $spacing-09;
+  }
+
+  .#{$prefix}--text-input::placeholder {
+    @include placeholder-colors;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--text-input--light {
+    background-color: $field-02;
+  }
+
+  //-----------------------------
+  // Disabled & Error icon spacing
+  //-----------------------------
+  .#{$prefix}--text-input__field-wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+  }
+
+  .#{$prefix}--text-input__invalid-icon {
+    position: absolute;
+    // top/transform used to center invalid icon in IE11
+    top: 50%;
+    right: $spacing-05;
+    fill: $support-error;
+    transform: translateY(-50%);
+  }
+
+  .#{$prefix}--text-input__invalid-icon--warning {
+    fill: $support-warning;
+  }
+
+  .#{$prefix}--text-input__invalid-icon--warning path:first-of-type {
+    fill: $black-100;
+    opacity: 1;
+  }
+
+  // TODO: deprecate this style block
+  .#{$prefix}--text-input--password__visibility {
+    @include tooltip--trigger('icon', 'bottom');
+    @include tooltip--placement('icon', 'bottom', 'center');
+  }
+
+  .#{$prefix}--text-input--password__visibility,
+  // TODO: remove selector above
+  .#{$prefix}--btn.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger {
+    @include focus-outline('reset');
+
+    position: absolute;
+    right: 0;
+    display: flex;
+    width: rem(40px);
+    height: 100%;
+    min-height: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    transition: outline $duration-fast-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--text-input--sm
+    + .#{$prefix}--btn.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger {
+    width: rem(32px);
+  }
+
+  .#{$prefix}--text-input--lg
+    + .#{$prefix}--btn.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger {
+    width: rem(48px);
+  }
+
+  .#{$prefix}--btn.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger
+    svg {
+    fill: $icon-secondary;
+    transition: fill $duration-fast-01 motion(standard, productive);
+
+    // Windows, Firefox HCM Fix
+    @media screen and (-ms-high-contrast: active),
+      screen and (prefers-contrast) {
+      // `ButtonText` is a CSS2 system color to help improve colors in HCM
+      fill: ButtonText;
+    }
+  }
+
+  .#{$prefix}--btn.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger:focus {
+    @include focus-outline('outline');
+  }
+
+  .#{$prefix}--btn.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger:hover
+    svg,
+  .#{$prefix}--btn.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger:focus
+    svg {
+    fill: $icon-primary;
+  }
+
+  .#{$prefix}--text-input--invalid,
+  .#{$prefix}--text-input--warning {
+    padding-right: $spacing-08;
+  }
+
+  .#{$prefix}--text-input--invalid.#{$prefix}--password-input {
+    padding-right: rem(64px);
+  }
+
+  .#{$prefix}--text-input--invalid +
+    .#{$prefix}--text-input--password__visibility,
+  // TODO: remove selector above
+  .#{$prefix}--text-input--invalid +
+    .#{$prefix}--text-input--password__visibility__toggle {
+    right: $spacing-05;
+  }
+
+  .#{$prefix}--password-input-wrapper .#{$prefix}--text-input__invalid-icon {
+    right: $spacing-08;
+  }
+
+  .#{$prefix}--text-input:disabled
+    + .#{$prefix}--text-input--password__visibility
+    svg,
+  // TODO: remove selector above
+  .#{$prefix}--text-input:disabled
+    + .#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger svg {
+    cursor: not-allowed;
+    fill: $icon-disabled;
+
+    &:hover {
+      fill: $icon-disabled;
+    }
+  }
+
+  //-----------------------------
+  // Disabled
+  //-----------------------------
+  .#{$prefix}--text-input:disabled {
+    @include focus-outline('reset');
+
+    border-bottom: 1px solid transparent;
+    background-color: $field-disabled;
+    color: $text-disabled;
+    cursor: not-allowed;
+    // Needed to fix disabled text in Safari #6673
+    -webkit-text-fill-color: currentColor;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--text-input--light:disabled {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--text-input:disabled::placeholder {
+    color: $text-disabled;
+    opacity: 1;
+  }
+
+  //-----------------------------
+  // Error
+  //-----------------------------
+  .#{$prefix}--text-input--invalid {
+    @include focus-outline('invalid');
+
+    box-shadow: none;
+
+    .#{$prefix}--text-input--password__visibility,
+    // TODO: remove selector above
+    .#{$prefix}--text-input--password__visibility__toggle {
+      right: $spacing-08;
+    }
+  }
+
+  //-----------------------------
+  // Skeleton
+  //-----------------------------
+  .#{$prefix}--skeleton.#{$prefix}--text-input {
+    @include skeleton;
+  }
+
+  //-----------------------------
+  // Fluid Text Input
+  //-----------------------------
+  .#{$prefix}--form--fluid .#{$prefix}--text-input-wrapper {
+    position: relative;
+    background: $field;
+    transition: background-color $duration-fast-01 motion(standard, productive),
+      outline $duration-fast-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--form--fluid .#{$prefix}--label {
+    position: absolute;
+    z-index: 1;
+    top: rem(13px);
+    left: $spacing-05;
+    margin: 0;
+  }
+
+  .#{$prefix}--form--fluid .#{$prefix}--form__helper-text {
+    display: none;
+  }
+
+  .#{$prefix}--form--fluid .#{$prefix}--text-input {
+    min-height: rem(64px);
+    padding: rem(32px) $spacing-05 rem(13px);
+  }
+
+  .#{$prefix}--text-input__divider,
+  .#{$prefix}--form--fluid .#{$prefix}--text-input__divider {
+    display: none;
+  }
+
+  .#{$prefix}--form--fluid .#{$prefix}--text-input--invalid,
+  .#{$prefix}--form--fluid .#{$prefix}--text-input--warn {
+    border-bottom: none;
+  }
+
+  .#{$prefix}--form--fluid
+    .#{$prefix}--text-input--invalid
+    + .#{$prefix}--text-input__divider,
+  .#{$prefix}--form--fluid
+    .#{$prefix}--text-input--warn
+    + .#{$prefix}--text-input__divider {
+    display: block;
+    border-style: solid;
+    border-color: $border-subtle;
+    border-bottom: none;
+    margin: 0 1rem;
+  }
+
+  .#{$prefix}--form--fluid .#{$prefix}--text-input__invalid-icon {
+    top: rem(80px);
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--form--fluid .#{$prefix}--text-input-wrapper--light {
+    background: $field-02;
+  }
+
+  .#{$prefix}--form--fluid
+    .#{$prefix}--text-input__field-wrapper[data-invalid]
+    > .#{$prefix}--text-input--invalid {
+    @include focus-outline('reset');
+  }
+
+  .#{$prefix}--form--fluid
+    .#{$prefix}--text-input__field-wrapper[data-invalid]:not(:focus) {
+    @include focus-outline('invalid');
+  }
+
+  .#{$prefix}--form--fluid
+    .#{$prefix}--text-input__field-wrapper[data-invalid]
+    > .#{$prefix}--text-input--invalid:focus {
+    @include focus-outline('outline');
+  }
+
+  //-----------------------------
+  // Inline Text Input
+  //-----------------------------
+
+  .#{$prefix}--text-input-wrapper.#{$prefix}--text-input-wrapper--inline {
+    flex-flow: row wrap;
+  }
+
+  .#{$prefix}--text-input-wrapper .#{$prefix}--label--inline {
+    flex: 1;
+    margin: rem(13px) 0 0 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .#{$prefix}--text-input-wrapper .#{$prefix}--label--inline--sm {
+    margin-top: rem(9px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--text-input-wrapper .#{$prefix}--label--inline--xl,
+  .#{$prefix}--text-input-wrapper .#{$prefix}--label--inline--lg {
+    margin-top: rem(17px);
+  }
+
+  .#{$prefix}--text-input__label-helper-wrapper {
+    max-width: rem(128px);
+    flex: 2;
+    flex-direction: column;
+    margin-right: rem(24px);
+    overflow-wrap: break-word;
+  }
+
+  .#{$prefix}--text-input-wrapper .#{$prefix}--form__helper-text--inline {
+    margin-top: rem(2px);
+  }
+
+  .#{$prefix}--text-input__field-outer-wrapper {
+    display: flex;
+    width: 100%;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .#{$prefix}--text-input__field-outer-wrapper--inline {
+    flex: 8;
+    flex-direction: column;
+  }
+
+  // Windows HCM fix
+  .#{$prefix}--text-input--password__visibility,
+    // TODO: remove selector above
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger svg,
+    .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--text-input--password__visibility__toggle.#{$prefix}--tooltip__trigger:hover
+    svg {
+    @include high-contrast-mode('icon-fill');
+  }
+}

@@ -195,6 +195,7 @@ export default function TreeNode({
     );
   }
   return (
+    // eslint-disable-next-line jsx-a11y/role-supports-aria-props
     <li {...treeNodeProps} aria-expanded={!!expanded}>
       <div className={`${prefix}--tree-node__label`} ref={currentNodeLabel}>
         {/* https://github.com/carbon-design-system/carbon/pull/6008#issuecomment-675738670 */}

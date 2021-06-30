@@ -47,7 +47,7 @@ const Button = React.forwardRef(function Button(
   },
   ref
 ) {
-  const [allowTooltipVisibility, setAllowTooltipVisibility] = useState(true);
+  const [allowTooltipVisibility, setAllowTooltipVisibility] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const tooltipRef = useRef(null);

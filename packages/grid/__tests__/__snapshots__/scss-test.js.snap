@@ -6,5 +6,6 @@ Array [
   "grid-gutter",
   "grid-gutter--condensed",
   "grid-breakpoints",
+  "carbon--aspect-ratios",
 ]
 `;

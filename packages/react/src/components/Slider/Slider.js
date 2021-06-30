@@ -222,7 +222,11 @@ export default class Slider extends PureComponent {
 
     // If value from props does not change, do nothing here.
     // Otherwise, do prop -> state sync without "value capping".
-    if (prevProps.value === this.props.value) {
+    if (
+      prevProps.value === this.props.value &&
+      prevProps.max === this.props.max &&
+      prevProps.min === this.props.min
+    ) {
       return;
     }
     this.setState(
@@ -457,7 +461,8 @@ export default class Slider extends PureComponent {
       if (value == null) {
         value = this.state.value;
       }
-      leftPercent = (value - this.props.min) / range;
+      // prevent NaN calculation if the range is 0
+      leftPercent = range === 0 ? 0 : (value - this.props.min) / range;
     }
 
     if (useRawValue) {

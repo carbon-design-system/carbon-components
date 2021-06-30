@@ -7,10 +7,16 @@
 
 import { Document } from 'sketch/dom';
 import { command } from '../command';
-import { syncColorStyles } from '../../sharedStyles/colors';
+import { syncColorStyles, syncColorVariables } from '../../sharedStyles/colors';
 
 export function sync() {
   command('commands/colors/sync', () => {
     syncColorStyles({ document: Document.getSelectedDocument() });
+  });
+}
+
+export function syncColorVars() {
+  command('commands/colors/syncvars', () => {
+    syncColorVariables({ document: Document.getSelectedDocument() });
   });
 }

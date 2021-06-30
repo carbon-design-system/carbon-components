@@ -1,0 +1,34 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+@use '../../config' as *;
+
+// @access public
+// @content Includes a block of styles for sticky data tables that sets table max-width, max-height and column min-width
+// @example - @include sticky-header($max-height: rem(900px), $min-width: rem(30px));
+// @param {value} $max-width [100%] - sets the max-width of the data table parent container
+// @param {value} $max-height [rem(300px)] - sets the max-height of the data table
+// @param {value} $min-width [rem(100px)] - sets the min-width of th's and td's so their sizes align
+@mixin sticky-header(
+  $min-width: false,
+  $max-width: 100%,
+  $max-height: rem(300px)
+) {
+  .#{$prefix}--data-table--max-width {
+    max-width: $max-width;
+  }
+
+  .#{$prefix}--data-table--sticky-header {
+    max-height: $max-height;
+
+    @if $min-width {
+      th:not(.#{$prefix}--table-column-checkbox):not(.#{$prefix}--table-column-menu):not(.#{$prefix}--table-expand):not(.#{$prefix}--table-column-icon),
+      td:not(.#{$prefix}--table-column-checkbox):not(.#{$prefix}--table-column-menu):not(.#{$prefix}--table-expand):not(.#{$prefix}--table-column-icon) {
+        min-width: $min-width;
+      }
+    }
+  }
+}

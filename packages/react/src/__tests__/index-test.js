@@ -205,6 +205,7 @@ describe('Carbon Components React', () => {
         "unstable_MenuSelectableItem",
         "unstable_PageSelector",
         "unstable_Pagination",
+        "unstable_ProgressBar",
         "unstable_Section",
         "unstable_TreeNode",
         "unstable_TreeView",

@@ -1,7 +1,7 @@
 {
   "name": "@carbon/icons-vue",
   "description": "Vue components for icons in digital and software products using the Carbon Design System",
-  "version": "10.33.0-rc.0",
+  "version": "10.34.0",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -28,11 +28,11 @@
     "clean": "rimraf es lib"
   },
   "dependencies": {
-    "@carbon/icon-helpers": "^10.18.0-rc.0"
+    "@carbon/icon-helpers": "^10.19.0"
   },
   "devDependencies": {
-    "@carbon/cli-reporter": "^10.4.0",
-    "@carbon/icons": "^10.33.0-rc.0",
+    "@carbon/cli-reporter": "^10.5.0",
+    "@carbon/icons": "^10.34.0",
     "fs-extra": "^8.1.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.0",

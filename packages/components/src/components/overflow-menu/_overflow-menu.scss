@@ -241,6 +241,7 @@
   }
 
   .#{$prefix}--overflow-menu-options__btn {
+    @include reset;
     @include type-style('body-short-01');
     @include focus-outline('reset');
 

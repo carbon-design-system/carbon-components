@@ -29,6 +29,8 @@ packages/components/scss
 packages/components/html
 packages/components/docs/js
 packages/components/node_modules
+packages/components/scss/globals/vendor/**
+packages/components/src/globals/scss/vendor/**
 
 # Sketch
 *.sketchplugin
@@ -38,6 +40,9 @@ packages/components/node_modules
 
 # React
 **/storybook-static/**
+
+# Icons React
+packages/icons-react/next/**
 
 # Templates
 packages/cli/src/component/templates/**

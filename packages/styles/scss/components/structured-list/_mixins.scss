@@ -1,0 +1,59 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../spacing' as *;
+
+// Structured List
+
+/// @type Number
+/// @access public
+/// @group structured-list
+$structured-list-padding: 2rem !default;
+
+/// @type Value
+/// @access public
+/// @group structured-list
+$structured-list-text-transform: none !default;
+
+/// Used only for `.#{prefix}--structured-list--condensed`
+/// @access private
+/// @group structured-list
+/// @param {Number} $padding [$structured-list-padding]
+@mixin padding-td--condensed($padding: $structured-list-padding) {
+  padding: $padding / 4;
+}
+
+/// Used only for [data-structured-list]
+/// @access private
+/// @group structured-list
+/// @param {Number} $padding [$structured-list-padding]
+@mixin padding--data-structured-list($padding: $structured-list-padding) {
+  padding-right: $padding / 2;
+  padding-left: $padding / 2;
+
+  // Controls gutter sizes for check
+  &:first-child {
+    padding-right: $padding / 2;
+    padding-left: $padding / 2;
+  }
+}
+
+/// Used only for normal structured-list
+/// @access private
+/// @group structured-list
+/// @param {Number} $padding [$structured-list-padding]
+@mixin padding-th($padding: $structured-list-padding) {
+  padding: $spacing-05 $spacing-03 $spacing-03 $spacing-03;
+}
+
+/// Used only for normal structured-list
+/// @access private
+/// @group structured-list
+/// @param {Number} $padding [$structured-list-padding]
+@mixin padding-td($padding: $structured-list-padding) {
+  padding: $spacing-05 $spacing-03 $spacing-06 $spacing-03;
+}

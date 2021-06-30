@@ -49,6 +49,7 @@ export default class TextInput extends mixin(
    * the SVG icon for visibility off
    * @param {boolean} obj.passwordIsVisible - The visibility of the password in the
    * input field
+   * @param {boolean} obj.selectorPasswordVisibilityTooltip
    */
   _setIconVisibility = ({
     iconVisibilityOn,

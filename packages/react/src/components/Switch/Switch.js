@@ -56,7 +56,9 @@ const Switch = React.forwardRef(function Switch(props, tabRef) {
       aria-selected={selected}
       {...other}
       {...commonProps}>
-      <span className={`${prefix}--content-switcher__label`}>{text}</span>
+      <span className={`${prefix}--content-switcher__label`} title={text}>
+        {text}
+      </span>
     </button>
   );
 });

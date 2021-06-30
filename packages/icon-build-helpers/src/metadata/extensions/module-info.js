@@ -9,7 +9,7 @@
 
 const { pascalCase } = require('change-case');
 const path = require('path');
-const parser = require('svg-parser');
+const parser = require('svgson');
 const { svgo } = require('./output/optimizer');
 
 /**
@@ -99,17 +99,47 @@ function safe(name) {
  * @returns {object}
  */
 function parse(input) {
-  const root = parser.parse(input);
-  const svg = root.children[0];
-  return {
-    type: svg.type,
-    tagName: svg.tagName,
-    properties: {
-      ...svg.properties,
-      fill: 'currentColor',
-    },
-    children: svg.children,
-  };
+  const root = parser.parseSync(input);
+
+  function transform(node) {
+    if (node.type === 'element') {
+      if (node.name === 'svg') {
+        return {
+          type: node.type,
+          tagName: node.name,
+          attributes: {
+            ...transformAttributes(node.attributes),
+            fill: 'currentColor',
+          },
+          children: node.children.map(transform),
+        };
+      }
+
+      return {
+        type: node.type,
+        tagName: node.name,
+        attributes: transformAttributes(node.attributes),
+        children: node.children.map(transform),
+      };
+    }
+
+    throw new Error(`Unsupported node type: ${node.type}`);
+  }
+
+  function transformAttributes(attributes) {
+    const result = {};
+    for (const [key, value] of Object.entries(attributes)) {
+      if (typeof value === 'string') {
+        // In our Adobe Illustrator exports, some attributes in the SVG contain
+        // a \t sequence that is included in the parsed SVG ast. Here, we remove
+        // it and replace it with a space as the whitespace character
+        result[key] = value.replace(/\t/g, ' ');
+      }
+    }
+    return result;
+  }
+
+  return transform(root);
 }
 
 module.exports = moduleInfo;

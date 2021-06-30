@@ -7,24 +7,35 @@
 
 'use strict';
 
-const colors = require('./carbon-colors');
-const elements = require('./carbon-elements');
-const grid = require('./carbon-grid');
-const iconsReact = require('./carbon-icons-react');
-const layout = require('./carbon-layout');
-const motion = require('./carbon-motion');
-const type = require('./carbon-type');
+const supported = [
+  {
+    packageName: 'react',
+    // the range we would like to migrate *from*
+    from: '>=16',
+    // the version we would like to migrate *to*
+    to: '18.0.0',
 
-const supportedPackages = new Map([
-  [colors.name, colors.migrations],
-  [elements.name, elements.migrations],
-  [grid.name, grid.migrations],
-  [iconsReact.name, iconsReact.migrations],
-  [layout.name, layout.migrations],
-  [motion.name, motion.migrations],
-  [type.name, type.migrations],
-]);
+    async migrate(workspace) {
+      console.log(
+        'migrate the react package in the %s workspace',
+        workspace.name
+      );
+    },
+  },
+  {
+    packageName: 'react-dom',
+    // the range we would like to migrate *from*
+    from: '>=16',
+    // the version we would like to migrate *to*
+    to: '18.0.0',
 
-module.exports = {
-  supportedPackages,
-};
+    async migrate(workspace) {
+      console.log(
+        'migrate the react-dom package in the %s workspace',
+        workspace.name
+      );
+    },
+  },
+];
+
+module.exports = supported;

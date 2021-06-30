@@ -129,6 +129,8 @@ async function builder(metadata, { output }) {
  * of the component, from a given moduleName and icon descriptor.
  * @param {string} moduleName
  * @param {object} descriptor
+ * @param {object} descriptor.attrs
+ * @param {object} descriptor.content
  * @returns {object}
  */
 function createIconComponent(moduleName, { attrs, content }) {

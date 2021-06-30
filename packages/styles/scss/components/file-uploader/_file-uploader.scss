@@ -1,0 +1,348 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/visually-hidden' as *;
+
+@use '../button';
+@use '../form';
+@use '../loading';
+
+/// File uploader styles
+/// @access public
+/// @group file-uploader
+@mixin file-uploader {
+  .#{$prefix}--file {
+    width: 100%;
+  }
+
+  .#{$prefix}--file--invalid {
+    margin-right: $spacing-03;
+    fill: $support-error;
+  }
+
+  // TODO: sync with type
+  .#{$prefix}--file--label {
+    @include reset;
+    @include type-style('productive-heading-01');
+
+    margin-bottom: $spacing-03;
+    color: $text-primary;
+  }
+
+  .#{$prefix}--file--label--disabled {
+    color: $text-disabled;
+  }
+
+  .#{$prefix}--file-input {
+    @include visually-hidden;
+  }
+
+  // This class is of old markup with "select file" button
+  // New code should use link-style "select file" UI (`.bx--file-browse-btn`)
+  // TODO: deprecate this block
+  .#{$prefix}--file-btn {
+    display: inline-flex;
+    padding-right: rem(64px);
+    margin: 0;
+  }
+
+  .#{$prefix}--file-browse-btn {
+    display: inline-block;
+    width: 100%;
+    max-width: rem(320px);
+    margin-bottom: $spacing-03;
+    color: $link-primary;
+    cursor: pointer;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    transition: $duration-fast-02 motion(standard, productive);
+
+    &:focus,
+    &:hover {
+      outline: 2px solid $focus;
+    }
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:active:visited {
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: $text-primary;
+    }
+  }
+
+  .#{$prefix}--file-browse-btn--disabled {
+    color: $text-disabled;
+    cursor: no-drop;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: $text-disabled;
+      outline: none;
+      text-decoration: none;
+    }
+  }
+
+  .#{$prefix}--file-browse-btn--disabled .#{$prefix}--file__drop-container {
+    border: 1px dashed $button-disabled;
+  }
+
+  .#{$prefix}--label-description {
+    @include reset;
+    @include type-style('body-short-01');
+
+    margin-bottom: $spacing-05;
+    color: $text-secondary;
+  }
+
+  .#{$prefix}--label-description--disabled {
+    color: $text-disabled;
+  }
+
+  // For backwards compatibility
+  .#{$prefix}--file-btn ~ .#{$prefix}--file-container {
+    margin-top: $spacing-06;
+  }
+
+  .#{$prefix}--btn ~ .#{$prefix}--file-container {
+    margin-top: $spacing-05;
+  }
+
+  .#{$prefix}--file .#{$prefix}--file-container,
+  .#{$prefix}--file ~ .#{$prefix}--file-container {
+    margin-top: $spacing-03;
+  }
+
+  .#{$prefix}--file__selected-file {
+    display: grid;
+    max-width: rem(320px);
+    min-height: $spacing-09;
+    align-items: center;
+    margin-bottom: $spacing-03;
+    background-color: $field;
+    gap: rem(12px) $spacing-05;
+    grid-auto-rows: auto;
+    grid-template-columns: 1fr auto;
+    word-break: break-word;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .#{$prefix}--form-requirement {
+      display: block;
+      max-height: none;
+      margin: 0;
+      grid-column: 1 / -1;
+    }
+
+    .#{$prefix}--inline-loading__animation .#{$prefix}--loading {
+      // Vanilla markup has `.bx--inline-loading__animation` which is used for `margin-right` adjustment
+      margin-right: 0;
+    }
+
+    .#{$prefix}--file-filename {
+      @include type-style('body-short-01');
+
+      overflow: hidden;
+      margin-left: $spacing-05;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // V11: Remove --field
+  .#{$prefix}--file__selected-file--field,
+  .#{$prefix}--file__selected-file--md {
+    min-height: rem(40px);
+    gap: $spacing-03 $spacing-05;
+  }
+
+  .#{$prefix}--file__selected-file--sm {
+    min-height: rem(32px);
+    gap: $spacing-02 $spacing-05;
+  }
+
+  // TODO: deprecate this block
+  .#{$prefix}--file__selected-file--invalid__wrapper {
+    @include focus-outline('invalid');
+
+    max-width: rem(320px);
+    margin-bottom: $spacing-03;
+    background-color: $field;
+    outline-width: 1px;
+  }
+
+  .#{$prefix}--file__selected-file--invalid {
+    @include focus-outline('invalid');
+
+    padding: rem(12px) 0;
+  }
+
+  .#{$prefix}--file__selected-file--invalid.#{$prefix}--file__selected-file--sm {
+    padding: $spacing-02 0;
+  }
+
+  // V11: Remove --field
+  .#{$prefix}--file__selected-file--invalid.#{$prefix}--file__selected-file--field,
+  .#{$prefix}--file__selected-file--invalid.#{$prefix}--file__selected-file--md {
+    padding: $spacing-03 0;
+  }
+
+  .#{$prefix}--file__selected-file--invalid .#{$prefix}--form-requirement {
+    padding-top: $spacing-05;
+    border-top: 1px solid $border-subtle;
+  }
+
+  .#{$prefix}--file__selected-file--invalid.#{$prefix}--file__selected-file--sm
+    .#{$prefix}--form-requirement {
+    padding-top: rem(7px);
+  }
+
+  // V11: Remove --field
+  .#{$prefix}--file__selected-file--invalid.#{$prefix}--file__selected-file--field
+    .#{$prefix}--form-requirement,
+  .#{$prefix}--file__selected-file--invalid.#{$prefix}--file__selected-file--md
+    .#{$prefix}--form-requirement {
+    padding-top: rem(11px);
+  }
+
+  .#{$prefix}--file__selected-file--invalid
+    .#{$prefix}--form-requirement__title,
+  .#{$prefix}--file__selected-file--invalid
+    .#{$prefix}--form-requirement__supplement {
+    @include type-style('label-01');
+
+    padding: 0 $spacing-05;
+  }
+
+  .#{$prefix}--file__selected-file--invalid
+    .#{$prefix}--form-requirement__title {
+    color: $text-error;
+  }
+
+  .#{$prefix}--file__selected-file--invalid
+    .#{$prefix}--form-requirement__supplement {
+    color: $text-primary;
+  }
+
+  // TODO: deprecate
+  .#{$prefix}--file__selected-file--invalid + .#{$prefix}--form-requirement {
+    @include type-style('caption-01');
+
+    display: block;
+    overflow: visible;
+    max-height: rem(200px);
+    padding: $spacing-03 $spacing-05;
+    color: $text-error;
+    font-weight: 400;
+  }
+
+  .#{$prefix}--file__selected-file--invalid
+    + .#{$prefix}--form-requirement
+    .#{$prefix}--form-requirement__supplement {
+    padding-bottom: $spacing-03;
+    color: $text-primary;
+  }
+
+  .#{$prefix}--file__state-container {
+    display: flex;
+    min-width: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    padding-right: $spacing-05;
+
+    .#{$prefix}--loading__svg {
+      stroke: $icon-primary;
+    }
+  }
+
+  .#{$prefix}--file__state-container .#{$prefix}--file-complete {
+    cursor: pointer;
+    fill: $interactive;
+
+    &:focus {
+      @include focus-outline('border');
+    }
+
+    // for checkmark contrast
+    [data-icon-path='inner-path'] {
+      fill: $icon-on-color;
+      opacity: 1;
+    }
+  }
+
+  .#{$prefix}--file__state-container .#{$prefix}--file-invalid {
+    width: $spacing-05;
+    height: $spacing-05;
+    fill: $support-error;
+  }
+
+  .#{$prefix}--file__state-container .#{$prefix}--file-close {
+    display: flex;
+    width: $spacing-06;
+    height: $spacing-06;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    fill: $icon-primary;
+
+    &:focus {
+      @include focus-outline('outline');
+    }
+  }
+
+  .#{$prefix}--file__state-container .#{$prefix}--file-close svg path {
+    fill: $icon-primary;
+  }
+
+  .#{$prefix}--file__state-container .#{$prefix}--inline-loading__animation {
+    margin-right: -$spacing-03;
+  }
+
+  .#{$prefix}--file__drop-container {
+    display: flex;
+    overflow: hidden;
+    height: rem(96px);
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: $spacing-05;
+    border: 1px dashed $border-strong;
+  }
+
+  .#{$prefix}--file__drop-container--drag-over {
+    background: none;
+    outline: 2px solid $focus;
+    outline-offset: -2px;
+  }
+
+  // Windows HCM fix
+  /* stylelint-disable */
+  .#{$prefix}--file__selected-file {
+    @include high-contrast-mode('outline');
+  }
+
+  .#{$prefix}--file__state-container .#{$prefix}--file-close svg path {
+    @include high-contrast-mode('icon-fill');
+  }
+  /* stylelint-enable */
+}

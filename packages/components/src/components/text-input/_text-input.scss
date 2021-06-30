@@ -85,13 +85,17 @@
     width: 100%;
   }
 
-  .#{$prefix}--text-input__invalid-icon {
+  .#{$prefix}--text-input__invalid-icon,
+  .#{$prefix}--text-input__readonly-icon {
     position: absolute;
     // top/transform used to center invalid icon in IE11
     top: 50%;
     right: $carbon--spacing-05;
-    fill: $support-error;
     transform: translateY(-50%);
+  }
+
+  .#{$prefix}--text-input__invalid-icon {
+    fill: $support-error;
   }
 
   .#{$prefix}--text-input__invalid-icon--warning {
@@ -164,7 +168,8 @@
   }
 
   .#{$prefix}--text-input--invalid,
-  .#{$prefix}--text-input--warning {
+  .#{$prefix}--text-input--warning,
+  .#{$prefix}--text-input-wrapper--readonly .#{$prefix}--text-input {
     padding-right: $carbon--spacing-08;
   }
 
@@ -368,6 +373,15 @@
   .#{$prefix}--text-input__field-outer-wrapper--inline {
     flex: 8;
     flex-direction: column;
+  }
+
+  //-----------------------------
+  // Readonly
+  //-----------------------------
+
+  .#{$prefix}--form--fluid .#{$prefix}--text-input-wrapper--readonly,
+  .#{$prefix}--text-input-wrapper--readonly .#{$prefix}--text-input {
+    background: transparent;
   }
 
   // Windows HCM fix

@@ -58,7 +58,8 @@
   //-------------------------------------------------
   //HIDDEN SEARCH - DEFAULT TOOLBAR
   //-------------------------------------------------
-  .#{$prefix}--toolbar-search-container-expandable {
+  .#{$prefix}--toolbar-content
+    .#{$prefix}--toolbar-search-container-expandable {
     position: relative;
     width: $spacing-09;
     height: $spacing-09;
@@ -85,6 +86,7 @@
     width: $spacing-09;
     height: $spacing-09;
     padding: $spacing-05;
+    fill: $icon-primary;
   }
 
   .#{$prefix}--toolbar-search-container-expandable.#{$prefix}--search--disabled
@@ -477,6 +479,14 @@
 
     .#{$prefix}--toolbar-action.#{$prefix}--toolbar-search-container-persistent {
       width: 100%;
+    }
+
+    // Adjust icon positioning since small has less padding
+    .#{$prefix}--toolbar-search-container-active
+      .#{$prefix}--search-magnifier-icon,
+    .#{$prefix}--toolbar-search-container-persistent
+      .#{$prefix}--search-magnifier-icon {
+      left: $spacing-03;
     }
 
     //hidden

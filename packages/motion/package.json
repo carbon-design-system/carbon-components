@@ -1,7 +1,7 @@
 {
   "name": "@carbon/motion",
   "description": "Motion helpers for digital and software products using the Carbon Design System",
-  "version": "10.19.0-rc.0",
+  "version": "10.20.0",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,7 +29,7 @@
     "clean": "rimraf es lib umd"
   },
   "devDependencies": {
-    "@carbon/cli": "^10.24.0-rc.0",
+    "@carbon/cli": "^10.25.0",
     "rimraf": "^3.0.0"
   },
   "eyeglass": {

@@ -196,16 +196,24 @@
     padding: rem(15px) 0;
   }
 
-  .#{$prefix}--inline-notification__title {
-    @include type-style('productive-heading-01');
+  @if feature-flag-enabled('enable-v11-release') {
+    .#{$prefix}--inline-notification__content {
+      @include type-style('body-short-01');
 
-    margin: 0 $carbon--spacing-02 0 0;
-  }
+      word-break: break-word;
+    }
+  } @else {
+    .#{$prefix}--inline-notification__title {
+      @include type-style('productive-heading-01');
 
-  .#{$prefix}--inline-notification__subtitle {
-    @include type-style('body-short-01');
+      margin: 0 $carbon--spacing-02 0 0;
+    }
 
-    word-break: break-word;
+    .#{$prefix}--inline-notification__subtitle {
+      @include type-style('body-short-01');
+
+      word-break: break-word;
+    }
   }
 
   .#{$prefix}--inline-notification__action-button.#{$prefix}--btn--ghost {

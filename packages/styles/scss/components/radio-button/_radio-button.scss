@@ -1,0 +1,198 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+//-----------------------------
+// Radio
+//-----------------------------
+
+@use '../../theme' as *;
+@use '../../type';
+@use '../form';
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/component-reset' as *;
+@use '../../utilities/visually-hidden' as *;
+@use '../../utilities/skeleton' as *;
+@use '../../utilities/convert' as *;
+@use '../../config' as *;
+@use '../../spacing' as *;
+
+/// @type Number
+/// @access public
+/// @group radio-button
+$radio-border-width: 1px !default;
+
+/// Radio button styles
+/// @access private
+/// @group radio-button
+@mixin radio-button {
+  .#{$prefix}--radio-button-group {
+    @include reset;
+
+    display: flex;
+    align-items: center;
+  }
+
+  // Remove spacing above collection of radio buttons if label is present
+  .#{$prefix}--label + .#{$prefix}--form-item .#{$prefix}--radio-button-group {
+    margin-top: 0;
+  }
+
+  // vertical radio button
+  .#{$prefix}--radio-button-group--vertical {
+    flex-direction: column;
+    align-items: flex-start;
+
+    &.#{$prefix}--radio-button-group--label-left {
+      align-items: flex-end;
+    }
+
+    .#{$prefix}--radio-button__label {
+      margin-right: 0;
+      line-height: carbon-mini-units(2.5);
+    }
+
+    .#{$prefix}--radio-button__label:not(:last-of-type) {
+      margin-bottom: $spacing-03;
+    }
+  }
+
+  .#{$prefix}--radio-button {
+    @include visually-hidden;
+
+    visibility: inherit;
+  }
+
+  .#{$prefix}--radio-button__label {
+    @include type.type-style('body-short-01');
+
+    display: flex;
+    align-items: center;
+    margin-right: $spacing-05;
+    cursor: pointer;
+  }
+
+  .#{$prefix}--radio-button__appearance {
+    @include reset;
+
+    width: rem(18px);
+    height: rem(18px);
+    flex-shrink: 0;
+    border: $radio-border-width solid $icon-primary;
+    margin: rem(1px) $spacing-03 rem(2px) rem(2px);
+    background-color: transparent;
+    border-radius: 50%;
+  }
+
+  .#{$prefix}--radio-button:checked
+    + .#{$prefix}--radio-button__label
+    .#{$prefix}--radio-button__appearance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: $icon-primary;
+
+    &::before {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      background-color: $icon-primary;
+      border-radius: 50%;
+      content: '';
+      transform: scale(0.5);
+
+      // Allow the selected button to be seen in Windows HCM for IE/Edge
+      @media screen and (-ms-high-contrast: active) {
+        // Utilize a system color variable to accomodate any user HCM theme
+        background-color: WindowText;
+      }
+
+      // Firefox only HCM solution
+      @media screen and (prefers-contrast) {
+        // Utilize a system color variable to accomodate any user HCM theme
+        border: 2px solid WindowText;
+      }
+    }
+  }
+
+  .#{$prefix}--radio-button:disabled-01 + .#{$prefix}--radio-button__label {
+    color: $disabled-01;
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--radio-button:disabled-01
+    + .#{$prefix}--radio-button__label
+    .#{$prefix}--radio-button__appearance,
+  .#{$prefix}--radio-button:disabled-01:checked
+    + .#{$prefix}--radio-button__label
+    .#{$prefix}--radio-button__appearance {
+    border-color: $disabled-01;
+
+    &::before {
+      background-color: $disabled-01;
+    }
+  }
+
+  // Focus
+
+  .#{$prefix}--radio-button:focus
+    + .#{$prefix}--radio-button__label
+    .#{$prefix}--radio-button__appearance {
+    box-shadow: 0 0 0 2px $focus;
+    outline: 1px solid transparent;
+  }
+
+  // Skeleton State
+  .#{$prefix}--radio-button__label.#{$prefix}--skeleton {
+    @include skeleton;
+
+    width: rem(100px);
+    height: rem(18px);
+  }
+
+  .#{$prefix}--radio-button__label.#{$prefix}--skeleton
+    .#{$prefix}--radio-button__appearance {
+    display: none;
+  }
+
+  .#{$prefix}--radio-button-wrapper .#{$prefix}--radio-button__label {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .#{$prefix}--radio-button-wrapper:not(:last-of-type) {
+    margin-right: $spacing-05;
+  }
+
+  .#{$prefix}--radio-button-group--vertical
+    .#{$prefix}--radio-button-wrapper:not(:last-of-type) {
+    margin-right: 0;
+    margin-bottom: $spacing-03;
+  }
+
+  .#{$prefix}--radio-button-group--label-right .#{$prefix}--radio-button__label,
+  .#{$prefix}--radio-button-wrapper.#{$prefix}--radio-button-wrapper--label-right
+    .#{$prefix}--radio-button__label {
+    flex-direction: row;
+  }
+
+  .#{$prefix}--radio-button-group--label-left .#{$prefix}--radio-button__label,
+  .#{$prefix}--radio-button-wrapper.#{$prefix}--radio-button-wrapper--label-left
+    .#{$prefix}--radio-button__label {
+    flex-direction: row-reverse;
+  }
+
+  .#{$prefix}--radio-button-group--label-left
+    .#{$prefix}--radio-button__appearance,
+  .#{$prefix}--radio-button-wrapper.#{$prefix}--radio-button-wrapper--label-left
+    .#{$prefix}--radio-button__appearance {
+    margin-right: 0;
+    margin-left: $spacing-03;
+  }
+}

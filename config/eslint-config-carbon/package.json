@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-carbon",
   "description": "ESLint configuration for Carbon",
-  "version": "2.4.0-rc.0",
+  "version": "2.6.0",
   "license": "Apache-2.0",
   "main": "index.js",
   "repository": {
@@ -12,6 +12,7 @@
   "bugs": "https://github.com/carbon-design-system/carbon/issues",
   "files": [
     "plugins",
+    "rules",
     "base.js",
     "index.js",
     "react.js",
@@ -28,20 +29,20 @@
     "access": "public"
   },
   "peerDependencies": {
-    "eslint": "^6.0.0"
+    "eslint": "^6.0.0 || ^7.0.0"
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.9.0",
-    "eslint-plugin-cypress": "^2.11.2",
-    "eslint-plugin-import": "^2.20.0",
-    "eslint-plugin-jsdoc": "^20.3.1",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.18.0",
-    "eslint-plugin-react-hooks": "^4.0.4",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsdoc": "^35.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-restricted-globals": "^0.2.0"
   },
   "devDependencies": {

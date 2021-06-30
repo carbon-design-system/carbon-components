@@ -10,5 +10,5 @@ import * as FeatureFlags from '@carbon/feature-flags';
 FeatureFlags.merge({
   'enable-css-custom-properties': true,
   'enable-css-grid': true,
-  'enable-2021-release': true,
+  'enable-v11-release': true,
 });

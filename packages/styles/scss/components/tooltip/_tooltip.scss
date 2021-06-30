@@ -1,0 +1,746 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../theme' as *;
+@use '../../type';
+@use '../../motion' as *;
+@use '../../config' as *;
+@use '../../spacing' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/component-reset' as *;
+@use '../../utilities/visually-hidden' as *;
+@use '../../utilities/tooltip' as *;
+@use '../../utilities/button-reset';
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/skeleton' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/box-shadow' as *;
+
+// TODO: deprecate legacy tooltip mixins
+// Tooltip Icon
+// Icon CSS only tooltip
+/// @access private
+/// @deprecated
+/// @group tooltip
+@mixin tooltip--icon {
+  @include reset;
+
+  position: relative;
+  display: inline-flex;
+  overflow: visible;
+  align-items: center;
+  cursor: pointer;
+
+  // Tooltip - renders as a combo of ::before and ::after elements
+  &::before,
+  &::after {
+    @include type.type-style('body-short-01');
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $duration-fast-01 motion(standard, productive);
+  }
+
+  &::before {
+    right: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-width: 0 rem(4px) rem(5px) rem(4px);
+    border-style: solid;
+    border-color: transparent transparent $background-inverse transparent;
+    margin: 0 auto;
+    margin-top: 1px;
+    margin-left: 50%;
+    content: '';
+  }
+
+  &::after {
+    @include box-shadow;
+
+    min-width: rem(24px);
+    max-width: rem(208px);
+    height: rem(24px);
+    padding: 0 1rem;
+    margin-left: 50%;
+    background-color: $background-inverse;
+    border-radius: rem(2px);
+    color: $text-inverse;
+    content: attr(aria-label);
+    font-weight: 400;
+    pointer-events: none;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  &:hover,
+  &:focus {
+    &::before,
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+// Tooltip Icon caret - top position
+/// @param {String} $position ['bottom'] - The position, from: `top`, `bottom`
+/// @param {String} $align ['center'] - The alignment, from: `start`, `center`, `end`
+/// @access private
+/// @deprecated
+/// @group tooltip
+@mixin tooltip--icon-placement($position: 'bottom', $align: 'center') {
+  $translate-x: if($align == 'center', -50%, 0);
+  $translate-y-caret: if($position == 'top', calc(-100% - 9px), 10px);
+  $translate-y-body: if(
+    $position == 'top',
+    calc(-100% - 12px),
+    calc(100% + 10px)
+  );
+  $rotate-caret: if($position == 'top', 180deg, 0);
+
+  &::before {
+    transform: translate($translate-x, $translate-y-caret) rotate($rotate-caret);
+
+    @if ($position == 'top') {
+      top: 1px;
+    } @else {
+      bottom: 0;
+    }
+    @if ($align == 'start') {
+      margin-left: 4px;
+    } @else if ($align == 'end') {
+      right: 0;
+      left: auto;
+      margin-right: 4px;
+    }
+  }
+
+  &::after {
+    transform: translate($translate-x, $translate-y-body);
+
+    @if ($position == 'top') {
+      top: 0;
+    } @else {
+      bottom: 0;
+    }
+    @if ($align != 'center') {
+      margin-left: 0;
+    }
+    @if ($align == 'end') {
+      right: 0;
+    }
+  }
+}
+
+// legacy definition tooltip mixin
+/// @access private
+/// @deprecated
+/// @group tooltip
+// V11: possibly remove in V11
+@mixin tooltip--definition--legacy {
+  .#{$prefix}--tooltip--definition {
+    @include reset;
+
+    position: relative;
+
+    .#{$prefix}--tooltip__trigger {
+      @include type.type-style('label-01');
+
+      position: relative;
+      display: inline-flex;
+      border-bottom: 1px dotted $highlight;
+      color: $text-primary;
+
+      &:hover {
+        + .#{$prefix}--tooltip--definition__top,
+        + .#{$prefix}--tooltip--definition__bottom {
+          display: block;
+        }
+      }
+
+      &:focus {
+        @include focus-outline('border');
+
+        + .#{$prefix}--tooltip--definition__top,
+        + .#{$prefix}--tooltip--definition__bottom {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .#{$prefix}--tooltip--definition__bottom,
+  .#{$prefix}--tooltip--definition__top {
+    @include box-shadow;
+
+    position: absolute;
+    z-index: 1;
+    display: none;
+    width: rem(208px);
+    padding: $spacing-03 $spacing-05;
+    margin-top: $spacing-04;
+    background: $background-inverse;
+    border-radius: rem(2px);
+    pointer-events: none;
+
+    p {
+      @include type.type-style('body-short-01');
+
+      color: $text-inverse;
+    }
+
+    .#{$prefix}--tooltip__caret {
+      position: absolute;
+      right: 0;
+      left: 0;
+      width: 0.6rem;
+      height: 0.6rem;
+      margin-left: $spacing-05;
+      background: $background-inverse;
+    }
+  }
+
+  // Tooltip Definition caret - bottom position
+  .#{$prefix}--tooltip--definition__bottom .#{$prefix}--tooltip__caret {
+    top: -0.2rem;
+    transform: rotate(-135deg);
+  }
+
+  // Tooltip Definition caret - top position
+  .#{$prefix}--tooltip--definition__top {
+    margin-top: rem(-32px);
+    transform: translateY(-100%);
+
+    .#{$prefix}--tooltip__caret {
+      bottom: -0.2rem;
+      transform: rotate(45deg);
+    }
+  }
+
+  .#{$prefix}--tooltip--definition__align-end {
+    right: 0;
+  }
+
+  .#{$prefix}--tooltip--definition__align-center {
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .#{$prefix}--tooltip--definition__top.#{$prefix}--tooltip--definition__align-center {
+    margin-left: 50%;
+    transform: translate(-50%, -100%);
+  }
+
+  .#{$prefix}--tooltip--definition__align-center .#{$prefix}--tooltip__caret {
+    left: auto;
+    // Adjust by the half of the diagonal of the caret, which sizes 0.6rem
+    margin-right: calc(50% - 6px);
+    margin-left: auto;
+  }
+
+  .#{$prefix}--tooltip--definition__align-end .#{$prefix}--tooltip__caret {
+    left: auto;
+    margin-right: rem(16px);
+    margin-left: auto;
+  }
+}
+
+// legacy icon tooltip mixin
+/// @access private
+/// @deprecated
+/// @group tooltip
+// V11: possibly remove in V11
+@mixin tooltip--icon--legacy {
+  // Icon CSS only tooltip
+  .#{$prefix}--tooltip--icon {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .#{$prefix}--tooltip--icon__top,
+  .#{$prefix}--tooltip--icon__bottom {
+    @include tooltip--icon;
+
+    &:hover,
+    &:focus {
+      svg {
+        fill: $icon-secondary;
+      }
+    }
+
+    &:focus {
+      outline: 1px solid transparent;
+
+      svg {
+        @include focus-outline('border');
+      }
+    }
+  }
+
+  // Tooltip Icon caret - top position
+  .#{$prefix}--tooltip--icon__top {
+    @include tooltip--icon-placement('top');
+  }
+
+  // Tooltip Icon caret - bottom position
+  .#{$prefix}--tooltip--icon__bottom {
+    @include tooltip--icon-placement('bottom');
+  }
+
+  // Tooltip Icon caret - top position, left alignment
+  .#{$prefix}--tooltip--icon__top.#{$prefix}--tooltip--icon__align-start {
+    @include tooltip--icon-placement('top', 'start');
+  }
+
+  // Tooltip Icon caret - top position, right alignment
+  .#{$prefix}--tooltip--icon__top.#{$prefix}--tooltip--icon__align-end {
+    @include tooltip--icon-placement('top', 'end');
+  }
+
+  // Tooltip Icon caret - bottom position, left alignment
+  .#{$prefix}--tooltip--icon__bottom.#{$prefix}--tooltip--icon__align-start {
+    @include tooltip--icon-placement('bottom', 'start');
+  }
+
+  // Tooltip Icon caret - bottom position, right alignment
+  .#{$prefix}--tooltip--icon__bottom.#{$prefix}--tooltip--icon__align-end {
+    @include tooltip--icon-placement('bottom', 'end');
+  }
+
+  // Tooltip position - icon only
+  .#{$prefix}--tooltip--icon .#{$prefix}--tooltip__trigger svg {
+    margin-left: 0;
+  }
+}
+
+/// Tooltip styles
+/// @access private
+/// @group tooltip
+@mixin tooltip {
+  // Caret's original size was 13.75px square
+  $caret-size: rem(6.875px);
+
+  .#{$prefix}--tooltip__label {
+    @include type.type-style('label-01');
+
+    display: inline-flex;
+    align-items: center;
+    color: $text-secondary;
+
+    &:focus {
+      @include focus-outline('border');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger svg {
+    fill: $icon-secondary;
+  }
+
+  .#{$prefix}--tooltip__trigger:not(.#{$prefix}--btn--icon-only) {
+    @include button-reset.reset($width: false);
+
+    display: inline-flex;
+    align-items: center;
+    font-size: 1rem;
+
+    &:focus {
+      @include focus-outline('border');
+
+      fill: $button-primary-hover;
+    }
+  }
+
+  // Disabled styles
+  .#{$prefix}--tooltip__trigger:not(.#{$prefix}--btn--icon-only)[disabled] svg {
+    fill: $icon-disabled;
+  }
+
+  .#{$prefix}--tooltip__label .#{$prefix}--tooltip__trigger {
+    // Override `margin: 0` from button-reset mixin
+    margin-left: $spacing-03;
+  }
+
+  .#{$prefix}--tooltip__label--bold {
+    font-weight: 600;
+  }
+
+  .#{$prefix}--tooltip {
+    @include box-shadow;
+    @include reset;
+
+    position: absolute;
+    z-index: z('floating');
+    display: none;
+    min-width: rem(208px);
+    max-width: rem(288px);
+    padding: $spacing-05;
+    margin-top: $spacing-02;
+    background: $background-inverse;
+    border-radius: rem(2px);
+    color: $text-inverse;
+    word-wrap: break-word;
+
+    // @todo this can be deprecated in v11 since focus should always be on the content container not the tooltip
+    // V11: remove in V11
+    &:focus {
+      box-shadow: inset 0 0 0 1px $background-inverse,
+        inset 0 0 0 2px $background;
+      outline: 0;
+    }
+
+    &.#{$prefix}--tooltip--top.#{$prefix}--tooltip--align-start,
+    &.#{$prefix}--tooltip--bottom.#{$prefix}--tooltip--align-start {
+      transform: translate(calc(50% - 22px), 0);
+
+      .#{$prefix}--tooltip__caret {
+        margin-left: 15px;
+      }
+    }
+
+    &.#{$prefix}--tooltip--top.#{$prefix}--tooltip--align-end,
+    &.#{$prefix}--tooltip--bottom.#{$prefix}--tooltip--align-end {
+      transform: translate(calc(22px - 50%), 0);
+
+      .#{$prefix}--tooltip__caret {
+        margin-right: 15px;
+      }
+    }
+
+    &.#{$prefix}--tooltip--left.#{$prefix}--tooltip--align-start {
+      transform: translate(0, calc(-15px + 50%));
+
+      .#{$prefix}--tooltip__caret {
+        top: 14px;
+      }
+    }
+
+    &.#{$prefix}--tooltip--left.#{$prefix}--tooltip--align-end {
+      transform: translate(0, calc(31px - 50%));
+
+      .#{$prefix}--tooltip__caret {
+        top: initial;
+        bottom: 25px;
+      }
+    }
+
+    &.#{$prefix}--tooltip--right.#{$prefix}--tooltip--align-start {
+      transform: translate(0, calc(-26px + 50%));
+
+      .#{$prefix}--tooltip__caret {
+        top: 26px;
+      }
+    }
+
+    &.#{$prefix}--tooltip--right.#{$prefix}--tooltip--align-end {
+      transform: translate(0, calc(20px - 50%));
+
+      .#{$prefix}--tooltip__caret {
+        top: initial;
+        bottom: 12px;
+      }
+    }
+
+    p {
+      @include type.type-style('body-short-01');
+    }
+
+    button {
+      padding-right: $spacing-07;
+    }
+
+    .#{$prefix}--btn:focus {
+      border-color: $focus-inverse;
+      outline-color: $background-inverse;
+    }
+
+    .#{$prefix}--link {
+      color: $link-inverse;
+      font-size: rem(14px);
+
+      &:focus {
+        outline: 1px solid $focus-inverse;
+        outline-offset: 2px;
+      }
+
+      &:active,
+      &:active:visited,
+      &:active:visited:hover {
+        color: $text-inverse;
+      }
+
+      &:visited {
+        color: $link-inverse;
+      }
+    }
+
+    // Tooltips need to be click focusable but not sequentially focusable so the user can click within
+    // the tooltip and not have it close. Because the element is not actionable it does not need
+    // to have a visible focus indicator (OK'd by IBMa)
+    .#{$prefix}--tooltip__content[tabindex='-1']:focus {
+      outline: none;
+    }
+
+    .#{$prefix}--tooltip__caret {
+      position: absolute;
+      top: calc(#{$caret-size * (-1)} + 1px);
+      right: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-right: $caret-size solid transparent;
+      border-bottom: $caret-size solid $background-inverse;
+      border-left: $caret-size solid transparent;
+      margin: 0 auto;
+      content: '';
+    }
+
+    .#{$prefix}--tooltip__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    &[data-floating-menu-direction='left'] {
+      margin-left: calc(#{$spacing-03} * -1);
+
+      .#{$prefix}--tooltip__caret {
+        top: 50%;
+        // left position has an additional space between caret and tooltip
+        right: calc(#{$caret-size * (-1)} + 1px);
+        left: auto;
+        transform: rotate(90deg) translate(50%, -50%);
+      }
+    }
+
+    &[data-floating-menu-direction='top'] {
+      margin-top: calc(#{$spacing-03} * -1);
+
+      .#{$prefix}--tooltip__caret {
+        top: auto;
+        bottom: calc(#{$caret-size * (-1)} + 1px);
+        transform: rotate(180deg);
+      }
+    }
+
+    &[data-floating-menu-direction='right'] {
+      margin-left: $spacing-03;
+
+      .#{$prefix}--tooltip__caret {
+        top: 50%;
+        right: auto;
+        left: calc(#{$caret-size * (-1)} + 1px);
+        transform: rotate(270deg) translate(50%, -50%);
+      }
+    }
+
+    &[data-floating-menu-direction='bottom'] {
+      margin-top: $spacing-03;
+    }
+  }
+
+  .#{$prefix}--tooltip__heading {
+    @include type.type-style('productive-heading-01');
+
+    margin-bottom: $spacing-03;
+  }
+
+  .#{$prefix}--tooltip--shown {
+    display: block;
+    margin-top: 0;
+  }
+
+  // Tooltip Definition
+  /* begin legacy definition tooltip TODO: deprecate */
+  @include tooltip--definition--legacy;
+  /* end legacy definition tooltip */
+
+  .#{$prefix}--tooltip--definition.#{$prefix}--tooltip--a11y {
+    // Wrapping element set to inline since the tooltip isn't contained within the trigger (affects center and end alignments)
+    // Also allows for Definition Tooltip to be used within a paragraph of text as defined in the usage guidelines
+    display: inline-flex;
+  }
+
+  // default buttons in Safari are adding a small margin, affecting tooltip placement
+  .#{$prefix}--tooltip--definition button.#{$prefix}--tooltip--a11y {
+    margin: 0;
+  }
+
+  // Definition CSS only tooltip
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip__trigger--definition {
+    @include type.type-style('label-01');
+
+    border-bottom: rem(1px) dotted $icon-secondary;
+    transition: border-color $duration-fast-02;
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip__trigger--definition:hover,
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip__trigger--definition:focus {
+    border-bottom-color: $interactive;
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip__trigger--definition.#{$prefix}--tooltip--top {
+    @include tooltip--trigger('definition', 'top');
+    @include tooltip--placement('definition', 'top', 'start');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('definition', 'top', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('definition', 'top', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('definition', 'top', 'end');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip__trigger--definition.#{$prefix}--tooltip--bottom {
+    @include tooltip--trigger('definition', 'bottom');
+    @include tooltip--placement('definition', 'bottom', 'start');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('definition', 'bottom', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('definition', 'bottom', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('definition', 'bottom', 'end');
+    }
+  }
+
+  // Tooltip Icon
+
+  /* begin tooltip icon (TODO: deprecate) */
+  @include tooltip--icon--legacy;
+  /* end legacy tooltip icon */
+
+  // Icon CSS only tooltip
+  .#{$prefix}--tooltip__trigger {
+    &:hover,
+    &:focus {
+      svg {
+        fill: $icon-secondary;
+      }
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip--top {
+    @include tooltip--trigger('icon', 'top');
+    @include tooltip--placement('icon', 'top', 'center');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('icon', 'top', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('icon', 'top', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('icon', 'top', 'end');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip--right {
+    @include tooltip--trigger('icon', 'right');
+    @include tooltip--placement('icon', 'right', 'center');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('icon', 'right', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('icon', 'right', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('icon', 'right', 'end');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip--bottom {
+    @include tooltip--trigger('icon', 'bottom');
+    @include tooltip--placement('icon', 'bottom', 'center');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('icon', 'bottom', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('icon', 'bottom', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('icon', 'bottom', 'end');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip--left {
+    @include tooltip--trigger('icon', 'left');
+    @include tooltip--placement('icon', 'left', 'center');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('icon', 'left', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('icon', 'left', 'center');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('icon', 'left', 'end');
+    }
+  }
+
+  // Allow pointer events on tooltip when tooltip is visible
+  .#{$prefix}--tooltip__trigger:not(.#{$prefix}--tooltip--hidden)
+    .#{$prefix}--assistive-text {
+    pointer-events: all;
+  }
+
+  // Windows HCM fix
+  /* stylelint-disable */
+  .#{$prefix}--tooltip__trigger svg,
+  .#{$prefix}--tooltip__trigger:hover svg,
+  .#{$prefix}--tooltip__trigger:focus svg {
+    @include high-contrast-mode('icon-fill');
+  }
+
+  .#{$prefix}--tooltip__trigger:focus svg {
+    @include high-contrast-mode('focus');
+  }
+
+  .#{$prefix}--tooltip {
+    @include high-contrast-mode('outline');
+  }
+
+  .#{$prefix}--assistive-text {
+    @include high-contrast-mode('outline');
+  }
+}
+
+/// Tooltip styles for v11
+/// @access private
+/// @group tooltip
+@mixin tooltip-next {
+  .#{$prefix}--tooltip {
+    display: inline-block;
+    position: relative;
+  }
+
+  .#{$prefix}--tooltip-content {
+    padding: $spacing-05;
+  }
+}

@@ -21,10 +21,6 @@ import FloatingMenu, {
 import ClickListener from '../../internal/ClickListener';
 import mergeRefs from '../../tools/mergeRefs';
 import { keys, matches as keyDownMatch } from '../../internal/keyboard';
-import {
-  selectorFocusable,
-  selectorTabbable,
-} from '../../internal/keyboard/navigation';
 import isRequiredOneOf from '../../prop-types/isRequiredOneOf';
 import requiredIfValueExists from '../../prop-types/requiredIfValueExists';
 import { useControlledStateWithValue } from '../../internal/FeatureFlags';
@@ -303,17 +299,12 @@ class Tooltip extends Component {
       }
       if (!open && tooltipBody && tooltipBody.id === this._tooltipId) {
         this._tooltipDismissed = true;
-        const primaryFocusNode = tooltipBody.querySelector(
-          this.props.selectorPrimaryFocus || null
-        );
-        const tabbableNode = tooltipBody.querySelector(selectorTabbable);
-        const focusableNode = tooltipBody.querySelector(selectorFocusable);
-        const focusTarget =
-          primaryFocusNode || // User defined focusable node
-          tabbableNode || // First sequentially focusable node
-          focusableNode || // First programmatic focusable node
-          tooltipBody;
-        if (focusTarget !== tooltipBody) {
+        const currentActiveNode = event?.relatedTarget;
+        if (
+          !currentActiveNode &&
+          document.activeElement === document.body &&
+          event?.type !== 'click'
+        ) {
           this._triggerRef?.current.focus();
         }
       }

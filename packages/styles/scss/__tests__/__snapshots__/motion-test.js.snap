@@ -15,6 +15,8 @@ Object {
     "duration-moderate-02": "240ms",
     "duration-slow-01": "400ms",
     "duration-slow-02": "700ms",
+    "ease-in": "cubic-bezier(0, 0, 0.38, 0.9)",
+    "ease-out": "cubic-bezier(0.2, 0, 1, 0.9)",
     "easings": Object {
       "entrance": Object {
         "expressive": "cubic-bezier(0, 0, 0.3, 1)",
@@ -29,6 +31,9 @@ Object {
         "productive": "cubic-bezier(0.2, 0, 0.38, 0.9)",
       },
     },
+    "standard-easing": "cubic-bezier(0.2, 0, 0.38, 0.9)",
+    "transition--base": "110ms",
+    "transition--expansion": "240ms",
   },
 }
 `;

@@ -3,7 +3,7 @@ import path from 'path';
 import { promisify } from 'util';
 import { transformAsync } from '@babel/core';
 import { minify } from 'terser';
-import { settings } from '../es/index';
+import { settings } from '../src';
 
 const readFile = promisify(fs.readFile);
 const { prefix } = settings;

@@ -1,0 +1,105 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../form';
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/placeholder-colors' as *;
+@use '../../utilities/skeleton' as *;
+
+/// Text area styles
+/// @access public
+/// @group text-area
+@mixin text-area {
+  .#{$prefix}--text-area {
+    @include reset;
+    @include type-style('body-long-01');
+    @include focus-outline('reset');
+
+    width: 100%;
+    min-width: 10rem;
+    height: 100%;
+    min-height: rem(40px);
+    padding: rem(11px) $spacing-05;
+    border: none;
+    border-bottom: 1px solid $border-strong;
+    background-color: $field;
+    color: $text-primary;
+    font-family: inherit;
+    resize: vertical;
+    transition: background-color $duration-fast-01 motion(standard, productive),
+      outline $duration-fast-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--text-area:focus,
+  .#{$prefix}--text-area:active {
+    @include focus-outline('outline');
+  }
+
+  .#{$prefix}--text-area::placeholder {
+    @include placeholder-colors;
+    @include type-style('body-long-01');
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--text-area--light {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--text-area--invalid {
+    padding-right: $spacing-08;
+  }
+
+  .#{$prefix}--text-area__wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+  }
+
+  .#{$prefix}--text-area__invalid-icon {
+    position: absolute;
+    top: $spacing-04;
+    right: $spacing-05;
+    fill: $support-error;
+  }
+
+  //-----------------------------
+  // Disabled
+  //-----------------------------
+  .#{$prefix}--text-area:disabled {
+    border-bottom: 1px solid transparent;
+    background-color: $field-disabled;
+    color: $text-disabled;
+    cursor: not-allowed;
+    outline: none;
+  }
+
+  .#{$prefix}--text-area:disabled::placeholder {
+    color: $text-disabled;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--text-area.#{$prefix}--text-area--light:disabled {
+    background-color: $field-02;
+  }
+
+  // Skeleton State
+  .#{$prefix}--text-area.#{$prefix}--skeleton {
+    @include skeleton;
+
+    height: rem(100px);
+
+    &::placeholder {
+      color: transparent;
+    }
+  }
+}

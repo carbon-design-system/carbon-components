@@ -2,12 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { settings } from 'carbon-components';
-import {
-  View16,
-  ViewOff16,
-  WarningAltFilled16,
-  WarningFilled16,
-} from '@carbon/icons-react';
+import { View16, ViewOff16 } from '@carbon/icons-react';
+import { useNormalizedInputProps } from '../../internal/useNormalizedInputProps';
 import { textInputProps } from './util';
 import { FormContext } from '../FluidForm';
 
@@ -42,19 +38,27 @@ const PasswordInput = React.forwardRef(function PasswordInput(
   ref
 ) {
   const [inputType, setInputType] = useState(type);
+
+  const normalizedProps = useNormalizedInputProps({
+    id,
+    invalid,
+    invalidText,
+    warn,
+    warnText,
+  });
+
   const handleTogglePasswordVisibility = (event) => {
     setInputType(inputType === 'password' ? 'text' : 'password');
     onTogglePasswordVisibility && onTogglePasswordVisibility(event);
   };
-  const errorId = id + '-error-msg';
-  const warnId = id + '-warn-msg';
   const textInputClasses = classNames(
     `${prefix}--text-input`,
     `${prefix}--password-input`,
     className,
     {
       [`${prefix}--text-input--light`]: light,
-      [`${prefix}--text-input--invalid`]: invalid,
+      [`${prefix}--text-input--invalid`]: normalizedProps.invalid,
+      [`${prefix}--text-input--warning`]: normalizedProps.warn,
       [`${prefix}--text-input--${size}`]: size,
     }
   );
@@ -104,29 +108,23 @@ const PasswordInput = React.forwardRef(function PasswordInput(
   const fieldWrapperClasses = classNames(
     `${prefix}--text-input__field-wrapper`,
     {
-      [`${prefix}--text-input__field-wrapper--warning`]: !invalid && warn,
+      [`${prefix}--text-input__field-wrapper--warning`]: normalizedProps.warn,
     }
   );
+  const iconClasses = classNames({
+    [`${prefix}--text-input__invalid-icon`]:
+      normalizedProps.invalid || normalizedProps.warn,
+    [`${prefix}--text-input__invalid-icon--warning`]: normalizedProps.warn,
+  });
+
   const label = labelText ? (
     <label htmlFor={id} className={labelClasses}>
       {labelText}
     </label>
   ) : null;
-
-  let error = null;
-  if (invalid) {
-    error = (
-      <div className={`${prefix}--form-requirement`} id={errorId}>
-        {invalidText}
-      </div>
-    );
-  } else if (warn) {
-    error = (
-      <div className={`${prefix}--form-requirement`} id={warnId}>
-        {warnText}
-      </div>
-    );
-  }
+  const helper = helperText ? (
+    <div className={helperTextClasses}>{helperText}</div>
+  ) : null;
 
   const passwordIsVisible = inputType === 'text';
   const passwordVisibilityIcon = passwordIsVisible ? (
@@ -150,11 +148,11 @@ const PasswordInput = React.forwardRef(function PasswordInput(
     <>
       <input
         {...textInputProps({
-          invalid,
           sharedTextInputProps,
-          errorId,
-          warn,
-          warnId,
+          invalid: normalizedProps.invalid,
+          invalidId: normalizedProps.invalidId,
+          warn: normalizedProps.warn,
+          warnId: normalizedProps.warnId,
         })}
         disabled={disabled}
         data-toggle-password-visibility={inputType === 'password'}
@@ -173,9 +171,6 @@ const PasswordInput = React.forwardRef(function PasswordInput(
       </button>
     </>
   );
-  const helper = helperText ? (
-    <div className={helperTextClasses}>{helperText}</div>
-  ) : null;
 
   const { isFluid } = useContext(FormContext);
 
@@ -194,22 +189,16 @@ const PasswordInput = React.forwardRef(function PasswordInput(
         </div>
       )}
       <div className={fieldOuterWrapperClasses}>
-        <div className={fieldWrapperClasses} data-invalid={invalid || null}>
-          {invalid && (
-            <WarningFilled16
-              className={`${prefix}--text-input__invalid-icon`}
-            />
-          )}
-          {!invalid && warn && (
-            <WarningAltFilled16
-              className={`${prefix}--text-input__invalid-icon ${prefix}--text-input__invalid-icon--warning`}
-            />
+        <div
+          className={fieldWrapperClasses}
+          data-invalid={normalizedProps.invalid || null}>
+          {normalizedProps.icon && (
+            <normalizedProps.icon className={iconClasses} />
           )}
           {input}
-          {isFluid && !inline && error}
+          {isFluid && !inline && normalizedProps.validation}
         </div>
-        {!isFluid && error}
-        {!invalid && !warn && !isFluid && !inline && helper}
+        {!isFluid && !inline && (normalizedProps.validation || helper)}
       </div>
     </div>
   );

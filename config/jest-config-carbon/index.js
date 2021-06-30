@@ -9,6 +9,7 @@
 
 module.exports = {
   moduleFileExtensions: ['js', 'json', 'node'],
+  modulePathIgnorePatterns: ['/build/', '/es/', '/lib/', '/umd/', '/examples/'],
   reporters: ['default'],
   setupFiles: [require.resolve('./setup/setup.js')],
   setupFilesAfterEnv: [require.resolve('./setup/setupAfterEnv.js')],
@@ -25,6 +26,7 @@ module.exports = {
       './transform/fileTransform.js'
     ),
   },
+  testEnvironment: 'jsdom',
   testRunner: 'jest-circus/runner',
   testPathIgnorePatterns: [
     '/cjs/',
@@ -36,7 +38,13 @@ module.exports = {
     'examples',
     '/umd/',
   ],
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
+  transformIgnorePatterns: [
+    '/build/',
+    '/es/',
+    '/lib/',
+    '/umd/',
+    '[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$',
+  ],
   watchPathIgnorePatterns: [
     '/cjs/',
     '/dist/',
@@ -45,5 +53,9 @@ module.exports = {
     '/lib/',
     '/storybook/',
     '/results/',
+  ],
+  watchPlugins: [
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname',
   ],
 };

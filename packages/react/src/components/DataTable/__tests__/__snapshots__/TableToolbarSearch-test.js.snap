@@ -18,14 +18,13 @@ exports[`DataTable.TableToolbarSearch should render 1`] = `
     onChange={[Function]}
     onFocus={[Function]}
     placeholder="Filter table"
-    size="sm"
     tabIndex="0"
     type="text"
     value=""
   >
     <div
       aria-labelledby="custom-id-search"
-      className="bx--search bx--search--sm custom-class bx--toolbar-search-container-expandable"
+      className="bx--search bx--search--xl custom-class bx--toolbar-search-container-expandable"
       role="search"
     >
       <div

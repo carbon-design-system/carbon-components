@@ -445,13 +445,10 @@ export default class DatePicker extends Component {
     }
   }
 
-  onChange = (e) => {
-    if (
-      e.target.value === '' &&
-      this.cal &&
-      this.cal.selectedDates.length > 0
-    ) {
+  onChange = () => {
+    if (this.inputField.value === '' && this.cal?.selectedDates.length) {
       this.cal.clear();
+      this.cal.input.focus();
     }
   };
 
@@ -472,37 +469,33 @@ export default class DatePicker extends Component {
   };
 
   addKeyboardEvents = (cal) => {
-    if (this.inputField) {
-      this.inputField.addEventListener('keydown', (e) => {
-        if (match(e, keys.ArrowDown)) {
-          (
-            cal.selectedDateElem ||
-            cal.todayDateElem ||
-            cal.calendarContainer.querySelector('.flatpickr-day[tabindex]') ||
-            cal.calendarContainer
-          ).focus();
-        }
-      });
-      this.inputField.addEventListener('change', this.onChange);
-    }
-    if (this.toInputField) {
-      this.toInputField.addEventListener('blur', (evt) => {
-        if (!this.cal.calendarContainer.contains(evt.relatedTarget)) {
-          this.cal.close();
-        }
-      });
-      this.toInputField.addEventListener('keydown', (e) => {
-        if (match(e, keys.ArrowDown)) {
-          (
-            cal.selectedDateElem ||
-            cal.todayDateElem ||
-            cal.calendarContainer.querySelector('.flatpickr-day[tabindex]') ||
-            cal.calendarContainer
-          ).focus();
-        }
-      });
-      this.toInputField.addEventListener('change', this.onChange);
-    }
+    const initArrowDownListener = (element) => {
+      if (element) {
+        element.addEventListener('keydown', (e) => {
+          if (match(e, keys.ArrowDown)) {
+            const {
+              calendarContainer,
+              selectedDateElem: fpSelectedDateElem,
+              todayDateElem: fptodayDateElem,
+            } = cal;
+            const selectedDateElem =
+              calendarContainer.querySelector('.selected') &&
+              fpSelectedDateElem;
+            const todayDateElem =
+              calendarContainer.querySelector('.today') && fptodayDateElem;
+            (
+              selectedDateElem ||
+              todayDateElem ||
+              calendarContainer.querySelector('.flatpickr-day[tabindex]') ||
+              calendarContainer
+            ).focus();
+          }
+        });
+        element.addEventListener('change', this.onChange);
+      }
+    };
+    initArrowDownListener(this.inputField);
+    initArrowDownListener(this.toInputField);
   };
 
   rightArrowHTML() {
@@ -596,6 +589,7 @@ export default class DatePicker extends Component {
 
   render() {
     const {
+      allowInput, // eslint-disable-line
       appendTo, // eslint-disable-line
       children,
       className,

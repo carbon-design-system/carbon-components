@@ -213,6 +213,7 @@ export default class DataTable extends React.Component {
    * @param {object} config
    * @param {string} config.header the header we want the props for
    * @param {Function} config.onClick a custom click handler for the header
+   * @param {boolean} config.isSortable
    * @returns {object}
    */
   getHeaderProps = ({
@@ -329,6 +330,8 @@ export default class DataTable extends React.Component {
    * for a specific row.
    *
    * @param {object} [row] an optional row that we want to access the props for
+   * @param {Function} row.onClick
+   * @param {object} row.row
    * @returns {object}
    */
   getSelectionProps = ({ onClick, row, ...rest } = {}) => {

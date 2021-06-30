@@ -4039,235 +4039,24 @@ Map {
     "render": [Function],
   },
   "ToastNotification" => Object {
-    "defaultProps": Object {
-      "hideCloseButton": false,
-      "iconDescription": "closes notification",
-      "kind": "error",
-      "notificationType": "toast",
-      "onCloseButtonClick": [Function],
-      "role": "alert",
-      "timeout": 0,
-      "title": "provide a title",
-    },
-    "propTypes": Object {
-      "caption": Object {
-        "type": "node",
-      },
-      "children": Object {
-        "type": "node",
-      },
-      "className": Object {
-        "type": "string",
-      },
-      "hideCloseButton": Object {
-        "type": "bool",
-      },
-      "iconDescription": Object {
-        "type": "string",
-      },
-      "kind": Object {
-        "args": Array [
-          Array [
-            "error",
-            "info",
-            "info-square",
-            "success",
-            "warning",
-            "warning-alt",
-          ],
-        ],
-        "isRequired": true,
-        "type": "oneOf",
-      },
-      "lowContrast": Object {
-        "type": "bool",
-      },
-      "notificationType": Object {
-        "type": "string",
-      },
-      "onClose": Object {
-        "type": "func",
-      },
-      "onCloseButtonClick": Object {
-        "type": "func",
-      },
-      "role": Object {
-        "isRequired": true,
-        "type": "string",
-      },
-      "statusIconDescription": Object {
-        "type": "string",
-      },
-      "subtitle": Object {
-        "type": "node",
-      },
-      "timeout": Object {
-        "type": "number",
-      },
-      "title": Object {
-        "isRequired": true,
-        "type": "string",
-      },
-    },
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
   },
   "InlineNotification" => Object {
-    "defaultProps": Object {
-      "hideCloseButton": false,
-      "iconDescription": "closes notification",
-      "notificationType": "inline",
-      "onCloseButtonClick": [Function],
-      "role": "alert",
-    },
-    "propTypes": Object {
-      "actions": Object {
-        "type": "node",
-      },
-      "children": Object {
-        "type": "node",
-      },
-      "className": Object {
-        "type": "string",
-      },
-      "hideCloseButton": Object {
-        "type": "bool",
-      },
-      "iconDescription": Object {
-        "type": "string",
-      },
-      "kind": Object {
-        "args": Array [
-          Array [
-            "error",
-            "info",
-            "info-square",
-            "success",
-            "warning",
-            "warning-alt",
-          ],
-        ],
-        "isRequired": true,
-        "type": "oneOf",
-      },
-      "lowContrast": Object {
-        "type": "bool",
-      },
-      "notificationType": Object {
-        "type": "string",
-      },
-      "onClose": Object {
-        "type": "func",
-      },
-      "onCloseButtonClick": Object {
-        "type": "func",
-      },
-      "role": Object {
-        "isRequired": true,
-        "type": "string",
-      },
-      "statusIconDescription": Object {
-        "type": "string",
-      },
-      "subtitle": Object {
-        "type": "node",
-      },
-      "title": Object {
-        "isRequired": true,
-        "type": "string",
-      },
-    },
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
   },
   "NotificationActionButton" => Object {
-    "propTypes": Object {
-      "children": Object {
-        "type": "node",
-      },
-      "className": Object {
-        "type": "string",
-      },
-      "onClick": Object {
-        "type": "func",
-      },
-    },
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
   },
   "NotificationButton" => Object {
-    "defaultProps": Object {
-      "ariaLabel": "close notification",
-      "iconDescription": "close icon",
-      "notificationType": "toast",
-      "renderIcon": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "render": [Function],
-      },
-      "type": "button",
-    },
-    "propTypes": Object {
-      "ariaLabel": Object {
-        "type": "string",
-      },
-      "className": Object {
-        "type": "string",
-      },
-      "iconDescription": Object {
-        "type": "string",
-      },
-      "name": Object {
-        "type": "string",
-      },
-      "notificationType": Object {
-        "args": Array [
-          Array [
-            "toast",
-            "inline",
-          ],
-        ],
-        "type": "oneOf",
-      },
-      "renderIcon": Object {
-        "args": Array [
-          Array [
-            Object {
-              "type": "func",
-            },
-            Object {
-              "type": "object",
-            },
-          ],
-        ],
-        "type": "oneOfType",
-      },
-      "type": Object {
-        "type": "string",
-      },
-    },
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
   },
   "NotificationTextDetails" => Object {
-    "defaultProps": Object {
-      "notificationType": "toast",
-      "title": "title",
-    },
-    "propTypes": Object {
-      "caption": Object {
-        "type": "node",
-      },
-      "children": Object {
-        "type": "node",
-      },
-      "notificationType": Object {
-        "args": Array [
-          Array [
-            "toast",
-            "inline",
-          ],
-        ],
-        "type": "oneOf",
-      },
-      "subtitle": Object {
-        "type": "node",
-      },
-      "title": Object {
-        "type": "string",
-      },
-    },
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
   },
   "NumberInput" => Object {
     "$$typeof": Symbol(react.forward_ref),
@@ -5190,12 +4979,30 @@ Map {
       },
     },
   },
-  "StructuredListWrapper" => Object {},
-  "StructuredListHead" => Object {},
-  "StructuredListBody" => Object {},
-  "StructuredListRow" => Object {},
-  "StructuredListInput" => Object {},
-  "StructuredListCell" => Object {},
+  "StructuredListWrapper" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
+  },
+  "StructuredListHead" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
+  },
+  "StructuredListBody" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
+  },
+  "StructuredListRow" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
+  },
+  "StructuredListInput" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
+  },
+  "StructuredListCell" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
+  },
   "StructuredListSkeleton" => Object {
     "defaultProps": Object {
       "border": false,
@@ -5818,6 +5625,9 @@ Map {
       "placeholder": Object {
         "type": "string",
       },
+      "readOnly": Object {
+        "type": "bool",
+      },
       "size": Object {
         "args": Array [
           Array [
@@ -5997,6 +5807,12 @@ Map {
         "type": "bool",
       },
       "onBeforeClick": Object {
+        "type": "func",
+      },
+      "onClick": Object {
+        "type": "func",
+      },
+      "onKeyUp": Object {
         "type": "func",
       },
       "tabIndex": Object {
@@ -6253,7 +6069,10 @@ Map {
       },
     },
   },
-  "Toggle" => Object {},
+  "Toggle" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "render": [Function],
+  },
   "ToggleSmall" => Object {
     "defaultProps": Object {
       "defaultToggled": false,
@@ -8016,6 +7835,29 @@ Map {
       },
       "className": Object {
         "type": "string",
+      },
+    },
+  },
+  "unstable_ProgressBar" => Object {
+    "propTypes": Object {
+      "className": Object {
+        "type": "string",
+      },
+      "helperText": Object {
+        "type": "string",
+      },
+      "hideLabel": Object {
+        "type": "bool",
+      },
+      "label": Object {
+        "isRequired": true,
+        "type": "string",
+      },
+      "max": Object {
+        "type": "number",
+      },
+      "value": Object {
+        "type": "number",
       },
     },
   },

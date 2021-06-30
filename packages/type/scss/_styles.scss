@@ -729,13 +729,14 @@ $custom-property-prefix: 'cds' !default;
 
   // If $fluid is set to true and the token has breakpoints defined for fluid
   // styles, delegate to the fluid-type helper for the given token
+  // Otherwise remove token breakpoints
   @if $fluid == true and map-has-key($token, 'breakpoints') {
     @include fluid-type($token, $breakpoints);
   } @else {
     @if global-variable-exists('feature-flags') and
       map-get($feature-flags, 'enable-css-custom-properties')
     {
-      @include custom-properties($name, $token);
+      @include custom-properties($name, map-remove($token, 'breakpoints'));
     } @else {
       // Otherwise, we just include all the property declarations directly on the
       // selector

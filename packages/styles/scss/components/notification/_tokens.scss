@@ -1,0 +1,126 @@
+//
+// Copyright IBM Corp. 2018, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'sass:color';
+@use '../../colors';
+@use '../../theme' as *;
+@use '../../themes';
+@use '../../utilities/component-tokens';
+
+// prettier-ignore
+$-tokens: (
+  'notification-background-error': (
+    fallback: colors.$red-10,
+    values: (
+      (
+        theme: themes.$white,
+        value: colors.$red-10,
+      ),
+      (
+        theme: themes.$g10,
+        value: colors.$red-10,
+      ),
+      (
+        theme: themes.$g90,
+        value: $layer,
+      ),
+      (
+        theme: themes.$g100,
+        value: $layer,
+      ),
+    ),
+  ),
+  'notification-background-success': (
+    fallback: colors.$green-10,
+    values: (
+      (
+        theme: themes.$white,
+        value: colors.$green-10,
+      ),
+      (
+        theme: themes.$g10,
+        value: colors.$green-10,
+      ),
+      (
+        theme: themes.$g90,
+        value: $layer,
+      ),
+      (
+        theme: themes.$g100,
+        value: $layer,
+      ),
+    ),
+  ),
+  'notification-background-info': (
+    fallback: colors.$blue-10,
+    values: (
+      (
+        theme: themes.$white,
+        value: colors.$blue-10,
+      ),
+      (
+        theme: themes.$g10,
+        value: colors.$blue-10,
+      ),
+      (
+        theme: themes.$g90,
+        value: $layer,
+      ),
+      (
+        theme: themes.$g100,
+        value: $layer,
+      ),
+    ),
+  ),
+  'notification-background-warning': (
+    fallback: mix(colors.$yellow-30, colors.$white-0, 15%),
+    values: (
+      (
+        theme: themes.$white,
+        value: mix(colors.$yellow-30, colors.$white-0, 15%),
+      ),
+      (
+        theme: themes.$g10,
+        value: mix(colors.$yellow-30, colors.$white-0, 15%),
+      ),
+      (
+        theme: themes.$g90,
+        value: $layer,
+      ),
+      (
+        theme: themes.$g100,
+        value: $layer,
+      ),
+    ),
+  ),
+  'notification-action-hover': (
+    fallback: colors.$white-0,
+    values: (
+      (
+        theme: themes.$white,
+        value: colors.$white-0,
+      ),
+      (
+        theme: themes.$g10,
+        value: colors.$white-0,
+      ),
+      (
+        theme: themes.$g90,
+        value: $layer-hover,
+      ),
+      (
+        theme: themes.$g100,
+        value: $layer-hover,
+      ),
+    ),
+  ),
+);
+
+$white: component-tokens.get-tokens($-tokens, themes.$white);
+$g10: component-tokens.get-tokens($-tokens, themes.$g10);
+$g90: component-tokens.get-tokens($-tokens, themes.$g90);
+$g100: component-tokens.get-tokens($-tokens, themes.$g100);

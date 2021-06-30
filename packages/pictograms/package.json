@@ -1,7 +1,7 @@
 {
   "name": "@carbon/pictograms",
   "description": "Pictograms for digital and software products using the Carbon Design System",
-  "version": "11.11.0-rc.0",
+  "version": "11.12.0",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -31,7 +31,7 @@
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "@carbon/icon-build-helpers": "^0.22.0-rc.0",
+    "@carbon/icon-build-helpers": "^0.23.0",
     "rimraf": "^3.0.0"
   }
 }

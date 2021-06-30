@@ -1,0 +1,581 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'mixins' as *;
+@use '../copy-button';
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/keyframes' as *;
+@use '../../utilities/skeleton' as *;
+@use '../../utilities/tooltip' as *;
+@use '../../utilities/z-index' as *;
+
+/// @type Color
+/// @access public
+/// @group copy-button
+$copy-active: $layer-active !default;
+
+/// @type Color
+/// @access public
+/// @group copy-button
+$copy-btn-feedback: $background-inverse !default;
+
+@mixin code-snippet {
+  .#{$prefix}--snippet {
+    @include reset;
+  }
+
+  .#{$prefix}--snippet--disabled,
+  .#{$prefix}--snippet--disabled
+    .#{$prefix}--btn.#{$prefix}--snippet-btn--expand {
+    background-color: $layer-disabled;
+    color: $text-disabled;
+  }
+
+  .#{$prefix}--snippet--disabled .#{$prefix}--snippet-btn--expand:hover,
+  .#{$prefix}--snippet--disabled .#{$prefix}--copy-btn:hover {
+    background-color: $layer-disabled;
+    color: $text-disabled;
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--snippet--disabled .#{$prefix}--snippet__icon,
+  .#{$prefix}--snippet--disabled
+    .#{$prefix}--snippet-btn--expand
+    .#{$prefix}--icon-chevron--down {
+    fill: $icon-disabled;
+  }
+
+  .#{$prefix}--snippet code {
+    @include type-style('code-01');
+  }
+
+  // Inline Code Snippet
+  .#{$prefix}--snippet--inline {
+    @include reset;
+
+    position: relative;
+    display: inline;
+    padding: 0;
+    border: 2px solid transparent;
+    background-color: $field;
+    border-radius: 4px;
+    color: $text-primary;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $layer-accent;
+    }
+
+    &:active {
+      background-color: $copy-active;
+    }
+
+    &:focus {
+      border: 2px solid $focus;
+      outline: none;
+    }
+
+    &::before {
+      @include tooltip--caret;
+
+      display: none;
+    }
+
+    .#{$prefix}--copy-btn__feedback {
+      @include tooltip--content('icon');
+
+      display: none;
+      overflow: visible;
+      box-sizing: content-box;
+      margin: auto;
+      clip: auto;
+    }
+
+    @include tooltip--placement('icon', 'bottom', 'center');
+  }
+
+  .#{$prefix}--snippet--inline.#{$prefix}--copy-btn--animating::before,
+  .#{$prefix}--snippet--inline.#{$prefix}--copy-btn--animating
+    .#{$prefix}--copy-btn__feedback {
+    display: block;
+  }
+
+  .#{$prefix}--snippet--inline.#{$prefix}--copy-btn--animating.#{$prefix}--copy-btn--fade-out::before,
+  .#{$prefix}--snippet--inline.#{$prefix}--copy-btn--animating.#{$prefix}--copy-btn--fade-out
+    .#{$prefix}--copy-btn__feedback {
+    animation: $duration-fast-02 motion(standard, productive) hide-feedback;
+  }
+
+  .#{$prefix}--snippet--inline.#{$prefix}--copy-btn--animating.#{$prefix}--copy-btn--fade-in::before,
+  .#{$prefix}--snippet--inline.#{$prefix}--copy-btn--animating.#{$prefix}--copy-btn--fade-in
+    .#{$prefix}--copy-btn__feedback {
+    animation: $duration-fast-02 motion(standard, productive) show-feedback;
+  }
+
+  .#{$prefix}--snippet--inline code {
+    padding: 0 $spacing-03;
+  }
+
+  .#{$prefix}--snippet--inline.#{$prefix}--snippet--no-copy {
+    display: inline-block;
+
+    &:hover {
+      background-color: $field;
+      cursor: auto;
+    }
+  }
+
+  .#{$prefix}--snippet--light.#{$prefix}--snippet--inline.#{$prefix}--snippet--no-copy:hover {
+    background-color: $field-02;
+    cursor: auto;
+  }
+
+  // Single Line Snippet
+  .#{$prefix}--snippet--single {
+    @include bx--snippet;
+
+    display: flex;
+    height: $spacing-08;
+    align-items: center;
+    padding-right: $spacing-08;
+  }
+
+  .#{$prefix}--snippet--single.#{$prefix}--snippet--no-copy {
+    padding: 0;
+
+    &::after {
+      right: $spacing-05;
+    }
+  }
+
+  .#{$prefix}--snippet--single .#{$prefix}--snippet-container {
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding-left: $spacing-05;
+    overflow-x: auto;
+
+    &:focus {
+      @include focus-outline('outline');
+    }
+  }
+
+  .#{$prefix}--snippet--single pre {
+    @include type-style('code-01');
+
+    padding-right: $spacing-03;
+  }
+
+  // Preserve whitespace, but don't allow wrapping for inline and single
+  .#{$prefix}--snippet--single pre,
+  .#{$prefix}--snippet--inline code {
+    white-space: pre;
+  }
+
+  // Multi Line Snippet
+  .#{$prefix}--snippet--multi {
+    @include bx--snippet;
+
+    display: flex;
+    padding: $spacing-05;
+  }
+
+  //collapsed snippet container
+  .#{$prefix}--snippet--multi .#{$prefix}--snippet-container {
+    position: relative;
+    min-height: 100%;
+    max-height: 100%;
+    order: 1;
+    overflow-y: auto;
+    transition: max-height $duration-moderate-01 motion(standard, productive);
+  }
+
+  // expanded snippet container
+  .#{$prefix}--snippet--multi.#{$prefix}--snippet--expand
+    .#{$prefix}--snippet-container {
+    padding-bottom: $spacing-05;
+    transition: max-height $duration-moderate-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--snippet--multi.#{$prefix}--snippet--wraptext pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  // collapsed pre
+  .#{$prefix}--snippet--multi .#{$prefix}--snippet-container pre {
+    padding-right: $spacing-08;
+    padding-bottom: rem(24px);
+    overflow-x: auto;
+  }
+
+  .#{$prefix}--snippet--multi.#{$prefix}--snippet--no-copy
+    .#{$prefix}--snippet-container
+    pre {
+    padding-right: 0;
+  }
+
+  // expanded pre
+  .#{$prefix}--snippet--multi.#{$prefix}--snippet--expand
+    .#{$prefix}--snippet-container
+    pre {
+    overflow-x: auto;
+  }
+
+  .#{$prefix}--snippet--multi .#{$prefix}--snippet-container pre::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: rem(16px);
+    height: 100%;
+    // Safari interprets `transparent` differently, so make color token value transparent instead:
+    background-image: linear-gradient(to right, rgba($field, 0), $field);
+    content: '';
+  }
+
+  .#{$prefix}--snippet--multi .#{$prefix}--snippet-container pre code {
+    overflow: hidden;
+  }
+
+  //Copy Button
+  .#{$prefix}--snippet__icon {
+    width: rem(16px);
+    height: rem(16px);
+    fill: $icon-primary;
+    transition: all $duration-fast-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--snippet-button {
+    @include reset;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    overflow: visible;
+    width: $spacing-08;
+    height: $spacing-08;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background-color: $field;
+    cursor: pointer;
+    outline: none;
+
+    &:focus {
+      @include focus-outline('outline');
+
+      outline-color: $focus;
+    }
+  }
+
+  .#{$prefix}--snippet--multi .#{$prefix}--snippet-button {
+    top: $spacing-03;
+    right: $spacing-03;
+    width: $spacing-07;
+    height: $spacing-07;
+  }
+
+  .#{$prefix}--snippet-button:hover {
+    background: $field-hover;
+  }
+
+  .#{$prefix}--snippet-button:active {
+    background-color: $copy-active;
+  }
+
+  .#{$prefix}--btn--copy__feedback {
+    @include type-style('body-short-01');
+    @include font-family('sans');
+
+    z-index: z('overlay');
+    top: 0.75rem;
+    right: 1.25rem;
+    left: inherit;
+    font-weight: 400;
+  }
+
+  .#{$prefix}--btn--copy__feedback::before,
+  .#{$prefix}--btn--copy__feedback::after {
+    background: $copy-btn-feedback;
+  }
+
+  .#{$prefix}--btn--copy__feedback::after {
+    border: none;
+  }
+
+  // TODO: remove copy button styles above
+  .#{$prefix}--snippet .#{$prefix}--copy-btn {
+    @include font-family('sans');
+
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  // Show more / less button
+  .#{$prefix}--snippet-btn--expand {
+    @include type-style('body-short-01');
+    @include font-family('sans');
+
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    bottom: 0;
+    display: inline-flex;
+    align-items: center;
+
+    padding: $spacing-03 $spacing-05;
+    border: 0;
+    background-color: $field;
+    color: $text-primary;
+  }
+
+  .#{$prefix}--snippet-btn--expand .#{$prefix}--snippet-btn--text {
+    position: relative;
+    top: rem(-1px);
+  }
+
+  .#{$prefix}--snippet-btn--expand--hide.#{$prefix}--snippet-btn--expand {
+    display: none;
+  }
+
+  .#{$prefix}--snippet-btn--expand .#{$prefix}--icon-chevron--down {
+    margin-left: $spacing-03;
+    fill: $icon-primary;
+    transform: rotate(0deg);
+    transition: $duration-moderate-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--snippet-btn--expand:hover {
+    background: $field-hover;
+    color: $text-primary;
+  }
+
+  .#{$prefix}--snippet-btn--expand:active {
+    background-color: $copy-active;
+  }
+
+  .#{$prefix}--snippet-btn--expand:focus {
+    @include focus-outline('outline');
+
+    border-color: transparent;
+  }
+
+  .#{$prefix}--snippet--expand
+    .#{$prefix}--snippet-btn--expand
+    .#{$prefix}--icon-chevron--down {
+    transform: rotate(180deg);
+    transition: transform $transition--expansion;
+  }
+
+  // Light version
+  .#{$prefix}--snippet--light,
+  .#{$prefix}--snippet--light .#{$prefix}--snippet-button,
+  .#{$prefix}--snippet--light .#{$prefix}--btn.#{$prefix}--snippet-btn--expand,
+  .#{$prefix}--snippet--light .#{$prefix}--copy-btn {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--snippet--light.#{$prefix}--snippet--inline:hover,
+  .#{$prefix}--snippet--light .#{$prefix}--snippet-button:hover,
+  .#{$prefix}--snippet--light
+    .#{$prefix}--btn.#{$prefix}--snippet-btn--expand:hover,
+  .#{$prefix}--snippet--light .#{$prefix}--copy-btn:hover {
+    background-color: $hover-light-ui;
+  }
+
+  .#{$prefix}--snippet--light.#{$prefix}--snippet--inline:active,
+  .#{$prefix}--snippet--light .#{$prefix}--snippet-button:active,
+  .#{$prefix}--snippet--light
+    .#{$prefix}--btn.#{$prefix}--snippet-btn--expand:active,
+  .#{$prefix}--snippet--light .#{$prefix}--copy-btn:active {
+    background-color: $active-light-ui;
+  }
+
+  .#{$prefix}--snippet--light.#{$prefix}--snippet--single::after,
+  .#{$prefix}--snippet--light.#{$prefix}--snippet--multi
+    .#{$prefix}--snippet-container
+    pre::after {
+    // Safari interprets `transparent` differently, so make color token value transparent instead:
+    background-image: linear-gradient(to right, rgba($field-02, 0), $field-02);
+  }
+
+  // Skeleton State
+  .#{$prefix}--snippet.#{$prefix}--skeleton .#{$prefix}--snippet-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .#{$prefix}--snippet-button .#{$prefix}--btn--copy__feedback {
+    // (The height of button) + (The height of the tooltip's triangle) + 4px
+    top: rem(50.8px);
+    right: auto;
+    left: 50%;
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      top: rem(-4px);
+    }
+  }
+
+  .#{$prefix}--snippet--multi .#{$prefix}--copy-btn {
+    z-index: 10;
+    top: $spacing-03;
+    right: $spacing-03;
+    width: $spacing-07;
+    height: $spacing-07;
+  }
+
+  .#{$prefix}--snippet--multi
+    .#{$prefix}--snippet-button
+    .#{$prefix}--btn--copy__feedback {
+    // (The height of button) + (The height of the tooltip's triangle) + 4px
+    top: rem(42.8px);
+  }
+
+  .#{$prefix}--snippet--inline .#{$prefix}--btn--copy__feedback {
+    // TODO: use updated global tooltip mixins under the hood
+    // since all of the positioning values for the copy button tooltip are arbitrary hard coded rem values, we need this arbitrary 4px offset to keep the proper tooltip spacing according to the spec
+    top: calc(100% - #{rem(4px)});
+    right: auto;
+    left: 50%;
+  }
+
+  // Overflow Indicator
+  .#{$prefix}--snippet__overflow-indicator--left,
+  .#{$prefix}--snippet__overflow-indicator--right {
+    z-index: 1;
+    width: $spacing-05;
+    flex: 1 0 auto;
+  }
+
+  .#{$prefix}--snippet__overflow-indicator--left {
+    order: 0;
+    margin-right: -$spacing-05;
+    background-image: linear-gradient(to left, transparent, $field);
+  }
+
+  .#{$prefix}--snippet__overflow-indicator--right {
+    order: 2;
+    margin-left: -$spacing-05;
+    background-image: linear-gradient(to right, transparent, $field);
+  }
+
+  .#{$prefix}--snippet--single .#{$prefix}--snippet__overflow-indicator--right,
+  .#{$prefix}--snippet--single .#{$prefix}--snippet__overflow-indicator--left {
+    position: absolute;
+    width: $spacing-07;
+    height: calc(100% - #{$spacing-02});
+  }
+
+  .#{$prefix}--snippet--single .#{$prefix}--snippet__overflow-indicator--right {
+    right: $spacing-08;
+  }
+
+  .#{$prefix}--snippet--single.#{$prefix}--snippet--no-copy
+    .#{$prefix}--snippet__overflow-indicator--right {
+    right: 0;
+  }
+
+  .#{$prefix}--snippet--single
+    .#{$prefix}--snippet-container:focus
+    ~ .#{$prefix}--snippet__overflow-indicator--right {
+    right: calc(#{$spacing-08} + #{rem(2px)});
+  }
+
+  .#{$prefix}--snippet--single
+    .#{$prefix}--snippet-container:focus
+    + .#{$prefix}--snippet__overflow-indicator--left {
+    left: rem(2px);
+  }
+
+  .#{$prefix}--snippet--light .#{$prefix}--snippet__overflow-indicator--left {
+    background-image: linear-gradient(to left, transparent, $field-02);
+  }
+
+  .#{$prefix}--snippet--light .#{$prefix}--snippet__overflow-indicator--right {
+    background-image: linear-gradient(to right, transparent, $field-02);
+  }
+
+  // Safari-only media query
+  // since fades won't appear correctly with CSS custom properties
+  // see: tabs, code snippet, and modal overflow indicators
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+      .#{$prefix}--snippet__overflow-indicator--left {
+        background-image: linear-gradient(to left, rgba($field, 0), $field);
+      }
+
+      .#{$prefix}--snippet__overflow-indicator--right {
+        background-image: linear-gradient(to right, rgba($field, 0), $field);
+      }
+    }
+  }
+
+  .#{$prefix}--snippet--multi.#{$prefix}--skeleton {
+    height: rem(98px);
+  }
+
+  .#{$prefix}--snippet--single.#{$prefix}--skeleton {
+    height: rem(56px);
+  }
+
+  .#{$prefix}--snippet.#{$prefix}--skeleton span {
+    @include skeleton;
+
+    display: block;
+    width: 100%;
+    height: 1rem;
+    margin-top: 0.5rem;
+
+    &:first-child {
+      margin: 0;
+    }
+
+    &:nth-child(2) {
+      width: 85%;
+    }
+
+    &:nth-child(3) {
+      width: 95%;
+    }
+  }
+
+  .#{$prefix}--snippet--single.#{$prefix}--skeleton
+    .#{$prefix}--snippet-container {
+    padding-bottom: 0;
+  }
+
+  // Windows HCM fix
+  /* stylelint-disable */
+  .#{$prefix}--snippet__icon {
+    @include high-contrast-mode('icon-fill');
+  }
+
+  .#{$prefix}--snippet--inline:focus {
+    @include high-contrast-mode('focus');
+  }
+
+  .#{$prefix}--snippet--single,
+  .#{$prefix}--snippet--multi {
+    @include high-contrast-mode('outline');
+  }
+  /* stylelint-enable */
+}

@@ -8,17 +8,9 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import DataTableSkeleton from '../DataTableSkeleton';
-
-const headers = [
-  { key: 'Name' },
-  { key: 'Protocol' },
-  { key: 'Port' },
-  { key: 'Rule' },
-  { key: 'Attached Groups' },
-];
+import { headers } from '../DataTable/stories/shared';
 
 const props = () => ({
   showHeaders: boolean('Show table headers', true),
@@ -38,10 +30,10 @@ export default {
 };
 
 export const Skeleton = () => {
-  const { showHeaders } = props();
+  const { showHeaders, ...rest } = props();
   return (
     <div style={{ width: '800px' }}>
-      <DataTableSkeleton {...props()} headers={showHeaders ? headers : null} />
+      <DataTableSkeleton {...rest} headers={showHeaders ? headers : null} />
       <br />
     </div>
   );

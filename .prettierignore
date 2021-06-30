@@ -48,6 +48,7 @@ packages/icons-react/next/**
 
 # Examples
 **/examples/**
+!packages/themes/examples/**
 
 # Yarn
 **/.yarn/**
@@ -57,3 +58,6 @@ packages/icons-react/next/**
 
 # Templates
 **/*.template.*
+
+# Nextjs
+.next

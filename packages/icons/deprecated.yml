@@ -37,3 +37,5 @@ deprecated:
     reason: logo--delicious has been removed (#4210)
   - name: logo--stumbleupon
     reason: logo--stumbleupon has been removed (#4210)
+  - name: letter--Aa--large
+    reason: letter--Aa--large has been replaced by text--font

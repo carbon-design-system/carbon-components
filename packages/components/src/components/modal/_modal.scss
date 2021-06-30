@@ -336,6 +336,7 @@
 
   .#{$prefix}--modal-close {
     position: absolute;
+    z-index: 2;
     top: 0;
     right: 0;
     overflow: hidden;

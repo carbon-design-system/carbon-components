@@ -1,0 +1,480 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../colors' as *;
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/skeleton' as *;
+@use '../../utilities/button-reset';
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/convert' as *;
+
+/// Number input styles
+/// @access public
+/// @group number-input
+@mixin number-input {
+  .#{$prefix}--number {
+    @include reset;
+
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .#{$prefix}--number input[type='number'] {
+    @include type-style('body-short-01');
+    @include focus-outline('reset');
+
+    display: inline-flex;
+    width: 100%;
+    min-width: 9.375rem;
+    height: rem(40px);
+    box-sizing: border-box;
+    padding-right: rem(128px);
+    padding-left: $spacing-05;
+    border: 0;
+    border-bottom: rem(1px) solid $border-strong;
+
+    // Firefox: Hide spinner (up and down buttons)
+    -moz-appearance: textfield;
+    background-color: $field;
+    border-radius: 0;
+    color: $text-primary;
+    font-family: font-family('mono');
+    font-weight: 300;
+    transition: background-color $duration-fast-01 motion(standard, productive),
+      outline $duration-fast-01 motion(standard, productive);
+
+    &:focus {
+      @include focus-outline('outline');
+    }
+
+    &:disabled ~ .#{$prefix}--number__controls {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &:disabled ~ .#{$prefix}--number__controls svg {
+      fill: $icon-disabled;
+    }
+
+    // IE: Hide "clear-field" `x` button on input field
+    &::-ms-clear {
+      display: none;
+    }
+
+    // Safari: Hide number spinner
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--number--xl.#{$prefix}--number input[type='number'],
+  .#{$prefix}--number--lg.#{$prefix}--number input[type='number'] {
+    padding-right: rem(144px);
+  }
+
+  .#{$prefix}--number--sm.#{$prefix}--number input[type='number'] {
+    padding-right: rem(112px);
+  }
+
+  .#{$prefix}--number input[type='number']:disabled,
+  .#{$prefix}--number--readonly input[type='number'] {
+    border-bottom-color: transparent;
+    background-color: $field-disabled;
+    color: $text-disabled;
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--number__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .#{$prefix}--number__controls {
+    @include reset;
+
+    position: absolute;
+    // vertically center controls within parent container on IE11
+    top: 50%;
+    right: 0;
+    display: flex;
+    width: rem(80px);
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+  }
+
+  .#{$prefix}--number__control-btn {
+    @include button-reset.reset;
+
+    position: relative;
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom: rem(1px) solid $border-strong;
+    color: $icon-primary;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: rem(2px);
+      display: block;
+      width: rem(2px);
+      // height: calc(100% - 4px) is calculated differently in Safari
+      height: rem(36px);
+      background-color: $field;
+      content: '';
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
+
+    svg {
+      fill: currentColor;
+    }
+
+    &:focus {
+      @include focus-outline;
+
+      color: $icon-primary;
+      outline-offset: -2px;
+      outline-width: 2px;
+    }
+
+    &:hover {
+      background-color: $field-hover;
+      color: $icon-primary;
+      cursor: pointer;
+
+      &::before,
+      &::after {
+        background-color: $field-hover;
+      }
+    }
+
+    &:focus::before,
+    &:focus::after,
+    &:hover:focus::before,
+    &:hover:focus::after {
+      background-color: transparent;
+    }
+
+    &:disabled {
+      border-bottom-color: transparent;
+      color: $text-disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  // set orders to facilitate styling for rule dividers
+  .#{$prefix}--number__control-btn.down-icon {
+    order: 1;
+  }
+
+  .#{$prefix}--number__control-btn.up-icon {
+    order: 2;
+  }
+
+  // add top and bottom outlines to number controls when input is focused
+  .#{$prefix}--number
+    input[type='number']:focus
+    ~ .#{$prefix}--number__controls
+    .#{$prefix}--number__control-btn {
+    border-bottom-width: 0;
+
+    &:hover {
+      @include focus-outline('outline');
+
+      border: 0;
+    }
+  }
+
+  .#{$prefix}--number
+    input[type='number'][data-invalid]
+    ~ .#{$prefix}--number__controls
+    .#{$prefix}--number__control-btn {
+    border-bottom-width: 0;
+  }
+
+  // add invalid outline to number controls only when invalid input is not focused
+  .#{$prefix}--number
+    input[type='number'][data-invalid]:not(:focus)
+    ~ .#{$prefix}--number__controls
+    .#{$prefix}--number__control-btn:hover {
+    @include focus-outline('invalid');
+  }
+
+  .#{$prefix}--number
+    input[type='number']:focus
+    ~ .#{$prefix}--number__controls
+    .#{$prefix}--number__control-btn.up-icon::after {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--number
+    input[type='number'][data-invalid]
+    ~ .#{$prefix}--number__controls
+    .#{$prefix}--number__control-btn.up-icon::after {
+    background-color: $support-error;
+  }
+
+  .#{$prefix}--number
+    input[type='number'][data-invalid]:focus
+    ~ .#{$prefix}--number__controls
+    .#{$prefix}--number__control-btn.up-icon::after,
+  .#{$prefix}--number
+    input[type='number'][data-invalid]
+    ~ .#{$prefix}--number__controls
+    .#{$prefix}--number__control-btn.up-icon:focus::after {
+    background-color: $focus;
+  }
+
+  .#{$prefix}--number__rule-divider {
+    position: absolute;
+    z-index: z('overlay');
+    width: rem(1px);
+    height: rem(16px);
+    background-color: $border-subtle;
+
+    &:first-of-type {
+      order: 0;
+    }
+  }
+
+  // rule divider styles
+  .#{$prefix}--number__controls
+    .#{$prefix}--number__rule-divider:first-of-type {
+    left: 0;
+    background-color: transparent;
+  }
+
+  .#{$prefix}--number__invalid
+    + .#{$prefix}--number__controls
+    .#{$prefix}--number__rule-divider:first-of-type {
+    background-color: $border-subtle;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--number--light .#{$prefix}--number__rule-divider,
+  .#{$prefix}--number--light
+    .#{$prefix}--number__invalid
+    + .#{$prefix}--number__controls
+    .#{$prefix}--number__rule-divider:first-of-type {
+    background-color: $decorative-01;
+  }
+
+  .#{$prefix}--number
+    input[type='number']:disabled
+    + .#{$prefix}--number__controls
+    .#{$prefix}--number__rule-divider:first-of-type {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--number
+    input[type='number']:disabled
+    + .#{$prefix}--number__controls
+    .#{$prefix}--number__rule-divider {
+    background-color: $icon-disabled;
+  }
+
+  .#{$prefix}--number__control-btn:focus ~ .#{$prefix}--number__rule-divider {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--number--readonly .#{$prefix}--number__control-btn {
+    display: none;
+  }
+
+  .#{$prefix}--number__invalid {
+    position: absolute;
+    right: rem(96px);
+    fill: $support-error;
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--number--xl .#{$prefix}--number__invalid,
+  .#{$prefix}--number--lg .#{$prefix}--number__invalid {
+    right: rem(112px);
+  }
+
+  .#{$prefix}--number--sm .#{$prefix}--number__invalid {
+    right: rem(80px);
+  }
+
+  .#{$prefix}--number__invalid + .#{$prefix}--number__rule-divider {
+    position: absolute;
+    right: rem(80px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--number--xl
+    .#{$prefix}--number__invalid
+    + .#{$prefix}--number__rule-divider,
+  .#{$prefix}--number--lg
+    .#{$prefix}--number__invalid
+    + .#{$prefix}--number__rule-divider {
+    right: rem(96px);
+  }
+
+  .#{$prefix}--number--sm
+    .#{$prefix}--number__invalid
+    + .#{$prefix}--number__rule-divider {
+    right: rem(64px);
+  }
+
+  .#{$prefix}--number__control-btn.down-icon:hover
+    ~ .#{$prefix}--number__rule-divider,
+  .#{$prefix}--number__control-btn.up-icon:hover
+    + .#{$prefix}--number__rule-divider,
+  .#{$prefix}--number__control-btn.down-icon:focus
+    ~ .#{$prefix}--number__rule-divider,
+  .#{$prefix}--number__control-btn.up-icon:focus
+    + .#{$prefix}--number__rule-divider {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--number__invalid--warning {
+    fill: $support-warning;
+  }
+
+  .#{$prefix}--number__invalid--warning path:first-of-type {
+    fill: $black-100;
+    opacity: 1;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--number--light input[type='number'] {
+    background-color: $field-02;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--number--light input[type='number']:disabled,
+  .#{$prefix}--number--light
+    .#{$prefix}--number--readonly
+    input[type='number'] {
+    background-color: $field-02;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--number--light .#{$prefix}--number__control-btn::before,
+  .#{$prefix}--number--light .#{$prefix}--number__control-btn::after {
+    background-color: $field-02;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--number--light .#{$prefix}--number__control-btn:hover,
+  .#{$prefix}--number--light .#{$prefix}--number__control-btn:hover::before,
+  .#{$prefix}--number--light .#{$prefix}--number__control-btn:hover::after {
+    background-color: $hover-light-ui;
+  }
+
+  .#{$prefix}--number--light .#{$prefix}--number__control-btn:focus::before,
+  .#{$prefix}--number--light .#{$prefix}--number__control-btn:focus::after {
+    background-color: transparent;
+  }
+
+  // Size Variant styles
+  // TODO V11: Remove xl selector
+  .#{$prefix}--number--xl input[type='number'],
+  .#{$prefix}--number--lg input[type='number'] {
+    height: rem(48px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--number--xl .#{$prefix}--number__controls,
+  .#{$prefix}--number--lg .#{$prefix}--number__controls {
+    width: rem(96px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--number--xl .#{$prefix}--number__control-btn,
+  .#{$prefix}--number--lg .#{$prefix}--number__control-btn {
+    width: rem(48px);
+
+    &::before,
+    &::after {
+      // height: calc(100% - 4px) is calculated differently in Safari
+      height: rem(44px);
+    }
+  }
+
+  .#{$prefix}--number--sm input[type='number'] {
+    height: rem(32px);
+  }
+
+  .#{$prefix}--number--sm .#{$prefix}--number__controls {
+    width: rem(64px);
+  }
+
+  .#{$prefix}--number--sm .#{$prefix}--number__control-btn {
+    width: rem(32px);
+
+    &::before,
+    &::after {
+      // height: calc(100% - 4px) is calculated differently in Safari
+      height: rem(28px);
+    }
+  }
+
+  //No label positioning adjustment
+  .#{$prefix}--number--nolabel .bx--label + .bx--form__helper-text {
+    margin-top: 0;
+  }
+
+  // No steppers
+  .#{$prefix}--number--nosteppers input[type='number'] {
+    padding-right: rem(48px);
+  }
+
+  .#{$prefix}--number--nosteppers .#{$prefix}--number__invalid {
+    right: rem(16px);
+  }
+
+  // Skeleton State
+  .#{$prefix}--number.#{$prefix}--skeleton {
+    @include skeleton;
+
+    width: 100%;
+    height: 2.5rem;
+
+    input[type='number'] {
+      display: none;
+    }
+  }
+
+  // Windows HCM fix
+  /* stylelint-disable */
+  .#{$prefix}--number__control-btn:hover,
+  .#{$prefix}--number__control-btn:focus {
+    @include high-contrast-mode('focus');
+  }
+
+  .#{$prefix}--number__control-btn {
+    @include high-contrast-mode('outline');
+  }
+
+  .#{$prefix}--number__control-btn svg {
+    @include high-contrast-mode('icon-fill');
+  }
+  /* stylelint-enable */
+}

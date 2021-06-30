@@ -289,7 +289,7 @@
 
   .#{$prefix}--btn--ghost.#{$prefix}--btn--icon-only[disabled]
     .#{$prefix}--btn__icon
-    path,
+    path:not([data-icon-path]):not([fill='none']),
   .#{$prefix}--btn--ghost.#{$prefix}--btn--icon-only[disabled]
     .#{$prefix}--btn__icon,
   .#{$prefix}--btn.#{$prefix}--btn--icon-only.#{$prefix}--btn--ghost[disabled]:hover

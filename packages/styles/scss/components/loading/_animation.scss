@@ -1,0 +1,39 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../motion';
+
+@mixin spin {
+  // Animate the container
+  animation-duration: 690ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: rotate;
+  animation-timing-function: linear;
+
+  // Animate the stroke
+  svg circle {
+    animation-duration: 10ms;
+    animation-name: init-stroke;
+    animation-timing-function: motion.$standard-easing;
+  }
+}
+
+@mixin stop {
+  // Animate the container
+  animation: rotate-end-p1 700ms motion.$ease-out forwards,
+    rotate-end-p2 700ms motion.$ease-out 700ms forwards;
+
+  // Animate the stroke
+  svg circle {
+    animation-delay: 700ms;
+    animation-duration: 700ms;
+    animation-fill-mode: forwards;
+    animation-name: stroke-end;
+    animation-timing-function: motion.$ease-out;
+  }
+}

@@ -49,15 +49,19 @@ function svgToJSX(node) {
   if (node.type === 'element') {
     if (node.tagName === 'svg') {
       return {
-        svgProps: node.properties,
+        svgProps: node.attributes,
         children: node.children.map(svgToJSX),
       };
     }
 
-    const { tagName, properties } = node;
+    const { tagName } = node;
+    const attributeAllowlist = new Set(['data-icon-path']);
     const attributeDenylist = ['data', 'aria'];
-    const attributes = Object.entries(properties)
+    const attributes = Object.entries(node.attributes)
       .filter(([key]) => {
+        if (attributeAllowlist.has(key)) {
+          return true;
+        }
         return attributeDenylist.every((prefix) => !key.startsWith(prefix));
       })
       .map(([key, value]) => {

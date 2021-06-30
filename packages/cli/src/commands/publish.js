@@ -37,7 +37,8 @@ async function cleanup() {
  * creating git tags, making sure npm dist-tag's for packages are correct, and
  * will generate a changelog to be used in a GitHub release.
  *
- * @param {object}
+ * @param {object} tag
+ * @param {string} tag.tag
  * @returns {void}
  */
 async function publish({ tag, ...flags }) {

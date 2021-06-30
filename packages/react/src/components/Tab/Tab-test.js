@@ -12,6 +12,7 @@ const { prefix } = settings;
 describe('Tab', () => {
   describe('renders as expected', () => {
     let React;
+    let enzyme;
     let mount;
     let Tab;
     let wrapper;
@@ -19,8 +20,13 @@ describe('Tab', () => {
     beforeEach(() => {
       jest.isolateModules(() => {
         React = require('react');
-        mount = require('enzyme').mount;
+        enzyme = require('enzyme');
+        mount = enzyme.mount;
         Tab = require('../Tab').default;
+
+        const Adapter = require('enzyme-adapter-react-16');
+        enzyme.configure({ adapter: new Adapter() });
+
         wrapper = mount(<Tab label="firstTab" />);
       });
     });
@@ -75,14 +81,20 @@ describe('Tab', () => {
 
   describe('events', () => {
     let React;
+    let enzyme;
     let mount;
     let Tab;
 
     beforeEach(() => {
       jest.isolateModules(() => {
         React = require('react');
-        mount = require('enzyme').mount;
+        enzyme = require('enzyme');
+        mount = enzyme.mount;
         Tab = require('../Tab').default;
+
+        const Adapter = require('enzyme-adapter-react-16');
+
+        enzyme.configure({ adapter: new Adapter() });
       });
     });
 
@@ -141,6 +153,7 @@ describe('Tab', () => {
 
   describe('deprecated', () => {
     let React;
+    let enzyme;
     let mount;
     let Tab;
 
@@ -151,8 +164,13 @@ describe('Tab', () => {
         });
 
         React = require('react');
-        mount = require('enzyme').mount;
+        enzyme = require('enzyme');
+        mount = enzyme.mount;
         Tab = require('../Tab').default;
+
+        const Adapter = require('enzyme-adapter-react-16');
+
+        enzyme.configure({ adapter: new Adapter() });
       });
     });
 

@@ -1,0 +1,211 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../../colors' as *;
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../theme' as *;
+@use '../../spacing' as *;
+@use '../../type' as *;
+@use '../form/form';
+@use '../../utilities/component-reset';
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/placeholder-colors' as *;
+@use '../../utilities/skeleton' as *;
+@use 'flatpickr' as *;
+
+/// Date picker styles
+/// @access public
+/// @group date-picker
+@mixin date-picker {
+  @include flatpickr;
+
+  .#{$prefix}--date-picker {
+    display: flex;
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--date-picker--light .#{$prefix}--date-picker__input {
+    background: $field-02;
+  }
+
+  .#{$prefix}--date-picker ~ .#{$prefix}--label {
+    order: 1;
+  }
+
+  .#{$prefix}--date-picker-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .#{$prefix}--date-picker-input__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .#{$prefix}--date-picker.#{$prefix}--date-picker--simple
+    .#{$prefix}--date-picker__input,
+  .#{$prefix}--date-picker.#{$prefix}--date-picker--simple .#{$prefix}--label {
+    width: rem(120px);
+  }
+
+  .#{$prefix}--date-picker.#{$prefix}--date-picker--simple
+    .#{$prefix}--date-picker-input__wrapper--invalid,
+  .#{$prefix}--date-picker.#{$prefix}--date-picker--simple
+    .#{$prefix}--date-picker-input__wrapper--warn {
+    .#{$prefix}--date-picker__input,
+    ~ .#{$prefix}--form-requirement {
+      width: rem(152px);
+    }
+  }
+
+  .#{$prefix}--date-picker.#{$prefix}--date-picker--simple.#{$prefix}--date-picker--short {
+    .#{$prefix}--date-picker__input {
+      width: 5.7rem;
+    }
+  }
+
+  .#{$prefix}--date-picker.#{$prefix}--date-picker--single
+    .#{$prefix}--date-picker__input {
+    width: rem(288px);
+  }
+
+  .#{$prefix}--date-picker
+    .#{$prefix}--date-picker-input__wrapper--warn
+    ~ .#{$prefix}--form-requirement {
+    color: $text-primary;
+  }
+  .#{$prefix}--date-picker__input {
+    @include component-reset.reset;
+    @include type-style('code-02');
+    @include focus-outline('reset');
+
+    position: relative;
+    display: block;
+    height: rem(40px);
+    padding: 0 $spacing-05;
+    border: none;
+    border-bottom: 1px solid $border-strong;
+    background-color: $field;
+    color: $text-primary;
+    transition: $duration-fast-01 motion(standard, productive) all;
+
+    &:focus,
+    &.#{$prefix}--focused {
+      @include focus-outline('outline');
+    }
+
+    &:disabled {
+      border-bottom: 1px solid transparent;
+      background-color: $field-disabled;
+      color: $text-disabled;
+      cursor: not-allowed;
+    }
+
+    &:disabled::placeholder {
+      color: $text-disabled;
+    }
+
+    &:disabled:hover {
+      border-bottom: 1px solid transparent;
+    }
+
+    &::placeholder {
+      @include placeholder-colors;
+    }
+  }
+
+  // Size variant styles
+  // TODO V11: Remove xl selector
+  .#{$prefix}--date-picker__input--xl,
+  .#{$prefix}--date-picker__input--lg {
+    height: rem(48px);
+  }
+
+  .#{$prefix}--date-picker__input--sm {
+    height: rem(32px);
+  }
+
+  .#{$prefix}--date-picker__icon {
+    position: absolute;
+    z-index: 1;
+    // vertically center icon within parent container on IE11
+    top: 50%;
+    right: 1rem;
+    cursor: pointer;
+    fill: $icon-primary;
+    transform: translateY(-50%);
+  }
+
+  .#{$prefix}--date-picker__icon--invalid,
+  .#{$prefix}--date-picker__icon--warn {
+    cursor: auto;
+  }
+
+  .#{$prefix}--date-picker__icon--warn {
+    fill: $support-warning;
+  }
+
+  // V11: Do we have an always black token?
+  .#{$prefix}--date-picker__icon--warn path:first-of-type {
+    fill: $black-100;
+    opacity: 1;
+  }
+
+  .#{$prefix}--date-picker__icon--invalid {
+    fill: $support-error;
+  }
+
+  .#{$prefix}--date-picker__icon ~ .#{$prefix}--date-picker__input {
+    padding-right: $spacing-09;
+  }
+
+  .#{$prefix}--date-picker__input:disabled ~ .#{$prefix}--date-picker__icon {
+    cursor: not-allowed;
+    fill: $icon-disabled;
+  }
+
+  .#{$prefix}--date-picker--range
+    > .#{$prefix}--date-picker-container:first-child {
+    margin-right: rem(1px);
+  }
+
+  .#{$prefix}--date-picker--range .#{$prefix}--date-picker-container,
+  .#{$prefix}--date-picker--range .#{$prefix}--date-picker__input {
+    width: rem(143.5px);
+  }
+
+  // Skeleton State
+  .#{$prefix}--date-picker.#{$prefix}--skeleton input,
+  .#{$prefix}--date-picker__input.#{$prefix}--skeleton {
+    @include skeleton;
+
+    width: 100%;
+
+    &::placeholder {
+      color: transparent;
+    }
+  }
+
+  .#{$prefix}--date-picker.#{$prefix}--skeleton .#{$prefix}--label {
+    @include skeleton;
+
+    width: rem(75px);
+    height: rem(14px);
+  }
+
+  // Windows HCM fix
+  // stylelint-disable-next-line no-duplicate-selectors
+  .#{$prefix}--date-picker__icon {
+    @include high-contrast-mode('icon-fill');
+  }
+}

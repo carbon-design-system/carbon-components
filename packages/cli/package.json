@@ -1,7 +1,7 @@
 {
   "name": "@carbon/cli",
   "description": "Task automation for working with the Carbon Design System",
-  "version": "10.24.0-rc.0",
+  "version": "10.25.0",
   "license": "Apache-2.0",
   "bin": {
     "carbon-cli": "./bin/carbon-cli.js"
@@ -24,14 +24,14 @@
   },
   "dependencies": {
     "@babel/core": "^7.14.2",
-    "@carbon/cli-reporter": "^10.4.0",
+    "@carbon/cli-reporter": "^10.5.0",
     "@octokit/plugin-retry": "^3.0.7",
     "@octokit/plugin-throttling": "^2.6.0",
     "@octokit/rest": "^16.28.1",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^18.0.0",
     "@rollup/plugin-node-resolve": "^11.2.1",
-    "chalk": "^2.4.2",
+    "chalk": "^4.1.1",
     "change-case": "^4.1.2",
     "child-process-promise": "^2.2.1",
     "clipboardy": "^2.1.0",
