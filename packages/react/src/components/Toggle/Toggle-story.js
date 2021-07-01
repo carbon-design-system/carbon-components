@@ -6,28 +6,9 @@
  */
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, text, boolean, select } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import Toggle from '../Toggle';
-
-const sizes = {
-  'Small  (sm)': 'sm',
-  'Medium (md) - default': undefined,
-};
-
-const toggleProps = () => ({
-  labelText: text(
-    'Label toggle input control (labelText)',
-    'Toggle element label'
-  ),
-  className: 'some-class',
-  labelA: text('Label for untoggled state (labelA)', 'Off'),
-  labelB: text('Label for toggled state (labelB)', 'On'),
-  disabled: boolean('Disabled (disabled)', false),
-  onChange: action('onChange'),
-  onToggle: action('onToggle'),
-  size: select('Field size (size)', sizes, undefined) || undefined,
-});
+import ToggleSkeleton from '../Toggle/Toggle.Skeleton';
 
 export default {
   title: 'Components/Toggle',
@@ -42,8 +23,10 @@ export default {
 export const Default = () => (
   <Toggle
     defaultToggled
-    {...toggleProps()}
+    labelText="Toggle element label"
     className="some-class"
+    labelA="Off"
+    labelB="On"
     id="toggle-1"
   />
 );
@@ -59,4 +42,45 @@ Default.parameters = {
         prop will only set the value initially. This example has defaultToggled set to true.
       `,
   },
+};
+
+export const Small = () => (
+  <Toggle
+    defaultToggled
+    size="sm"
+    labelText="Toggle element label"
+    className="some-class"
+    labelA="Off"
+    labelB="On"
+    id="toggle-1"
+  />
+);
+
+export const Skeleton = () => {
+  const isLoading = boolean('isLoading', true);
+
+  return (
+    <div style={{ maxWidth: '100%' }}>
+      {isLoading ? (
+        <>
+          <ToggleSkeleton labelText="Toggle label" id="toggle-skeleton-id" />
+          <br />
+          <ToggleSkeleton
+            labelText="Toggle label"
+            id="toggle-skeleton-id"
+            size="sm"
+          />
+        </>
+      ) : (
+        <Toggle
+          defaultToggled
+          labelText="Toggle element label"
+          className="some-class"
+          labelA="Off"
+          labelB="On"
+          id="toggle-1"
+        />
+      )}
+    </div>
+  );
 };

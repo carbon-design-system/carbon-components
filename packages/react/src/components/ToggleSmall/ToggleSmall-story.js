@@ -9,6 +9,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import ToggleSmall from '../ToggleSmall';
+import ToggleSmallSkeleton from '../ToggleSmall/ToggleSmall.Skeleton';
 
 const toggleProps = () => ({
   labelText: text(
@@ -61,4 +62,39 @@ Default.parameters = {
         when there is not enough space for a regular sized toggle. This issue is most commonly found in tables.
       `,
   },
+};
+
+export const Skeleton = () => {
+  const isLoading = boolean('isLoading', true);
+
+  return (
+    <div style={{ maxWidth: '100%' }}>
+      {isLoading ? (
+        <>
+          <h4>
+            This component has been deprecated, please use the `size` prop
+            provided by Toggle instead
+          </h4>
+          <ToggleSmallSkeleton
+            labelText="Toggle label"
+            id="toggle-skeleton-id"
+          />
+        </>
+      ) : (
+        <>
+          <h4>
+            This component has been deprecated, please use the `size` prop
+            provided by Toggle instead
+          </h4>
+          <br />
+          <ToggleSmall
+            defaultToggled
+            {...toggleProps()}
+            className="some-class"
+            id="toggle-1"
+          />
+        </>
+      )}
+    </div>
+  );
 };

@@ -448,7 +448,7 @@
       }
 
       .#{$prefix}--toggle-input__label & {
-        margin-top: $carbon--spacing-05;
+        margin-top: $carbon--spacing-03;
       }
     }
 
@@ -512,103 +512,128 @@
       cursor: not-allowed;
     }
 
-    .#{$prefix}--toggle-input:disabled
-      + .#{$prefix}--toggle-input__label
-      > .#{$prefix}--toggle__switch {
-      cursor: not-allowed;
-
-      &::before {
-        background-color: $button-disabled;
-      }
-
-      &::after {
-        background-color: $icon-on-color-disabled;
-      }
-
-      &::before,
-      &::after {
-        cursor: not-allowed;
-        transition: $duration--fast-01 motion(exit, productive);
-      }
-    }
-
-    .#{$prefix}--toggle-input:disabled:active
-      + .#{$prefix}--toggle-input__label
-      > .#{$prefix}--toggle__switch::before {
-      box-shadow: none;
-    }
-
-    //----------------------------------------------
-    // Small toggle
-    // ---------------------------------------------
-    .#{$prefix}--toggle-input--small + .#{$prefix}--toggle-input__label {
-      > .#{$prefix}--toggle__switch {
-        width: carbon--rem(32px);
-        height: carbon--rem(16px);
-
-        &::before {
-          width: carbon--rem(32px);
-          height: carbon--rem(16px);
-          border-radius: 0.9375rem;
-        }
-
-        &::after {
-          width: carbon--rem(10px);
-          height: carbon--rem(10px);
-        }
-      }
-
-      .#{$prefix}--toggle__text--off,
-      .#{$prefix}--toggle__text--on {
-        margin-left: carbon--rem(40px);
-      }
-    }
-
-    .#{$prefix}--toggle-input--small:checked
-      + .#{$prefix}--toggle-input__label {
-      > .#{$prefix}--toggle__switch::after {
-        transform: translateX(carbon--rem(17px));
-      }
-
-      .#{$prefix}--toggle__check {
-        fill: $support-success;
-        transform: scale(1) translateX(carbon--rem(16px));
-      }
-    }
-
-    .#{$prefix}--toggle-input--small:disabled:checked
-      + .#{$prefix}--toggle-input__label
-      .#{$prefix}--toggle__check {
-      fill: $layer-disabled;
-    }
-
     //----------------------------------------------
     // Skeleton
     // ---------------------------------------------
+    //md toggle input
+    .#{$prefix}--toggle.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      .#{$prefix}--toggle__switch {
+      @include skeleton;
 
-    .#{$prefix}--toggle__label.#{$prefix}--skeleton {
-      flex-direction: column;
-      align-items: flex-start;
+      width: 3rem;
+    }
+
+    //md skeleton label text
+    .#{$prefix}--toggle.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      > div {
+      overflow: hidden;
+      width: 1.5rem;
+      height: 0.5rem;
+      //hides text
+      font-size: 0%;
+      line-height: 0;
+
+      @include skeleton;
+    }
+
+    //small toggle input
+    .#{$prefix}--toggle-input--small.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      .#{$prefix}--toggle__switch {
+      @include skeleton;
+
+      width: 2rem;
+    }
+
+    //sm skeleton label text
+    .#{$prefix}--toggle-input--small.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      > div {
+      overflow: hidden;
+      width: 1rem;
+      height: 0.5rem;
+      //hides text
+      font-size: 0%;
+      line-height: 0;
+
+      @include skeleton;
+    }
+
+    // on/off text skeleton
+    .#{$prefix}--toggle.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      .#{$prefix}--toggle__switch
+      .#{$prefix}--toggle__text--left {
+      @include skeleton;
+
+      position: absolute;
+      width: 1rem;
+      height: 0.5rem;
+    }
+
+    .#{$prefix}--toggle-input--small.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      .#{$prefix}--toggle__switch
+      .#{$prefix}--toggle__text--left {
+      left: 2rem;
+    }
+
+    //pseudo "toggle" button
+    .#{$prefix}--toggle.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      .#{$prefix}--toggle__switch::after,
+    .#{$prefix}--toggle.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      .#{$prefix}--toggle__appearance::after,
+    .#{$prefix}--toggle.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      .#{$prefix}--toggle__appearance::before {
+      display: none;
+    }
+
+    //make it square
+    .#{$prefix}--toggle.#{$prefix}--skeleton
+      + .#{$prefix}--toggle-input__label
+      .#{$prefix}--toggle__switch::before {
+      border-radius: 0;
+    }
+
+    //----------------------------------------------
+    // Skeleton - ToggleSmall
+    // v11: remove these styles when component is no longer supported
+    /// @deprecated
+    // ---------------------------------------------
+    .#{$prefix}--toggle-small__deprecated {
+      .#{$prefix}--skeleton {
+        display: flex;
+        flex-direction: column;
+      }
 
       .#{$prefix}--toggle__label-text {
-        margin-bottom: $carbon--spacing-03;
+        @include type-style('label-01');
+
+        margin: $carbon--spacing-03 0 $carbon--spacing-05 0;
+        color: $text-secondary;
       }
-    }
 
-    // Windows HCM fix
-    .#{$prefix}--toggle__switch::after,
-    .#{$prefix}--toggle__switch::before {
-      @include high-contrast-mode('outline');
-    }
+      .#{$prefix}--toggle__appearance::after {
+        display: none;
+      }
 
-    // stylelint-disable-next-line no-duplicate-selectors
-    .#{$prefix}--toggle-input:focus
-      + .#{$prefix}--toggle-input__label
-      > .#{$prefix}--toggle__switch::before,
-    .#{$prefix}--toggle-input:active
-      + .#{$prefix}--toggle-input__label
-      > .#{$prefix}--toggle__switch::before {
-      @include high-contrast-mode('focus');
+      .#{$prefix}--toggle--small
+        + .#{$prefix}--toggle__label
+        .#{$prefix}--toggle__appearance::before {
+        border-radius: 0;
+      }
+
+      .#{$prefix}--toggle--small
+        + .#{$prefix}--toggle__label
+        .#{$prefix}--toggle__appearance {
+        left: -1rem;
+        @include skeleton;
+      }
     }
   }
 }
