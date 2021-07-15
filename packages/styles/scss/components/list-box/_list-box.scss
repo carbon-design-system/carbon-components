@@ -1,0 +1,817 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../button/tokens' as *;
+@use '../text-input';
+@use '../../config' as *;
+@use '../../colors' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../spacing' as *;
+@use '../../motion' as *;
+@use '../../utilities/box-shadow' as *;
+@use '../../utilities/button-reset';
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/z-index' as *;
+// Will need to add `@use '../tag' once added in.
+// @import '../tag/mixins';
+
+/// @type Number
+/// @access public
+/// @group list-box
+$list-box-width: 100%;
+
+/// @type Number
+/// @access public
+/// @group list-box
+$list-box-height: rem(40px);
+
+/// @type Number
+/// @access public
+/// @group list-box
+$list-box-inline-height: $list-box-height;
+
+/// @type Number
+/// @access public
+/// @group list-box
+$list-box-menu-width: rem(300px);
+
+/// List box styles
+/// @access public
+/// @group list-box
+@mixin list-box {
+  // The overall container element for a `list-box`. Has two variants,
+  // `disabled` and `inline`.
+  .#{$prefix}--list-box__wrapper--inline {
+    display: inline-grid;
+    align-items: center;
+    grid-gap: rem(4px);
+    grid-template: auto auto / auto auto;
+
+    .#{$prefix}--label {
+      @include type-style('body-short-01');
+    }
+
+    .#{$prefix}--label,
+    .#{$prefix}--form__helper-text,
+    .#{$prefix}--form-requirement {
+      margin: 0;
+    }
+
+    .#{$prefix}--form__helper-text {
+      max-width: none;
+    }
+
+    .#{$prefix}--form-requirement {
+      grid-column: 2;
+    }
+  }
+
+  .#{$prefix}--list-box {
+    @include reset;
+
+    position: relative;
+    width: $list-box-width;
+    height: rem(40px);
+    max-height: rem(40px);
+    border: none;
+    border-bottom: 1px solid $border-strong;
+    background-color: $field-01;
+    color: $text-01;
+    cursor: pointer;
+    transition: all $duration-fast-01 motion(standard, productive);
+
+    &:hover {
+      background-color: $hover-ui;
+    }
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--list-box--xl,
+  .#{$prefix}--list-box--lg {
+    height: rem(48px);
+    max-height: rem(48px);
+  }
+
+  .#{$prefix}--list-box--sm {
+    height: rem(32px);
+    max-height: rem(32px);
+  }
+
+  .#{$prefix}--list-box--expanded {
+    border-bottom-color: $border-subtle;
+  }
+
+  .#{$prefix}--list-box--expanded:hover {
+    background-color: $field-01;
+  }
+
+  .#{$prefix}--list-box--expanded:hover.#{$prefix}--list-box--light:hover {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--list-box .#{$prefix}--text-input {
+    min-width: 0;
+    height: 100%;
+  }
+
+  // invalid states
+  .#{$prefix}--list-box__invalid-icon {
+    position: absolute;
+    top: 50%;
+    right: $spacing-08;
+    fill: $support-error;
+    transform: translateY(-50%);
+  }
+
+  .#{$prefix}--list-box__invalid-icon--warning {
+    fill: $support-warning;
+  }
+
+  .#{$prefix}--list-box__invalid-icon--warning path[fill] {
+    fill: $black-100;
+    opacity: 1;
+  }
+
+  .#{$prefix}--list-box[data-invalid] .#{$prefix}--list-box__field,
+  .#{$prefix}--list-box.#{$prefix}--list-box--warning
+    .#{$prefix}--list-box__field {
+    padding-right: $spacing-10;
+    border-bottom: 0;
+  }
+
+  .#{$prefix}--list-box[data-invalid].#{$prefix}--list-box--inline
+    .#{$prefix}--list-box__field {
+    padding-right: rem(56px);
+  }
+
+  // Light variation for 'list-box'
+  .#{$prefix}--list-box--light {
+    background-color: $field-02;
+
+    &:hover {
+      background-color: $hover-light-ui;
+    }
+  }
+
+  .#{$prefix}--list-box--light .#{$prefix}--list-box__menu {
+    background: $field-02;
+  }
+
+  .#{$prefix}--list-box--light .#{$prefix}--list-box__menu-item__option {
+    border-top-color: $decorative-01;
+  }
+
+  .#{$prefix}--list-box--light.#{$prefix}--list-box--expanded {
+    border-bottom-color: transparent;
+  }
+
+  // Disabled state for `list-box`
+  .#{$prefix}--list-box--disabled:hover {
+    background-color: $field-01;
+  }
+
+  .#{$prefix}--list-box--light.#{$prefix}--list-box--disabled {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--list-box--disabled,
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__field,
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__field:focus {
+    border-bottom-color: transparent;
+    outline: none;
+  }
+
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__label,
+  .#{$prefix}--list-box--disabled.#{$prefix}--list-box--inline
+    .#{$prefix}--list-box__label {
+    color: $disabled-02;
+  }
+
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__menu-icon > svg,
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__selection > svg {
+    fill: $disabled-02;
+  }
+
+  .#{$prefix}--list-box--disabled,
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__field,
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__menu-icon {
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__menu-item,
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__menu-item:hover,
+  .#{$prefix}--list-box--disabled
+    .#{$prefix}--list-box__menu-item--highlighted {
+    color: $disabled-02;
+    text-decoration: none;
+  }
+
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__selection:hover {
+    cursor: not-allowed;
+  }
+
+  // disabled && invalid
+  .#{$prefix}--list-box--disabled.#{$prefix}--list-box[data-invalid]
+    .#{$prefix}--list-box__field {
+    padding-right: $spacing-09;
+  }
+
+  .#{$prefix}--list-box--disabled.#{$prefix}--list-box[data-invalid].#{$prefix}--list-box--inline
+    .#{$prefix}--list-box__field {
+    padding-right: $spacing-07;
+  }
+
+  // Inline variant for a `list-box`
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline {
+    border-width: 0;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $hover-ui;
+    }
+  }
+
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline.#{$prefix}--list-box--expanded {
+    border-bottom-width: 0;
+  }
+
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline.#{$prefix}--list-box--expanded
+    .#{$prefix}--list-box__field[aria-expanded='true'] {
+    border-width: 0;
+  }
+
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline.#{$prefix}--list-box--disabled:hover {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline.#{$prefix}--list-box--expanded:hover {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline
+    .#{$prefix}--list-box__field {
+    padding: 0 $spacing-07 0 $spacing-03;
+  }
+
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline
+    .#{$prefix}--list-box__menu-icon {
+    right: $spacing-03;
+  }
+
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline
+    .#{$prefix}--list-box__invalid-icon {
+    right: $spacing-07;
+  }
+
+  .#{$prefix}--list-box--inline .#{$prefix}--list-box__label {
+    color: $text-01;
+  }
+
+  .#{$prefix}--list-box--inline .#{$prefix}--list-box__field {
+    height: 100%;
+  }
+
+  .#{$prefix}--dropdown--inline .#{$prefix}--list-box__field {
+    max-width: rem(480px);
+  }
+
+  .#{$prefix}--dropdown--inline .bx--list-box__menu {
+    min-width: rem(288px);
+    max-width: rem(480px);
+  }
+
+  // The field we use for input, showing selection, etc.
+  .#{$prefix}--list-box__field {
+    @include button-reset.reset;
+
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    // Account for the border in `.bx--list-box`
+    height: calc(100% + 1px);
+    align-items: center;
+    padding: 0 $spacing-09 0 $spacing-05;
+    cursor: pointer;
+    outline: none;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--list-box__field:focus {
+    @include focus-outline('outline');
+  }
+
+  .#{$prefix}--list-box__field[disabled] {
+    color: $disabled-02;
+    outline: none;
+  }
+
+  // populated input field
+  .#{$prefix}--list-box__field .#{$prefix}--text-input {
+    padding-right: rem(72px);
+  }
+
+  // invalid && populated input field
+  .#{$prefix}--list-box[data-invalid]
+    .#{$prefix}--list-box__field
+    .#{$prefix}--text-input,
+  .#{$prefix}--list-box--warning
+    .#{$prefix}--list-box__field
+    .#{$prefix}--text-input {
+    // to account for clear input button outline
+    padding-right: rem(98px);
+  }
+
+  .#{$prefix}--list-box[data-invalid]
+    .#{$prefix}--list-box__field
+    .#{$prefix}--text-input
+    + .#{$prefix}--list-box__invalid-icon,
+  .#{$prefix}--list-box--warning
+    .#{$prefix}--list-box__field
+    .#{$prefix}--text-input
+    + .#{$prefix}--list-box__invalid-icon {
+    // to account for clear input button outline
+    right: rem(66px);
+  }
+
+  // empty input field
+  .#{$prefix}--list-box__field .#{$prefix}--text-input--empty {
+    padding-right: $spacing-09;
+  }
+
+  // invalid && empty input field
+  .#{$prefix}--list-box[data-invalid]
+    .#{$prefix}--list-box__field
+    .#{$prefix}--text-input--empty,
+  .#{$prefix}--list-box--warning
+    .#{$prefix}--list-box__field
+    .#{$prefix}--text-input--empty {
+    padding-right: carbon--mini-units(9);
+  }
+
+  .#{$prefix}--list-box[data-invalid]
+    .#{$prefix}--list-box__field
+    .#{$prefix}--text-input--empty
+    + .#{$prefix}--list-box__invalid-icon,
+  .#{$prefix}--list-box--warning
+    .#{$prefix}--list-box__field
+    .#{$prefix}--text-input--empty
+    + .#{$prefix}--list-box__invalid-icon {
+    // to account for clear input button outline
+    right: rem(40px);
+  }
+
+  // Label for a `list-box__field`
+  .#{$prefix}--list-box__label {
+    @include type-style('body-short-01');
+
+    overflow: hidden;
+    color: $text-01;
+    text-overflow: ellipsis;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  // Menu status inside of a `list-box__field`
+  .#{$prefix}--list-box__menu-icon {
+    @include button-reset.reset($width: false);
+
+    position: absolute;
+    right: $spacing-05;
+    display: flex;
+    width: rem(24px);
+    height: rem(24px);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    transition: transform $duration-fast-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--list-box__menu-icon > svg {
+    fill: $icon-primary;
+  }
+
+  .#{$prefix}--list-box__menu-icon--open {
+    width: rem(24px);
+    justify-content: center;
+    transform: rotate(180deg);
+  }
+
+  // Selection indicator for a `list-box__field`
+  .#{$prefix}--list-box__selection {
+    @include button-reset.reset($width: false);
+
+    position: absolute;
+    top: 50%;
+    /* to preserve .5rem space between icons according to spec top/transform used to center the combobox clear selection icon in IE11 */
+    right: rem(36px);
+    display: flex;
+    width: rem(24px);
+    height: rem(24px);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: background-color $duration-fast-01 motion(standard, productive);
+    user-select: none;
+
+    &:focus {
+      @include focus-outline('outline');
+
+      &:hover {
+        @include focus-outline('outline');
+      }
+    }
+  }
+
+  .#{$prefix}--list-box__selection > svg {
+    fill: $icon-01;
+  }
+
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__selection:focus {
+    outline: none;
+  }
+
+  // Modifier for a selection to show that multiple selections have been made
+  .#{$prefix}--list-box__selection--multi {
+    @include type-style('label-01');
+
+    position: static;
+    top: auto;
+    display: flex;
+    width: auto;
+    height: rem(24px);
+    align-items: center;
+    justify-content: space-between;
+    padding: rem(8px);
+    // Align with hover circle of X button
+    padding-right: rem(2px);
+    margin-right: rem(10px);
+    background-color: $background-inverse;
+    border-radius: rem(12px);
+    color: $text-inverse;
+    line-height: 0;
+    transform: none;
+  }
+
+  .#{$prefix}--list-box__selection--multi > svg {
+    width: rem(20px);
+    height: rem(20px);
+    padding: rem(2px);
+    margin-left: rem(4px);
+    fill: $icon-inverse;
+
+    &:hover {
+      background-color: $button-secondary-hover;
+      border-radius: 50%;
+    }
+  }
+
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__selection--multi {
+    // TO DO: uncomment when Tag has been merged in
+    // @include tag-theme($disabled-02, $disabled-01);
+
+    > svg {
+      fill: $disabled-01;
+
+      &:hover {
+        background-color: initial;
+      }
+    }
+  }
+
+  .#{$prefix}--list-box__selection--multi:hover {
+    outline: none;
+  }
+
+  // Descendant of a `list-box` that displays a list of options to select
+  .#{$prefix}--list-box__menu {
+    @include box-shadow();
+
+    position: absolute;
+    z-index: z('dropdown');
+    right: 0;
+    left: 0;
+    width: $list-box-width;
+    background-color: $field;
+    overflow-y: auto;
+    transition: max-height $duration-fast-02 motion(standard, productive);
+
+    &:focus {
+      // remove default browser focus in firefox
+      @include focus-outline('border');
+    }
+  }
+
+  .#{$prefix}--list-box
+    .#{$prefix}--list-box__field[aria-expanded='false']
+    + .#{$prefix}--list-box__menu {
+    max-height: 0;
+  }
+
+  .#{$prefix}--list-box--expanded .#{$prefix}--list-box__menu {
+    // 40px item height * 5.5 items shown
+    max-height: rem(220px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--list-box--expanded.#{$prefix}--list-box--xl
+    .#{$prefix}--list-box__menu,
+  .#{$prefix}--list-box--expanded.#{$prefix}--list-box--lg
+    .#{$prefix}--list-box__menu {
+    // 48px item height * 5.5 items shown
+    max-height: rem(264px);
+  }
+
+  .#{$prefix}--list-box--expanded.#{$prefix}--list-box--sm
+    .#{$prefix}--list-box__menu {
+    // 32px item height * 5.5 items shown
+    max-height: rem(176px);
+  }
+
+  // Descendant of a `list-box__menu` that represents a selection for a control
+  .#{$prefix}--list-box__menu-item {
+    @include type-style('body-short-01');
+
+    position: relative;
+    height: rem(40px);
+    color: $text-02;
+    cursor: pointer;
+    transition: background $duration-fast-01 motion(standard, productive);
+    user-select: none;
+
+    &:hover {
+      background-color: $hover-ui;
+    }
+
+    &:active {
+      background-color: $selected-ui;
+    }
+  }
+
+  .#{$prefix}--list-box--light .#{$prefix}--list-box__menu-item:hover {
+    background-color: $hover-light-ui;
+  }
+
+  .#{$prefix}--list-box--sm .#{$prefix}--list-box__menu-item {
+    height: rem(32px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--list-box--xl .#{$prefix}--list-box__menu-item,
+  .#{$prefix}--list-box--lg .#{$prefix}--list-box__menu-item {
+    height: rem(48px);
+  }
+
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__menu-item:hover {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--list-box--light .#{$prefix}--list-box__menu-item:active {
+    // To Do: What should this variable be?
+    // background-color: $selected-light-ui;
+  }
+
+  .#{$prefix}--list-box--disabled
+    .#{$prefix}--list-box__menu-item__option:hover {
+    border-top-color: $border-subtle;
+  }
+
+  .#{$prefix}--list-box__menu-item:first-of-type
+    .#{$prefix}--list-box__menu-item__option {
+    border-top-color: transparent;
+  }
+
+  .#{$prefix}--list-box__menu-item:hover
+    .#{$prefix}--list-box__menu-item__option {
+    color: $text-01;
+  }
+
+  .#{$prefix}--list-box__menu-item:hover
+    + .#{$prefix}--list-box__menu-item
+    .#{$prefix}--list-box__menu-item__option {
+    border-top-color: transparent;
+  }
+
+  .#{$prefix}--list-box--disabled
+    .#{$prefix}--list-box__menu-item:hover
+    + .#{$prefix}--list-box__menu-item
+    .#{$prefix}--list-box__menu-item__option {
+    border-top-color: $border-subtle;
+  }
+
+  .#{$prefix}--list-box__menu-item__option {
+    @include focus-outline('reset');
+
+    display: block;
+    overflow: hidden;
+    height: rem(40px);
+    padding: rem(11px) 0;
+    padding-right: $spacing-06;
+    border-top: 1px solid transparent;
+    border-top-color: $border-subtle;
+    border-bottom: 1px solid transparent;
+    margin: 0 $spacing-05;
+    color: $text-02;
+    font-weight: normal;
+    line-height: 1rem;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition: border-color $duration-fast-01 motion(standard, productive),
+      color $duration-fast-01 motion(standard, productive);
+    white-space: nowrap;
+
+    &:focus {
+      @include focus-outline('outline');
+
+      padding: rem(11px) rem(16px);
+      border-color: transparent;
+      margin: 0;
+    }
+
+    &:hover {
+      border-color: transparent;
+      color: $text-01;
+    }
+  }
+
+  .#{$prefix}--list-box--sm .#{$prefix}--list-box__menu-item__option {
+    height: rem(32px);
+    padding-top: rem(7px);
+    padding-bottom: rem(7px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--list-box--xl .#{$prefix}--list-box__menu-item__option,
+  .#{$prefix}--list-box--lg .#{$prefix}--list-box__menu-item__option {
+    height: rem(48px);
+    padding-top: rem(15px);
+    padding-bottom: rem(15px);
+  }
+
+  .#{$prefix}--list-box--disabled
+    .#{$prefix}--list-box__menu-item:hover
+    .#{$prefix}--list-box__menu-item__option,
+  .#{$prefix}--list-box--disabled .#{$prefix}--list-box__menu-item__option {
+    color: $disabled-02;
+  }
+
+  .#{$prefix}--list-box.#{$prefix}--list-box--inline
+    .#{$prefix}--list-box__menu-item__option {
+    margin: 0 $spacing-03;
+
+    &:focus {
+      padding-right: $spacing-03;
+      padding-left: $spacing-03;
+      margin: 0;
+    }
+  }
+
+  .#{$prefix}--list-box__menu-item--highlighted {
+    border-color: transparent;
+    background-color: $hover-ui;
+    color: $text-01;
+  }
+
+  .#{$prefix}--list-box__menu-item--highlighted
+    .#{$prefix}--list-box__menu-item__option,
+  .#{$prefix}--list-box__menu-item--highlighted
+    + .#{$prefix}--list-box__menu-item
+    .#{$prefix}--list-box__menu-item__option {
+    border-top-color: transparent;
+  }
+
+  .#{$prefix}--list-box__menu-item--highlighted
+    .#{$prefix}--list-box__menu-item__option {
+    color: $text-01;
+  }
+
+  .#{$prefix}--list-box__menu-item--active {
+    border-bottom-color: $selected-ui;
+    background-color: $selected-ui;
+    color: $text-01;
+  }
+
+  .#{$prefix}--list-box--light .#{$prefix}--list-box__menu-item--active {
+    // To Do: What should this token be?
+    // border-bottom-color: $selected-light-ui;
+    // background-color: $selected-light-ui;
+  }
+
+  .#{$prefix}--list-box__menu-item--active:hover,
+  .#{$prefix}--list-box__menu-item--active.#{$prefix}--list-box__menu-item--highlighted {
+    border-bottom-color: $hover-selected-ui;
+    background-color: $hover-selected-ui;
+  }
+
+  .#{$prefix}--list-box__menu-item--active
+    .#{$prefix}--list-box__menu-item__option {
+    color: $text-01;
+  }
+
+  // Hide top border if previous list item is selected
+  .#{$prefix}--list-box__menu-item--active
+    + .#{$prefix}--list-box__menu-item
+    > .#{$prefix}--list-box__menu-item__option {
+    border-top-color: transparent;
+  }
+
+  .#{$prefix}--list-box__menu-item__selected-icon {
+    position: absolute;
+    top: 50%;
+    right: rem(16px);
+    display: none;
+    fill: $icon-01;
+    transform: translateY(-50%);
+  }
+
+  .#{$prefix}--list-box--inline
+    .#{$prefix}--list-box__menu-item__selected-icon {
+    right: rem(8px);
+  }
+
+  .#{$prefix}--list-box__menu-item--active
+    .#{$prefix}--list-box__menu-item__selected-icon {
+    display: block;
+  }
+
+  .#{$prefix}--list-box__menu-item .#{$prefix}--checkbox-label {
+    width: 100%;
+  }
+
+  .#{$prefix}--list-box__menu-item .#{$prefix}--checkbox-label-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Dropdown top orientation modifiers
+  .#{$prefix}--list-box--up .#{$prefix}--list-box__menu {
+    bottom: 2.5rem;
+  }
+
+  .#{$prefix}--list-box--up.#{$prefix}--dropdown--sm
+    .#{$prefix}--list-box__menu,
+  .#{$prefix}--list-box--up.#{$prefix}--list-box--sm
+    .#{$prefix}--list-box__menu,
+  .#{$prefix}--list-box--up
+    .#{$prefix}--list-box--sm
+    .#{$prefix}--list-box__menu {
+    bottom: 2rem;
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--list-box--up.#{$prefix}--dropdown--xl
+    .#{$prefix}--list-box__menu,
+  .#{$prefix}--list-box--up.#{$prefix}--list-box--xl
+    .#{$prefix}--list-box__menu,
+  .#{$prefix}--list-box--up.#{$prefix}--dropdown--lg
+    .#{$prefix}--list-box__menu,
+  .#{$prefix}--list-box--up.#{$prefix}--list-box--lg
+    .#{$prefix}--list-box__menu,
+  .#{$prefix}--list-box--up
+    .#{$prefix}--list-box--lg
+    .#{$prefix}--list-box__menu {
+    bottom: 3rem;
+  }
+
+  // Tweaks for descendants
+  // When handling input, we need to target nodes that specifically opt-in to
+  // the type text in order to make sure the text input is styled
+  // correctly.
+  // TODO: remove [role='combobox'] in v11
+  .#{$prefix}--list-box input[role='combobox'],
+  .#{$prefix}--list-box input[type='text'] {
+    min-width: 0;
+    background-color: inherit;
+  }
+
+  // Windows HCM fix
+  .#{$prefix}--list-box__field,
+  .#{$prefix}--list-box__menu,
+  .#{$prefix}--multi-select .#{$prefix}--tag--filter {
+    @include high-contrast-mode('outline');
+  }
+
+  .#{$prefix}--list-box__field:focus,
+  .#{$prefix}--multi-select .#{$prefix}--tag__close-icon:focus,
+  .#{$prefix}--list-box__menu-item--highlighted
+    .#{$prefix}--list-box__menu-item__option {
+    @include high-contrast-mode('focus');
+  }
+
+  .#{$prefix}--list-box__menu-icon > svg,
+  .#{$prefix}--list-box__selection > svg,
+  .#{$prefix}--list-box__selection--multi > svg {
+    @include high-contrast-mode('icon-fill');
+  }
+}
