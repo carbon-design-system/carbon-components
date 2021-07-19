@@ -51,6 +51,7 @@ export const Default = () => {
   return (
     <div style={{ width: 300 }}>
       <MultiSelect
+        label="Multiselect Label"
         id="carbon-multiselect-example"
         titleText="Multiselect title"
         helperText="This is helper text"

@@ -1,5 +1,5 @@
 // @import '~carbon-components/scss/globals/scss/typography';
-@use '@carbon/styles/scss/theme';
+@use '@carbon/styles/scss/theme' as *;
 @use '@carbon/styles/scss/type';
 
 .container-welcome {
@@ -19,7 +19,7 @@
 .welcome__heading {
   @include type.type-style('productive-heading-07');
 
-  color: var(--cds-inverse-01);
+  color: $text-inverse;
 }
 
 .welcome__heading--subtitle {

@@ -1,0 +1,44 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../list-box';
+@use '../../config' as *;
+@use '../../theme' as *;
+
+/// Combo box styles
+/// @access public
+/// @group combo-box
+@mixin combo-box {
+  .#{$prefix}--combo-box:hover {
+    background-color: $field-01;
+  }
+
+  .#{$prefix}--combo-box.#{$prefix}--list-box--light:hover {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--combo-box .#{$prefix}--text-input::-ms-clear {
+    display: none;
+  }
+
+  .#{$prefix}--combo-box.#{$prefix}--list-box--expanded
+    .#{$prefix}--text-input {
+    border-bottom-color: $border-subtle;
+  }
+
+  .#{$prefix}--combo-box .#{$prefix}--list-box__field,
+  .#{$prefix}--combo-box.#{$prefix}--list-box[data-invalid]
+    .#{$prefix}--list-box__field,
+  .#{$prefix}--combo-box.#{$prefix}--list-box--warning
+    .#{$prefix}--list-box__field,
+  .#{$prefix}--combo-box.#{$prefix}--list-box--disabled.#{$prefix}--list-box[data-invalid]
+    .#{$prefix}--list-box__field,
+  .#{$prefix}--combo-box.#{$prefix}--list-box--disabled.#{$prefix}--list-box--warning
+    .#{$prefix}--list-box__field {
+    padding: 0;
+  }
+}
