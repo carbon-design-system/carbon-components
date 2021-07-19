@@ -51,7 +51,6 @@ export const Combobox = () => (
       placeholder="Filter..."
       titleText="ComboBox title"
       helperText="Combobox helper text"
-      warn
     />
   </div>
 );
