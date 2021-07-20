@@ -45,14 +45,14 @@ export function testSyncSharedStyles() {
     const sharedStyle = syncColorStyle({
       document,
       name: 'black',
-      value: '#000000',
+      color: '#000000',
     });
 
     if (document.sharedLayerStyles.length !== 1) {
       throw new Error('Expected sync command to generate a shared layer style');
     }
 
-    syncColorStyle({ document, name: 'black', value: '#000000' });
+    syncColorStyle({ document, name: 'black', color: '#000000' });
 
     if (document.sharedLayerStyles.length !== 1) {
       throw new Error(
@@ -122,7 +122,7 @@ export function testSyncSharedStyles() {
       throw new Error('The layer is not in sync with the shared style');
     }
 
-    syncColorStyle({ document, name: 'black', value: '#dedede' });
+    syncColorStyle({ document, name: 'black', color: '#dedede' });
 
     if (getLayerFillColor() !== '#dededeff') {
       throw new Error('The layer did not update to the new shared style');

@@ -15,7 +15,7 @@ import { Swatch } from 'sketch/dom';
  * @param {Document} params.document
  * @param {string} params.name - color name
  * @param {string} params.color - color hex
- * @returns {void}
+ * @returns {Array<Swatch>}
  */
 export function syncColorVariable({ document, name, color }) {
   // check existing color variables
@@ -64,4 +64,6 @@ export function syncColorVariable({ document, name, color }) {
       .sharedSwatches();
     swatchContainer.updateReferencesToSwatch(colorVariable.sketchObject);
   }
+
+  return document.swatches;
 }

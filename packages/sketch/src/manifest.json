@@ -5,14 +5,8 @@
   "name": "Carbon Elements 🎨",
   "commands": [
     {
-      "name": "Sync shared layer styles",
-      "identifier": "carbon.elements.colors.sync",
-      "script": "commands/index.js",
-      "handler": "syncColors"
-    },
-    {
       "name": "Sync color variables",
-      "identifier": "carbon.elements.colors.syncvars",
+      "identifier": "carbon.elements.colors.syncColorVars",
       "script": "commands/index.js",
       "handler": "syncColorVars"
     },
@@ -82,8 +76,7 @@
       {
         "title": "Colors",
         "items": [
-          "carbon.elements.colors.sync",
-          "carbon.elements.colors.syncvars",
+          "carbon.elements.colors.syncColorVars",
           "carbon.elements.colors.generate"
         ]
       },

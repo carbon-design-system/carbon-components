@@ -43,38 +43,54 @@ function formatColorName({ name, grade, formatFor }) {
 }
 
 /**
- * Sync color shared styles to the given document and return the result
- * @param {object} params - syncColorStyles parameters
+ * Sync color shared styles OR color variables to the given document and return
+ * the result
+ * @param {object} params - syncColors parameters
  * @param {Document} params.document
- * @returns {Array<SharedStyle>}
+ * @param {string} params.formatFor - one of 'colorVariable' or
+ * 'sharedLayerStyle'
+ * @returns {Array<SharedStyle|Swatch>}
  */
-export function syncColorStyles({ document }) {
-  const sharedStyles = Object.keys(swatches).flatMap((swatchName) => {
-    const name = formatTokenName(swatchName);
-    const result = Object.keys(swatches[swatchName]).map((grade) => {
-      return syncColorStyle({
-        document,
-        name: formatColorName({ name, grade, formatFor: 'sharedLayerStyle' }),
-        value: swatches[swatchName][grade],
-      });
-    });
-    return result;
-  });
+export function syncColors({ document, formatFor }) {
+  // determine sync function based on `formatFor`
+  const syncColorModel = {
+    sharedLayerStyle: syncColorStyle,
+    colorVariable: syncColorVariable,
+  }[formatFor];
+
+  const colorModels = Object.entries(swatches).flatMap(
+    ([swatchName, gradesObj]) =>
+      Object.entries(gradesObj).map(([grade, color]) => {
+        const tokenName = formatTokenName(swatchName);
+        const name = formatColorName({ name: tokenName, grade, formatFor });
+        return syncColorModel({ document, name, color });
+      })
+  );
 
   const singleColors = [
     ['black', black['100']],
     ['white', white['0']],
     ['orange', orange['40']],
     ['yellow', yellow['30']],
-  ].map(([name, value]) => {
-    return syncColorStyle({
+  ].map(([name, color]) =>
+    syncColorModel({
       document,
-      name: formatColorName({ name, formatFor: 'sharedLayerStyle' }),
-      value,
-    });
-  });
+      name: formatColorName({ name, formatFor }),
+      color,
+    })
+  );
 
-  return sharedStyles.concat(singleColors);
+  return colorModels.concat(singleColors);
+}
+
+/**
+ * Sync color shared styles to the given document and return the result
+ * @param {object} params - syncColorStyles parameters
+ * @param {Document} params.document
+ * @returns {Array<SharedStyle>}
+ */
+export function syncColorStyles({ document }) {
+  return syncColors({ document, formatFor: 'sharedLayerStyle' });
 }
 
 /**
@@ -84,30 +100,5 @@ export function syncColorStyles({ document }) {
  * @returns {Array<Swatch>}
  */
 export function syncColorVariables({ document }) {
-  const colorVariables = Object.keys(swatches).flatMap((swatchName) => {
-    const name = formatTokenName(swatchName);
-    const result = Object.keys(swatches[swatchName]).map((grade) => {
-      return syncColorVariable({
-        document,
-        name: formatColorName({ name, grade, formatFor: 'colorVariable' }),
-        color: swatches[swatchName][grade],
-      });
-    });
-    return result;
-  });
-
-  const singleColors = [
-    ['black', black['100']],
-    ['white', white['0']],
-    ['orange', orange['40']],
-    ['yellow', yellow['30']],
-  ].map(([name, color]) => {
-    return syncColorVariable({
-      document,
-      name: formatColorName({ name, formatFor: 'colorVariable' }),
-      color,
-    });
-  });
-
-  return colorVariables.concat(singleColors);
+  return syncColors({ document, formatFor: 'colorVariable' });
 }

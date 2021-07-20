@@ -46,7 +46,7 @@ export function syncThemeColorStyles(document) {
         return syncColorStyle({
           document,
           name,
-          value: themes[theme][token],
+          color: themes[theme][token],
         });
       });
   });
