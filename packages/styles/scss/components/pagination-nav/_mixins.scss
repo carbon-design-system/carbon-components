@@ -31,7 +31,7 @@
 
   .#{$prefix}--pagination-nav__page--active + &::after,
   &.#{$prefix}--pagination-nav__page--active::after {
-    left: calc(50% - #{$spacing-05 / 2});
+    left: calc(50% - #{$spacing-05 * 0.5});
     width: $spacing-05;
     opacity: 1;
   }

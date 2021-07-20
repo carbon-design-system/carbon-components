@@ -24,7 +24,7 @@ $structured-list-text-transform: none !default;
 /// @group structured-list
 /// @param {Number} $padding [$structured-list-padding]
 @mixin padding-td--condensed($padding: $structured-list-padding) {
-  padding: $padding / 4;
+  padding: $padding * 0.25;
 }
 
 /// Used only for [data-structured-list]
@@ -32,13 +32,13 @@ $structured-list-text-transform: none !default;
 /// @group structured-list
 /// @param {Number} $padding [$structured-list-padding]
 @mixin padding--data-structured-list($padding: $structured-list-padding) {
-  padding-right: $padding / 2;
-  padding-left: $padding / 2;
+  padding-right: $padding * 0.5;
+  padding-left: $padding * 0.5;
 
   // Controls gutter sizes for check
   &:first-child {
-    padding-right: $padding / 2;
-    padding-left: $padding / 2;
+    padding-right: $padding * 0.5;
+    padding-left: $padding * 0.5;
   }
 }
 

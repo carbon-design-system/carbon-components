@@ -38,7 +38,7 @@
 
   .#{$prefix}--pagination-nav__page--active + &::after,
   &.#{$prefix}--pagination-nav__page--active::after {
-    left: calc(50% - #{$carbon--spacing-05 / 2});
+    left: calc(50% - #{$carbon--spacing-05 * 0.5});
     width: $carbon--spacing-05;
     opacity: 1;
   }
@@ -187,8 +187,8 @@
 
   .#{$prefix}--pagination-nav__select-icon {
     position: absolute;
-    top: calc(50% - #{$select-icon-top-position / 2});
-    left: calc(50% - #{$select-icon-top-position / 2});
+    top: calc(50% - #{$select-icon-top-position * 0.5});
+    left: calc(50% - #{$select-icon-top-position * 0.5});
     pointer-events: none;
   }
 

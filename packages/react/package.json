@@ -128,7 +128,7 @@
     "rollup-plugin-strip-banner": "^2.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rtlcss": "^2.4.0",
-    "sass": "^1.32.2",
+    "sass": "^1.35.1",
     "sass-loader": "^10.1.1",
     "storybook-readme": "^5.0.9",
     "string-replace-loader": "^2.1.0",
