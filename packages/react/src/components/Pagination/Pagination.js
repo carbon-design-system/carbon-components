@@ -149,6 +149,11 @@ export default class Pagination extends Component {
     pagesUnknown: PropTypes.bool,
 
     /**
+     * Specify the size of the Pagination. Currently supports either `sm`, 'md' (default) or 'lg` as an option.
+     */
+    size: PropTypes.oneOf(['sm', 'md', 'lg']),
+
+    /**
      * The total number of items.
      */
     totalItems: PropTypes.number,
@@ -277,10 +282,13 @@ export default class Pagination extends Component {
       totalItems,
       onChange, // eslint-disable-line no-unused-vars
       page: pageNumber, // eslint-disable-line no-unused-vars
+      size,
       ...other
     } = this.props;
 
-    const classNames = classnames(`${prefix}--pagination`, className);
+    const classNames = classnames(`${prefix}--pagination`, className, {
+      [`${prefix}--pagination--${size}`]: size,
+    });
     const inputId = id || this.uniqueId;
     const { page: statePage, pageSize: statePageSize } = this.state;
     const totalPages = Math.max(Math.ceil(totalItems / statePageSize), 1);

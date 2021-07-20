@@ -13,13 +13,21 @@ import {
   array,
   boolean,
   number,
+  select,
   text,
 } from '@storybook/addon-knobs';
 import Pagination from '../Pagination';
 import mdx from './Pagination.mdx';
 
+const sizes = {
+  'Small  (sm)': 'sm',
+  'Medium (md) - default': undefined,
+  'Large  (lg)': 'lg',
+};
+
 const props = () => ({
   disabled: boolean('Disable page inputs (disabled)', false),
+  size: select('Size (size)', sizes, undefined) || undefined,
   page: number('The current page (page)', 1),
   totalItems: number('Total number of items (totalItems)', 103),
   pagesUnknown: boolean('Total number of items unknown (pagesUnknown)', false),

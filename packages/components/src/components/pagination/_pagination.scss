@@ -12,6 +12,7 @@ $css--helpers: true;
 @import '../../globals/scss/typography';
 @import '../../globals/scss/layout';
 @import '../../globals/scss/css--helpers';
+@import '../../globals/scss/vendor/@carbon/layout/scss/generated/size';
 @import '../../globals/scss/vendor/@carbon/elements/scss/import-once/import-once';
 @import '../select/select';
 @import '../text-input/text-input';
@@ -31,7 +32,7 @@ $css--helpers: true;
 
     display: flex;
     width: calc(100% - 1px);
-    min-height: rem(48px);
+    min-height: $size-md;
     align-items: center;
     justify-content: space-between;
     border-top: 1px solid $ui-03;
@@ -63,6 +64,14 @@ $css--helpers: true;
     }
   }
 
+  .#{$prefix}--pagination--sm {
+    min-height: $size-sm;
+  }
+
+  .#{$prefix}--pagination--lg {
+    min-height: $size-lg;
+  }
+
   .#{$prefix}--pagination .#{$prefix}--select {
     height: 100%;
     align-items: center;
@@ -78,8 +87,17 @@ $css--helpers: true;
 
     width: auto;
     min-width: auto;
-    height: rem(48px);
+    height: 100%;
     padding: 0 2.25rem 0 $spacing-05;
+    line-height: $size-md;
+  }
+
+  .#{$prefix}--pagination--sm .#{$prefix}--select-input {
+    line-height: $size-sm;
+  }
+
+  .#{$prefix}--pagination--lg .#{$prefix}--select-input {
+    line-height: $size-lg;
   }
 
   .#{$prefix}--pagination .#{$prefix}--select-input:hover {
@@ -106,7 +124,7 @@ $css--helpers: true;
   .#{$prefix}--pagination__left,
   .#{$prefix}--pagination__right {
     display: flex;
-    height: rem(48px);
+    height: 100%;
     align-items: center;
   }
 
@@ -154,7 +172,8 @@ $css--helpers: true;
 
     display: flex;
     width: $carbon--spacing-09;
-    height: 100%;
+    height: $size-md;
+    min-height: $size-sm;
     align-items: center;
     justify-content: center;
     border: none;
@@ -165,6 +184,18 @@ $css--helpers: true;
     fill: $ui-05;
     transition: outline $duration--fast-02 motion(standard, productive),
       background-color $duration--fast-02 motion(standard, productive);
+  }
+
+  .#{$prefix}--pagination--sm .#{$prefix}--pagination__button,
+  .#{$prefix}--pagination--sm
+    .#{$prefix}--btn--ghost.#{$prefix}--pagination__button {
+    height: $size-sm;
+  }
+
+  .#{$prefix}--pagination--lg .#{$prefix}--pagination__button,
+  .#{$prefix}--pagination--lg
+    .#{$prefix}--btn--ghost.#{$prefix}--pagination__button {
+    height: $size-lg;
   }
 
   .#{$prefix}--pagination__button:focus,
