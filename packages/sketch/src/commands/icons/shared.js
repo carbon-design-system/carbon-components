@@ -7,8 +7,8 @@
 
 /* global MSSVGImporter, NSString, NSUTF8StringEncoding */
 
-import { Artboard, Rectangle, Shape } from 'sketch/dom';
-import { syncColorStyles } from '../../sharedStyles/colors';
+import sketch from 'sketch';
+import { Artboard, Library, Rectangle, Shape } from 'sketch/dom';
 import { groupByKey } from '../../tools/grouping';
 import { syncSymbol } from '../../tools/symbols';
 
@@ -58,22 +58,65 @@ function removeDeprecatedSymbolArtboards({ icons, sizes, symbolsPage }) {
 }
 
 /**
+ * Fetch the IDL Sketch Library if it is installed
+ * @param {object} params - fetchIDLSketchLibrary parameters
+ * @param {object} params.IDL_SKETCH_LIBRARY_METADATA - IDL Sketch file metadata
+ * @returns {Library}
+ */
+function fetchIDLSketchLibrary({ IDL_SKETCH_LIBRARY_METADATA }) {
+  const {
+    id: idlSketchLibraryId,
+    name: idlSketchLibraryName,
+  } = IDL_SKETCH_LIBRARY_METADATA;
+
+  const installedLibraries = Library.getLibraries().filter(
+    ({ id, name }) => id === idlSketchLibraryId && name === idlSketchLibraryName
+  );
+
+  if (!installedLibraries.length) {
+    sketch.UI.message(
+      'Please install the IDL V2 Sketch library before trying again'
+    );
+    throw new Error(
+      'Please install the IDL V2 Sketch library before trying again'
+    );
+  }
+
+  return installedLibraries[0];
+}
+
+/**
  * Sync Carbon icon symbols into current Sketch Document
  * @param {object} params - syncIconSymbols parameters
  * @param {Document} params.document - current document
+ * @param {object} params.IDL_SKETCH_LIBRARY_METADATA - IDL Sketch file metadata
  * @param {Array<SymbolMaster>} params.symbols
  * @param {Page} params.symbolsPage - the symbols page as identified by Sketch
  * @param {Array<number>} params.sizes - array of icon sizes
  */
 export function syncIconSymbols({
   document,
+  IDL_SKETCH_LIBRARY_METADATA,
   symbols,
   symbolsPage,
   sizes = [32, 24, 20, 16],
 }) {
-  const sharedStyles = syncColorStyles({ document });
-  const [sharedStyle] = sharedStyles.filter(
-    ({ name }) => name === 'color / black'
+  const idlSketchLibrary = fetchIDLSketchLibrary({
+    IDL_SKETCH_LIBRARY_METADATA,
+  });
+
+  // import shared color styles from IDL Sketch library
+  idlSketchLibrary
+    .getImportableLayerStyleReferencesForDocument(document)
+    .forEach((layerStyle) => {
+      if (layerStyle.name.startsWith('color')) {
+        layerStyle.import();
+      }
+    });
+
+  // set default icon color shared style
+  const sharedStyle = [...document.sharedLayerStyles].find((sharedLayerStyle) =>
+    sharedLayerStyle?.name.endsWith('black')
   );
 
   if (!sharedStyle) {

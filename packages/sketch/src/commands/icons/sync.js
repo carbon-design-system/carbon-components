@@ -10,6 +10,11 @@ import { command } from '../command';
 import { syncIconSymbols } from './shared';
 import { findOrCreateSymbolPage } from '../../tools/page';
 
+const IDL_SKETCH_LIBRARY_METADATA = {
+  id: '9E0A7EC6-C3F3-4DE6-BA36-3F90C4853BA5',
+  name: 'IBM Design Language v2',
+};
+
 export function syncSmallIcons() {
   command('commands/icons/syncSmallIcons', () => {
     const document = Document.getSelectedDocument();
@@ -17,6 +22,7 @@ export function syncSmallIcons() {
     const symbols = document.getSymbols();
     syncIconSymbols({
       document,
+      IDL_SKETCH_LIBRARY_METADATA,
       symbols: Array.from(symbols),
       symbolsPage,
       sizes: [16, 20],
@@ -31,6 +37,7 @@ export function syncLargeIcons() {
     const symbols = document.getSymbols();
     syncIconSymbols({
       document,
+      IDL_SKETCH_LIBRARY_METADATA,
       symbols: Array.from(symbols),
       symbolsPage,
       sizes: [24, 32],
