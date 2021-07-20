@@ -136,7 +136,7 @@ export const decorators = [
     const { locale, theme } = context.globals;
 
     React.useEffect(() => {
-      document.body.setAttribute('data-carbon-theme', theme);
+      document.documentElement.setAttribute('data-carbon-theme', theme);
     }, [theme]);
 
     React.useEffect(() => {

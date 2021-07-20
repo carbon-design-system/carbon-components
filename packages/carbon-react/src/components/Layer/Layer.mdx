@@ -1,0 +1,66 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs/blocks';
+
+# Layer
+
+[Source code](https://github.com/carbon-design-system/carbon/tree/main/packages/carbon-react/src/components/Layer)
+
+<!-- prettier-ignore-start -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Overview](#overview)
+- [Component API](#component-api)
+  - [Layer as](#layer-as)
+- [Feedback](#feedback)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- prettier-ignore-end -->
+
+## Overview
+
+The `Layer` component is used to render components on different layers. Each
+layer has a specific set of token values associated with it. You can use these
+tokens directly, or use contextual tokens from our styles package like `$layer`
+or `$field`.
+
+The `Layer` component accepts `children` as a prop. Each child of a `Layer`
+component is rendered using the layer tokens at that layer. `Layer` components
+can be nested indefinitely, but the token sets typically end after 3 layers.
+
+```jsx
+<Layer>
+  <ChildComponent />
+  <Layer>
+    <ChildComponent />
+    <Layer>
+      <ChildComponent />
+    </Layer>
+  </Layer>
+</Layer>
+```
+
+## Component API
+
+<Props />
+
+### Layer as
+
+You can configure the base element rendered by `Layer` using the `as` prop. For
+example, if you would like the `Layer` component to render as a `section` you
+could write the following:
+
+```jsx
+<Layer as="section">
+  <ChildComponent />
+</Layer>
+```
+
+Similarly, you can provide any custom component to the `as` prop which the
+`Layer` component will use.
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack,
+or updating this file on
+[GitHub](https://github.com/carbon-design-system/carbon/edit/main/packages/carbon-react/src/components/Layer/Layer.mdx).
