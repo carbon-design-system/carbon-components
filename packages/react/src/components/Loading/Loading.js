@@ -34,7 +34,6 @@ function Loading({
     [`${prefix}--loading-overlay--stop`]: !active,
   });
   const loadingId = id || `loading-id-${instanceId}`;
-  const spinnerRadius = small ? '42' : '44';
 
   const loading = (
     <div
@@ -53,14 +52,14 @@ function Loading({
             className={`${prefix}--loading__background`}
             cx="50%"
             cy="50%"
-            r={spinnerRadius}
+            r="44"
           />
         ) : null}
         <circle
           className={`${prefix}--loading__stroke`}
           cx="50%"
           cy="50%"
-          r={spinnerRadius}
+          r="44"
         />
       </svg>
     </div>

@@ -8,9 +8,10 @@
 @import '../../globals/scss/vars';
 @import '../../globals/scss/css--reset';
 @import '../../globals/scss/vendor/@carbon/elements/scss/import-once/import-once';
-@import 'keyframes';
-@import 'mixins';
+@import 'functions';
 @import 'vars';
+@import 'mixins';
+@import 'keyframes';
 
 /// Loading styles
 /// @access private
@@ -30,18 +31,18 @@
   }
 
   .#{$prefix}--loading__svg circle {
-    stroke-dasharray: 240;
+    stroke-dasharray: $circumference $circumference;
     stroke-linecap: butt;
     stroke-width: 10;
   }
 
   .#{$prefix}--loading__stroke {
     stroke: $interactive-04;
-    stroke-dashoffset: $loading__gap;
+    stroke-dashoffset: loading-progress($circumference, 81);
   }
 
   .#{$prefix}--loading--small .#{$prefix}--loading__stroke {
-    stroke-dashoffset: $loading--small__gap;
+    stroke-dashoffset: loading-progress($circumference, 48);
   }
 
   .#{$prefix}--loading--stop {

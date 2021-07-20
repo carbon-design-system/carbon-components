@@ -21,14 +21,6 @@
     width: 100%;
     min-height: 2rem;
     align-items: center;
-
-    .#{$prefix}--loading__svg circle {
-      stroke-width: 12;
-    }
-
-    .#{$prefix}--loading__stroke {
-      stroke-dashoffset: $loading--small__gap;
-    }
   }
 
   .#{$prefix}--inline-loading__text {
