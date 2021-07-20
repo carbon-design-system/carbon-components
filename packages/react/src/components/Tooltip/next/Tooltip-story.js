@@ -9,11 +9,16 @@ import { Add24 } from '@carbon/icons-react';
 import { select } from '@storybook/addon-knobs';
 import React from 'react';
 import { Tooltip } from './Tooltip';
+import { TooltipDefinition } from './TooltipDefinition';
 
 export default {
   title: 'Experimental/unstable_Tooltip',
   component: Tooltip,
-  includeStories: [],
+  // includeStories: [],
+};
+
+export const Definition = () => {
+  return <TooltipDefinition content="hi hello">test</TooltipDefinition>;
 };
 
 export const Default = () => {
