@@ -17,8 +17,6 @@ const getInstanceId = setupGetInstanceId();
 
 class Toggle extends React.Component {
   static propTypes = {
-    ['aria-label']: PropTypes.string.isRequired,
-
     /**
      * Specify a custom className to apply to the form-item node
      */
@@ -72,7 +70,6 @@ class Toggle extends React.Component {
 
   static defaultProps = {
     defaultToggled: false,
-    ['aria-label']: 'Toggle',
     labelA: 'Off',
     labelB: 'On',
     onToggle: () => {},
@@ -116,7 +113,7 @@ class Toggle extends React.Component {
         <input
           {...other}
           {...checkedProps}
-          aria-label={null}
+          aria-labelledby={id}
           type="checkbox"
           id={id}
           className={toggleClasses}
@@ -135,12 +132,7 @@ class Toggle extends React.Component {
             }
           }}
         />
-        <label
-          className={`${prefix}--toggle-input__label`}
-          htmlFor={id}
-          aria-label={
-            typeof labelText === 'string' ? null : this.props['aria-label']
-          }>
+        <label className={`${prefix}--toggle-input__label`} htmlFor={id}>
           {labelText}
           <span className={`${prefix}--toggle__switch`}>
             {size && (
@@ -152,10 +144,14 @@ class Toggle extends React.Component {
                 <path d="M2.2 2.7L5 0 6 1 2.2 5 0 2.7 1 1.5z" />
               </svg>
             )}
-            <span className={`${prefix}--toggle__text--off`} aria-hidden="true">
+            <span
+              className={`${prefix}--toggle__text--off`}
+              aria-labelledby={id}>
               {labelA}
             </span>
-            <span className={`${prefix}--toggle__text--on`} aria-hidden="true">
+            <span
+              className={`${prefix}--toggle__text--on`}
+              aria-labelledby={id}>
               {labelB}
             </span>
           </span>
