@@ -53,12 +53,16 @@ const BreadcrumbItem = React.forwardRef(function BreadcrumbItem(
     );
   }
 
-  if (typeof children === 'string' && href) {
+  if (typeof children === 'string') {
     return (
       <li className={className} ref={ref} {...rest}>
-        <Link href={href} aria-current={ariaCurrent}>
-          {children}
-        </Link>
+        {href ? (
+          <Link href={href} aria-current={ariaCurrent}>
+            {children}
+          </Link>
+        ) : (
+          <span className={`${prefix}--link`}>{children}</span>
+        )}
       </li>
     );
   }

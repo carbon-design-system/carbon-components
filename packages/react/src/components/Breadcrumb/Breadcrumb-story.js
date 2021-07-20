@@ -37,6 +37,7 @@ export const breadcrumb = () => (
     </BreadcrumbItem>
     <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
     <BreadcrumbItem href="#">Breadcrumb 3</BreadcrumbItem>
+    <BreadcrumbItem>Breadcrumb 4</BreadcrumbItem>
   </Breadcrumb>
 );
 
@@ -53,6 +54,7 @@ export const breadcrumbWithOverflowMenu = () => (
       </OverflowMenu>
     </BreadcrumbItem>
     <BreadcrumbItem href="#">Breadcrumb 5</BreadcrumbItem>
+    <BreadcrumbItem>Breadcrumb 6</BreadcrumbItem>
   </Breadcrumb>
 );
 
@@ -74,5 +76,6 @@ export const playground = () => (
     <BreadcrumbItem href="#" {...props()}>
       Breadcrumb 3
     </BreadcrumbItem>
+    <BreadcrumbItem>Breadcrumb 4</BreadcrumbItem>
   </Breadcrumb>
 );
