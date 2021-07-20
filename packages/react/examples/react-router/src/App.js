@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Tabs, Tab } from 'carbon-components-react';
-import { Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
 import './App.scss';
 
 const LandingPage = ({ children }) => (
@@ -24,23 +24,28 @@ const LandingPage = ({ children }) => (
   </div>
 );
 
-const TabOne = withRouter(({ history }) => (
+const TabOne = () => {
+  let navigate = useNavigate();
+  return (
   <Tabs selected={0}>
-    <Tab onClick={() => history.push('/')} label="Tab 1">
+    <Tab onClick={() => navigate('/')} label="Tab 1">
       <div>Tab 1 content.</div>
     </Tab>
-    <Tab onClick={() => history.push('/tab-two')} label="Tab 2" />
+    <Tab onClick={() => navigate('/tab-two')} label="Tab 2" />
   </Tabs>
-));
+)};
 
-const TabTwo = withRouter(({ history }) => (
+const TabTwo = () => {
+  let navigate = useNavigate();
+  
+  return (
   <Tabs selected={1}>
-    <Tab onClick={() => history.push('/')} label="Tab 1" />
-    <Tab onClick={() => history.push('/tab-two')} label="Tab 2">
+    <Tab onClick={() => navigate('/')} label="Tab 1" />
+    <Tab onClick={() => navigate('/tab-two')} label="Tab 2">
       <div>Tab 2 content.</div>
     </Tab>
   </Tabs>
-));
+)};
 
 const TabOneContent = () => (
   <LandingPage>
@@ -65,6 +70,7 @@ const PageOne = () => (
         <Link to="/page-one">page 1</Link>
       </BreadcrumbItem>
     </Breadcrumb>
+    <p>Page 1 content.</p>
   </div>
 );
 
@@ -79,6 +85,7 @@ const PageTwo = () => (
         <Link to="/page-two">page 2</Link>
       </BreadcrumbItem>
     </Breadcrumb>
+    <p>Page 2 content.</p>
   </div>
 );
 
@@ -86,13 +93,13 @@ class App extends Component {
   render() {
     return (
       <div className="page-content">
-        <Switch>
-          <Route exact={true} path="/" component={TabOneContent} />
-          <Route exact={true} path="/page-one" component={PageOne} />
-          <Route exact={true} path="/page-two" component={PageTwo} />
-          <Route exact={true} path="/tab-two" component={TabTwoContent} />
-          <Redirect to="/" />
-        </Switch>
+        <Routes>
+          <Route exact={true} path="/" element={<TabOneContent />} />
+          <Route exact={true} path="/page-one" element={<PageOne />} />
+          <Route exact={true} path="/page-two" element={<PageTwo />} />
+          <Route exact={true} path="/tab-two" element={<TabTwoContent />} />
+          <Navigate to="/" />
+          </Routes>
       </div>
     );
   }
