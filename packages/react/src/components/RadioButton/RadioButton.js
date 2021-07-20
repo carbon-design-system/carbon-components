@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { warning } from '../../internal/warning';
 import uid from '../../tools/uniqueId';
+import { Text } from '../Text';
 
 const { prefix } = settings;
 
@@ -133,7 +134,7 @@ class RadioButton extends React.Component {
         />
         <label htmlFor={this.uid} className={`${prefix}--radio-button__label`}>
           <span className={`${prefix}--radio-button__appearance`} />
-          {labelText && <span className={innerLabelClasses}>{labelText}</span>}
+          {labelText && <Text className={innerLabelClasses}>{labelText}</Text>}
         </label>
       </div>
     );
