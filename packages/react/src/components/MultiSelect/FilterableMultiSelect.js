@@ -36,6 +36,11 @@ export default class FilterableMultiSelect extends React.Component {
     ariaLabel: PropTypes.string,
 
     /**
+     * Specify autocomplete attribute value. Defaults to 'off'
+     */
+    autoComplete: PropTypes.string,
+
+    /**
      * Specify the direction of the multiselect dropdown. Can be either top or bottom.
      */
     direction: PropTypes.oneOf(['top', 'bottom']),
@@ -282,6 +287,7 @@ export default class FilterableMultiSelect extends React.Component {
     const { highlightedIndex, isOpen, inputValue } = this.state;
     const {
       ariaLabel,
+      autoComplete,
       className: containerClassName,
       direction,
       disabled,
@@ -432,6 +438,7 @@ export default class FilterableMultiSelect extends React.Component {
                 // Remove excess aria `aria-labelledby`. HTML <label for>
                 // provides this aria information.
                 'aria-labelledby': null,
+                autoComplete: autoComplete ? autoComplete : 'off',
                 disabled,
                 placeholder,
                 onClick: () => {
