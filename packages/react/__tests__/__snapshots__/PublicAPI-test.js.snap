@@ -4325,6 +4325,249 @@ Map {
     },
     "render": [Function],
   },
+  "ControlledPasswordInput" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "defaultProps": Object {
+      "className": "\${prefix}--text__input",
+      "disabled": false,
+      "helperText": "",
+      "invalid": false,
+      "invalidText": "",
+      "light": false,
+      "onChange": [Function],
+      "onClick": [Function],
+      "size": "",
+    },
+    "propTypes": Object {
+      "className": Object {
+        "type": "string",
+      },
+      "defaultValue": Object {
+        "args": Array [
+          Array [
+            Object {
+              "type": "string",
+            },
+            Object {
+              "type": "number",
+            },
+          ],
+        ],
+        "type": "oneOfType",
+      },
+      "disabled": Object {
+        "type": "bool",
+      },
+      "helperText": Object {
+        "type": "node",
+      },
+      "hideLabel": Object {
+        "type": "bool",
+      },
+      "hidePasswordLabel": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "isRequired": true,
+        "type": "string",
+      },
+      "invalid": Object {
+        "type": "bool",
+      },
+      "invalidText": Object {
+        "type": "node",
+      },
+      "labelText": Object {
+        "isRequired": true,
+        "type": "node",
+      },
+      "light": Object {
+        "type": "bool",
+      },
+      "onChange": Object {
+        "type": "func",
+      },
+      "onClick": Object {
+        "type": "func",
+      },
+      "placeholder": Object {
+        "type": "string",
+      },
+      "showPasswordLabel": Object {
+        "type": "string",
+      },
+      "size": Object {
+        "type": "string",
+      },
+      "tooltipAlignment": Object {
+        "args": Array [
+          Array [
+            "start",
+            "center",
+            "end",
+          ],
+        ],
+        "type": "oneOf",
+      },
+      "tooltipPosition": Object {
+        "args": Array [
+          Array [
+            "top",
+            "right",
+            "bottom",
+            "left",
+          ],
+        ],
+        "type": "oneOf",
+      },
+      "value": Object {
+        "args": Array [
+          Array [
+            Object {
+              "type": "string",
+            },
+            Object {
+              "type": "number",
+            },
+          ],
+        ],
+        "type": "oneOfType",
+      },
+    },
+    "render": [Function],
+  },
+  "PasswordInput" => Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "defaultProps": Object {
+      "className": "\${prefix}--text__input",
+      "disabled": false,
+      "helperText": "",
+      "invalid": false,
+      "invalidText": "",
+      "light": false,
+      "onChange": [Function],
+      "onClick": [Function],
+      "size": "",
+    },
+    "propTypes": Object {
+      "className": Object {
+        "type": "string",
+      },
+      "defaultValue": Object {
+        "args": Array [
+          Array [
+            Object {
+              "type": "string",
+            },
+            Object {
+              "type": "number",
+            },
+          ],
+        ],
+        "type": "oneOfType",
+      },
+      "disabled": Object {
+        "type": "bool",
+      },
+      "helperText": Object {
+        "type": "node",
+      },
+      "hideLabel": Object {
+        "type": "bool",
+      },
+      "hidePasswordLabel": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "isRequired": true,
+        "type": "string",
+      },
+      "inline": Object {
+        "type": "bool",
+      },
+      "invalid": Object {
+        "type": "bool",
+      },
+      "invalidText": Object {
+        "type": "node",
+      },
+      "labelText": Object {
+        "isRequired": true,
+        "type": "node",
+      },
+      "light": Object {
+        "type": "bool",
+      },
+      "onChange": Object {
+        "type": "func",
+      },
+      "onClick": Object {
+        "type": "func",
+      },
+      "onTogglePasswordVisibility": Object {
+        "type": "func",
+      },
+      "placeholder": Object {
+        "type": "string",
+      },
+      "showPasswordLabel": Object {
+        "type": "string",
+      },
+      "size": Object {
+        "type": "string",
+      },
+      "tooltipAlignment": Object {
+        "args": Array [
+          Array [
+            "start",
+            "center",
+            "end",
+          ],
+        ],
+        "type": "oneOf",
+      },
+      "tooltipPosition": Object {
+        "args": Array [
+          Array [
+            "top",
+            "right",
+            "bottom",
+            "left",
+          ],
+        ],
+        "type": "oneOf",
+      },
+      "type": Object {
+        "args": Array [
+          Array [
+            "password",
+            "text",
+          ],
+        ],
+        "type": "oneOf",
+      },
+      "value": Object {
+        "args": Array [
+          Array [
+            Object {
+              "type": "string",
+            },
+            Object {
+              "type": "number",
+            },
+          ],
+        ],
+        "type": "oneOfType",
+      },
+      "warn": Object {
+        "type": "bool",
+      },
+      "warnText": Object {
+        "type": "node",
+      },
+    },
+    "render": [Function],
+  },
   "PrimaryButton" => Object {},
   "ProgressIndicator" => Object {
     "defaultProps": Object {
