@@ -1,0 +1,103 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../list-box';
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+
+/// Multi select styles
+/// @access public
+/// @group multi-select
+@mixin multiselect {
+  .#{$prefix}--multi-select .#{$prefix}--tag {
+    min-width: auto;
+    margin: 0 $spacing-03 0 0;
+  }
+
+  .#{$prefix}--multi-select--filterable .#{$prefix}--tag {
+    margin: 0 $spacing-03 0 $spacing-05;
+  }
+
+  .#{$prefix}--multi-select .#{$prefix}--list-box__menu {
+    min-width: auto;
+  }
+
+  .#{$prefix}--multi-select
+    .#{$prefix}--list-box__menu-item__option
+    .#{$prefix}--checkbox-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+  }
+
+  .#{$prefix}--multi-select
+    .#{$prefix}--list-box__menu-item__option
+    .#{$prefix}--checkbox-label {
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    padding-left: rem(28px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--multi-select
+    .#{$prefix}--list-box__menu-item__option
+    > .#{$prefix}--form-item {
+    flex-direction: row;
+    margin: 0;
+  }
+
+  .#{$prefix}--multi-select
+    .#{$prefix}--list-box__menu-item
+    .#{$prefix}--checkbox:checked
+    ~ .#{$prefix}--checkbox-label-text {
+    color: $text-01;
+  }
+
+  .#{$prefix}--multi-select--filterable {
+    transition: outline-color $duration-fast-01 motion(standard, productive);
+  }
+
+  .#{$prefix}--multi-select--filterable.#{$prefix}--combo-box
+    .#{$prefix}--text-input {
+    border: rem(2px) solid transparent;
+    background-clip: padding-box;
+    outline: none;
+  }
+
+  .#{$prefix}--multi-select--filterable--input-focused {
+    @include focus-outline('outline');
+  }
+
+  .#{$prefix}--multi-select--filterable.#{$prefix}--multi-select--selected
+    .#{$prefix}--text-input {
+    padding-left: 0;
+  }
+
+  .#{$prefix}--multi-select--filterable.#{$prefix}--list-box--disabled:hover
+    .#{$prefix}--text-input {
+    background-color: $field-01;
+  }
+
+  .#{$prefix}--multi-select--filterable
+    .#{$prefix}--list-box__selection--multi {
+    margin: 0 0 0 $spacing-05;
+  }
+
+  .#{$prefix}--multi-select--filterable.#{$prefix}--multi-select--inline,
+  .#{$prefix}--multi-select--filterable.#{$prefix}--multi-select--inline
+    .#{$prefix}--text-input {
+    border-bottom: 0;
+    background-color: transparent;
+  }
+}

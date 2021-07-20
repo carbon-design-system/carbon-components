@@ -1,0 +1,493 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use '../list-box';
+@use '../../config' as *;
+@use '../../motion' as *;
+@use '../../spacing' as *;
+@use '../../theme' as *;
+@use '../../type' as *;
+@use '../../utilities/box-shadow' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/focus-outline' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../utilities/skeleton' as *;
+@use '../../utilities/z-index' as *;
+
+/// Dropdown styles
+/// @access public
+/// @group dropdown
+@mixin dropdown {
+  .#{$prefix}--dropdown__wrapper--inline {
+    display: inline-grid;
+    align-items: center;
+    grid-gap: rem(24px);
+    grid-template: auto auto / auto min-content;
+
+    .#{$prefix}--label {
+      @include type-style('body-short-01');
+    }
+
+    .#{$prefix}--label,
+    .#{$prefix}--form__helper-text,
+    .#{$prefix}--form-requirement {
+      margin: 0;
+    }
+
+    .#{$prefix}--form-requirement {
+      grid-column: 2;
+    }
+  }
+
+  .#{$prefix}--dropdown {
+    @include reset;
+    @include focus-outline('reset');
+
+    position: relative;
+    display: block;
+    width: 100%;
+    height: rem(40px);
+    border: none;
+    border-bottom: 1px solid $border-strong;
+    background-color: $field;
+    color: $text-primary;
+    cursor: pointer;
+    list-style: none;
+    outline: 2px solid transparent;
+    transition: background-color $duration-fast-01 motion(standard, productive);
+
+    &:hover {
+      background-color: $field-hover;
+    }
+  }
+
+  // Menu's triggering element updated to button with Downshift v5 upgrade
+  .#{$prefix}--dropdown .#{$prefix}--list-box__field {
+    text-align: left;
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--dropdown--xl,
+  .#{$prefix}--dropdown--lg {
+    height: rem(48px);
+    max-height: rem(48px);
+  }
+
+  // TODO V11: Remove xl selector
+  .#{$prefix}--dropdown--xl .#{$prefix}--dropdown__arrow,
+  .#{$prefix}--dropdown--lg .#{$prefix}--dropdown__arrow {
+    top: rem(16px);
+  }
+
+  .#{$prefix}--dropdown--sm {
+    height: rem(32px);
+    max-height: rem(32px);
+  }
+
+  .#{$prefix}--dropdown--sm .#{$prefix}--dropdown__arrow {
+    top: rem(8px);
+  }
+
+  .#{$prefix}--dropdown--open {
+    border-bottom-color: $border-subtle;
+  }
+
+  .#{$prefix}--dropdown--invalid {
+    @include focus-outline('invalid');
+
+    .#{$prefix}--dropdown-text {
+      padding-right: rem(56px);
+    }
+
+    + .#{$prefix}--form-requirement {
+      display: inline-block;
+      max-height: rem(200px);
+      color: $text-error;
+    }
+  }
+
+  .#{$prefix}--dropdown__invalid-icon {
+    position: absolute;
+    top: 50%;
+    right: $spacing-08;
+    fill: $support-error;
+    transform: translateY(-50%);
+  }
+
+  .#{$prefix}--dropdown--open:hover {
+    background-color: $field;
+  }
+
+  .#{$prefix}--dropdown--open:focus {
+    outline: 1px solid transparent;
+  }
+
+  .#{$prefix}--dropdown--open .#{$prefix}--dropdown-list {
+    @include box-shadow;
+
+    // 40px item height * 5.5 items shown
+    max-height: rem(220px);
+    transition: max-height $duration-fast-02 motion(entrance, productive);
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--dropdown--light {
+    background-color: $field-02;
+
+    &:hover {
+      background-color: $hover-light-ui;
+    }
+  }
+
+  .#{$prefix}--dropdown--up .#{$prefix}--dropdown-list {
+    bottom: 2rem;
+  }
+
+  .#{$prefix}--dropdown__arrow {
+    position: absolute;
+    top: rem(13px);
+    right: 1rem;
+    fill: $icon-primary;
+    pointer-events: none;
+    transform-origin: 50% 45%;
+    transition: transform $duration-fast-02 motion(standard, productive);
+  }
+
+  button.#{$prefix}--dropdown-text {
+    width: 100%;
+    border: none;
+    // button-reset mixin contradicts with bx--dropdown-text styles
+    background: none;
+    color: $text-primary;
+    text-align: left;
+
+    &:focus {
+      @include focus-outline('outline');
+    }
+  }
+
+  .#{$prefix}--dropdown-text {
+    @include type-style('body-short-01');
+
+    display: block;
+    overflow: hidden;
+    // Account for the border in `.bx--dropdown`
+    height: calc(100% + 1px);
+    // 2rem + SVG width
+    padding-right: rem(42px);
+    padding-left: $spacing-05;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--dropdown-list {
+    @include reset;
+    @include focus-outline('reset');
+    @include box-shadow;
+    @include type-style('body-short-01');
+
+    position: absolute;
+    z-index: z('dropdown');
+    display: flex;
+    width: 100%;
+    max-height: 0;
+    flex-direction: column;
+    background-color: $layer;
+    list-style: none;
+    // NOTE: IE, Edge, and Safari do not support two value `overflow` shorthand.
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: max-height $duration-fast-02 motion(standard, productive);
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--dropdown--light .#{$prefix}--dropdown-list {
+    background-color: $field-02;
+  }
+
+  .#{$prefix}--dropdown:not(.#{$prefix}--dropdown--open)
+    .#{$prefix}--dropdown-item {
+    visibility: hidden;
+  }
+
+  .#{$prefix}--dropdown-item {
+    position: relative;
+    opacity: 0;
+    transition: visibility $duration-fast-01 motion(standard, productive),
+      opacity $duration-fast-01 motion(standard, productive),
+      background-color $duration-fast-01 motion(standard, productive);
+    visibility: inherit;
+
+    &:hover {
+      background-color: $layer-hover;
+
+      + .#{$prefix}--dropdown-item .#{$prefix}--dropdown-link {
+        border-color: transparent;
+      }
+    }
+
+    &:active {
+      background-color: $layer-selected;
+    }
+
+    &:first-of-type .#{$prefix}--dropdown-link {
+      border-top-color: transparent;
+    }
+  }
+
+  .#{$prefix}--dropdown-item:last-of-type .#{$prefix}--dropdown-link {
+    border-bottom: none;
+  }
+
+  .#{$prefix}--dropdown-link {
+    @include focus-outline('reset');
+
+    display: block;
+    overflow: hidden;
+    height: rem(40px);
+    padding: rem(11px) 0;
+    border: 1px solid transparent;
+    border-top-color: $border-subtle;
+    margin: 0 $spacing-05;
+    color: $text-secondary;
+    font-weight: normal;
+    line-height: 1rem;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: transparent;
+      color: $text-01;
+    }
+  }
+
+  // V11: Possibly deprecate
+  .#{$prefix}--dropdown--light .#{$prefix}--dropdown-link {
+    border-top-color: $decorative-01;
+  }
+
+  .#{$prefix}--dropdown--sm .#{$prefix}--dropdown-link {
+    height: rem(32px);
+    padding-top: rem(7px);
+    padding-bottom: rem(7px);
+  }
+
+  .#{$prefix}--dropdown--xl .#{$prefix}--dropdown-link {
+    height: rem(48px);
+    padding-top: rem(15px);
+    padding-bottom: rem(15px);
+  }
+
+  .#{$prefix}--dropdown--focused,
+  .#{$prefix}--dropdown-link:focus {
+    @include focus-outline('outline');
+
+    padding: rem(11px) rem(16px);
+    margin: 0;
+  }
+
+  // We don't want to apply focus styles via focus selector when using the aria-activedescendant structure
+  .#{$prefix}--dropdown-list[aria-activedescendant]
+    .#{$prefix}--dropdown-link:focus {
+    // Copied from .bx--dropdown-link styles
+    padding: rem(11px) 0;
+    margin: 0 $spacing-05;
+    outline: none;
+  }
+
+  // Need added weight for item that is :focused and .bx--dropdown--focused
+  .#{$prefix}--dropdown-list[aria-activedescendant]
+    .#{$prefix}--dropdown--focused:focus {
+    // copied from default focus styles
+    @include focus-outline('outline');
+
+    padding: rem(11px) rem(16px);
+    margin: 0;
+  }
+
+  // Don't want to allow multiple elements have a "selected" style. Not sure why active
+  // had unique styles initially but creating an overwrite for the latest HTML markup for
+  // backwards compatibility. For the next major release it would be possible to clean up
+  // the HTML structure to prevent the user of :active and :focus styles which is creating
+  // these duplicated styles in the list. The Carbon 10 version of dropdown is already
+  // supporting 2 very different HTML structures.
+  .#{$prefix}--dropdown-list[aria-activedescendant]
+    .#{$prefix}--dropdown-item:active {
+    background-color: inherit;
+  }
+
+  .#{$prefix}--dropdown-item:hover .#{$prefix}--dropdown-link {
+    border-bottom-color: $layer-hover;
+  }
+
+  .#{$prefix}--dropdown--open .#{$prefix}--dropdown__arrow {
+    transform: rotate(-180deg);
+  }
+
+  .#{$prefix}--dropdown--open.#{$prefix}--dropdown--xl
+    .#{$prefix}--dropdown-list {
+    // 48px item height * 5.5 items shown
+    max-height: rem(264px);
+  }
+
+  .#{$prefix}--dropdown--open.#{$prefix}--dropdown--sm
+    .#{$prefix}--dropdown-list {
+    // 32px item height * 5.5 items shown
+    max-height: rem(176px);
+  }
+
+  .#{$prefix}--dropdown--open .#{$prefix}--dropdown-item {
+    opacity: 1;
+  }
+
+  .#{$prefix}--dropdown--disabled {
+    border-bottom-color: transparent;
+
+    &:hover {
+      background-color: $field;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    // TODO: remove in v11
+    .#{$prefix}--dropdown-text,
+    .#{$prefix}--list-box__label {
+      color: $text-disabled;
+    }
+
+    // TODO: remove in v11
+    .#{$prefix}--dropdown__arrow,
+    .#{$prefix}--list-box__menu-icon svg {
+      fill: $icon-disabled;
+    }
+
+    // V11: Possibly deprecate
+    &.#{$prefix}--dropdown--light:hover {
+      background-color: $field-02;
+    }
+  }
+
+  .#{$prefix}--dropdown--disabled .#{$prefix}--list-box__field,
+  .#{$prefix}--dropdown--disabled .#{$prefix}--list-box__menu-icon {
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--dropdown--auto-width {
+    width: auto;
+    max-width: rem(400px);
+  }
+
+  .#{$prefix}--dropdown--inline {
+    display: inline-block;
+    width: auto;
+    border-bottom-color: transparent;
+    background-color: transparent;
+    justify-self: start;
+    transition: background $duration-fast-01 motion(entrance, productive);
+
+    &:hover {
+      background-color: $field-hover;
+    }
+
+    &.#{$prefix}--dropdown--disabled {
+      background-color: transparent;
+    }
+
+    .#{$prefix}--dropdown__arrow {
+      top: rem(8px);
+      right: rem(8px);
+    }
+  }
+
+  .#{$prefix}--dropdown--inline.#{$prefix}--dropdown--open {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--dropdown--inline .#{$prefix}--dropdown-text {
+    display: inline-block;
+    overflow: visible;
+    height: rem(32px);
+    padding: rem(7px) $spacing-07 rem(7px) $spacing-04;
+    color: $text-primary;
+  }
+
+  .#{$prefix}--dropdown--inline.#{$prefix}--dropdown--disabled
+    .#{$prefix}--dropdown-text {
+    color: $text-disabled;
+  }
+
+  .#{$prefix}--dropdown--inline.#{$prefix}--dropdown--disabled:focus
+    .#{$prefix}--dropdown-text {
+    outline: 0;
+  }
+
+  .#{$prefix}--dropdown--inline.#{$prefix}--dropdown--invalid
+    .#{$prefix}--dropdown__invalid-icon {
+    right: rem(32px);
+  }
+
+  .#{$prefix}--dropdown--inline.#{$prefix}--dropdown--invalid
+    .#{$prefix}--dropdown-text {
+    padding-right: rem(56px);
+  }
+
+  .#{$prefix}--dropdown--inline.#{$prefix}--dropdown--open:focus
+    .#{$prefix}--dropdown-list {
+    @include box-shadow;
+  }
+
+  .#{$prefix}--dropdown--inline .#{$prefix}--dropdown-link {
+    font-weight: normal;
+  }
+
+  .#{$prefix}--dropdown--show-selected .#{$prefix}--dropdown--selected {
+    display: block;
+    background-color: $layer-hover;
+    color: $text-primary;
+
+    &:hover {
+      background-color: $layer-selected;
+    }
+
+    .#{$prefix}--dropdown-link {
+      border-top-color: transparent;
+    }
+
+    + .#{$prefix}--dropdown-item .#{$prefix}--dropdown-link {
+      border-top-color: transparent;
+    }
+
+    .#{$prefix}--list-box__menu-item__selected-icon {
+      display: block;
+    }
+  }
+
+  // Skeleton State
+  .#{$prefix}--dropdown-v2.#{$prefix}--skeleton,
+  .#{$prefix}--dropdown.#{$prefix}--skeleton {
+    @include skeleton;
+  }
+
+  // Windows HCM fix
+  // stylelint-disable-next-line no-duplicate-selectors
+  .#{$prefix}--dropdown .#{$prefix}--list-box__field {
+    @include high-contrast-mode('outline');
+  }
+
+  .#{$prefix}--list-box__menu-item__option {
+    @include high-contrast-mode {
+      outline: none;
+    }
+  }
+
+  .#{$prefix}--list-box__menu-item__selected-icon {
+    @include high-contrast-mode('icon-fill');
+  }
+}
