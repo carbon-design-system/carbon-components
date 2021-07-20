@@ -31,7 +31,7 @@ export default {
       page: mdx,
     },
   },
-  includeStories: ['Playground'],
+  includeStories: ['Playground', 'Default'],
 };
 
 export const Default = () => {

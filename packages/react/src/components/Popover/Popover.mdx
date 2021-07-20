@@ -19,12 +19,51 @@ import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 **Note: this component is currently experimental and does not follow semver.**
 
-The Popover component is used to build layers that appear on top of the current
-surface.
+A popover is a UI element that _pops over_, or renders on top of, the UI on a
+page. It's a component primitive that is designed to be used alongside other components to build out complex interactions. It is often styled as what we'd
+traditionally consider a tooltip.
+
+## Usage 
+
+```jsx
+import { Popover, PopoverContent } from 'carbon-components-react';
+
+function MyPopover() {
+  return (
+    <TriggerElement />
+    <Popover 
+      open={open} 
+      align={top} 
+      relative>
+      <PopoverContent className="custom-classname"/>
+    </Popover>
+  )
+}
+```
 
 ## Component API
 
 <Props />
+
+## Caret Alignment 
+
+Users can describe the caret alignment in one of twelve directions. Caret alignement dictates position and direction of the popover.
+
+- 'top',
+- 'top-left',
+- 'top-right',
+
+- 'bottom',
+- 'bottom-left',
+- 'bottom-right',
+
+- 'left',
+- 'left-bottom',
+- 'left-top',
+
+- 'right',
+- 'right-bottom',
+- 'right-top',
 
 ## Feedback
 
