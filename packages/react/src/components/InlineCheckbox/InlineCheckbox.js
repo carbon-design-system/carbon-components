@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { settings } from 'carbon-components';
 import mergeRefs from '../../tools/mergeRefs';
+import cx from 'classnames';
 
 const { prefix } = settings;
 
@@ -94,14 +95,14 @@ class InlineCheckbox extends React.Component {
   render() {
     const {
       id,
-      indeterminate,
+      // indeterminate,
       checked,
-      disabled,
+      // disabled,
       ariaLabel,
       name,
-      onChange,
+      // onChange,
       onClick,
-      onKeyDown,
+      // onKeyDown,
       title = undefined,
       // eslint-disable-next-line react/prop-types
       innerRef: ref,
@@ -109,37 +110,54 @@ class InlineCheckbox extends React.Component {
     const inputProps = {
       id,
       name,
-      onClick,
-      onChange: (evt) => {
-        onChange(evt.target.checked, id, evt);
-      },
-      onKeyDown,
-      className: `${prefix}--checkbox`,
-      type: 'checkbox',
+      // onChange: (evt) => {
+      //   onChange(evt.target.checked, id, evt);
+      // },
+      // onKeyDown,
+      // onKeyPress: (evt) => {
+      //   evt.persist();
+      //   onClick(evt);
+      // },
+      role: 'checkbox',
       ref: mergeRefs(ref, this.handleRef),
-      checked: false,
-      disabled,
+      'aria-checked': false,
+      // disabled,
+      // readOnly: true,
+    };
+
+    // firefox workaround. shift clicking checkboxes is unsupported
+    const onClickHandler = (evt) => {
+      evt.persist();
+      onClick(evt);
     };
 
     if (checked) {
-      inputProps.checked = true;
+      inputProps['aria-checked'] = true;
     }
 
-    if (indeterminate) {
-      inputProps.checked = false;
-      inputProps['aria-checked'] = 'mixed';
-    }
+    //todo- apply intermediate and focus states
+
+    // if (indeterminate) {
+    //   inputProps.checked = false;
+    //   inputProps['aria-checked'] = 'mixed';
+    // }
+
+    inputProps.className = cx(`${prefix}--checkbox`, {
+      [`${prefix}--checkbox-checked`]: checked,
+    });
 
     return (
       <>
-        <input {...inputProps} />
+        <div {...inputProps} />
         {
-          /* eslint-disable jsx-a11y/label-has-for,jsx-a11y/label-has-associated-control */
+          /* eslint-disable jsx-a11y/label-has-for,jsx-a11y/label-has-associated-control,jsx-a11y/no-noninteractive-element-interactions */
           <label
             htmlFor={id}
             className={`${prefix}--checkbox-label`}
             aria-label={ariaLabel}
             title={title}
+            onClick={onClickHandler}
+            onKeyDown={onClickHandler}
           />
         }
       </>

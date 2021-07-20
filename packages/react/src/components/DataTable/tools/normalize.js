@@ -29,6 +29,7 @@ const normalize = (rows, headers, prevState = {}) => {
       isSelected = false,
       isExpanded = false,
       disabled = false,
+      lastSelected = false,
     } = row;
     rowsById[id] = {
       id,
@@ -36,6 +37,7 @@ const normalize = (rows, headers, prevState = {}) => {
       isExpanded,
       disabled,
       cells: new Array(headers.length),
+      lastSelected,
     };
 
     // If we have a previous state, and the row existed in that previous state,
@@ -43,6 +45,7 @@ const normalize = (rows, headers, prevState = {}) => {
     if (prevRowsByIds && prevRowsByIds[row.id] !== undefined) {
       rowsById[row.id].isSelected = prevRowsByIds[row.id].isSelected;
       rowsById[row.id].isExpanded = prevRowsByIds[row.id].isExpanded;
+      rowsById[row.id].lastSelected = prevRowsByIds[row.id].lastSelected;
     }
 
     headers.forEach(({ key }, i) => {

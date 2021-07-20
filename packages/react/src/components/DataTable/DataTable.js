@@ -106,6 +106,7 @@ export default class DataTable extends React.Component {
         disabled: PropTypes.bool,
         isSelected: PropTypes.bool,
         isExpanded: PropTypes.bool,
+        lastSelected: PropTypes.bool,
       })
     ).isRequired,
 
@@ -536,12 +537,15 @@ export default class DataTable extends React.Component {
    * @param {string} rowId
    * @returns {Function}
    */
-  handleOnSelectRow = (rowId) => () => {
+  handleOnSelectRow = (rowId) => (evt) => {
     this.setState((state) => {
-      const row = state.rowsById[rowId];
+      const { rowIds } = state;
+      // avoid issues mutating the state with a deepclone
+      const rowsById = JSON.parse(JSON.stringify(state.rowsById));
+      const row = rowsById[rowId];
       if (this.props.radio) {
         // deselect all radio buttons
-        const rowsById = Object.entries(state.rowsById).reduce((p, c) => {
+        const rowsById = Object.entries(rowsById).reduce((p, c) => {
           const [key, val] = c;
           val.isSelected = false;
           p[key] = val;
@@ -558,24 +562,46 @@ export default class DataTable extends React.Component {
           },
         };
       }
-      const selectedRows = state.rowIds.filter(
-        (id) => state.rowsById[id].isSelected
-      ).length;
+      const alreadySelected = row.isSelected;
+      const lastSelectedId = rowIds.find((id) => rowsById[id].lastSelected);
+      const lastSelectedRow = rowsById[lastSelectedId];
+      if (lastSelectedRow) lastSelectedRow.lastSelected = false;
+      row.lastSelected = true;
+      const selectedRowIds = rowIds.filter((id) => rowsById[id].isSelected);
       // Predict the length of the selected rows after this change occurs
-      const selectedRowsCount = !row.isSelected
-        ? selectedRows + 1
-        : selectedRows - 1;
+      const selectedRowsCount = !alreadySelected
+        ? selectedRowIds.length + 1
+        : selectedRowIds.length - 1;
+      if (evt.shiftKey && lastSelectedId) {
+        const currentIdx = rowIds.findIndex((id) => id === rowId);
+        const lastSelectedIdx = rowIds.findIndex((id) => id === lastSelectedId);
+        const idxRange = rowIds.slice(
+          Math.min(currentIdx, lastSelectedIdx),
+          Math.max(currentIdx, lastSelectedIdx) + 1
+        );
+        const idxSet = [...new Set([...selectedRowIds, ...idxRange])];
+        if (alreadySelected) {
+          idxSet.forEach((id) => {
+            rowsById[id].isSelected = !idxRange.includes(id);
+          });
+        } else {
+          idxSet.forEach((id) => {
+            rowsById[id].isSelected = true;
+          });
+        }
+      } else {
+        row.isSelected = !alreadySelected;
+      }
       return {
         // Basic assumption here is that we want to show the batch action bar if
         // the row is being selected. If it's being unselected, then see if we
         // have a non-zero number of selected rows that batch actions could
         // still apply to
-        shouldShowBatchActions: !row.isSelected || selectedRowsCount > 0,
+        shouldShowBatchActions: !alreadySelected || selectedRowsCount > 0,
         rowsById: {
-          ...state.rowsById,
+          ...rowsById,
           [rowId]: {
             ...row,
-            isSelected: !row.isSelected,
           },
         },
       };
