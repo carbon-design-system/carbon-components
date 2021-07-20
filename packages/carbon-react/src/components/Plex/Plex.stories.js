@@ -7,7 +7,7 @@
 import React from 'react';
 
 export default {
-  title: 'Components/Plex',
+  title: 'Elements/Plex',
   argTypes: {
     fontWeight: {
       defaultValue: 'Regular',

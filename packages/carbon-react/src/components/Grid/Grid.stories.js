@@ -15,7 +15,7 @@ import React from 'react';
 import mdx from './Grid.mdx';
 
 export default {
-  title: 'Components/Grid',
+  title: 'Elements/Grid',
   component: Grid,
   subcomponents: {
     Column,
