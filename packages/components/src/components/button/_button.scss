@@ -164,6 +164,23 @@
     }
   }
 
+  // NEW POPOVER STYLES
+  // .#{$prefix}--btn.#{$prefix}--btn--icon-only ~ .#{$prefix}--popover::before {
+  //   position: relative;
+  //   height: rem(4px);
+  // }
+
+  .#{$prefix}--btn__icon-container {
+    position: relative;
+    width: 3rem;
+  }
+
+  .#{$prefix}--btn.#{$prefix}--btn--icon-only
+    ~ .#{$prefix}--popover
+    .#{$prefix}--popover-contents {
+    padding: rem(3px) 1rem;
+  }
+
   // Allow pointer events on tooltip when tooltip is visible
   .#{$prefix}--btn.#{$prefix}--btn--icon-only:not(.#{$prefix}--tooltip--hidden)
     .#{$prefix}--assistive-text {
