@@ -37,7 +37,7 @@ const BreadcrumbItem = React.forwardRef(function BreadcrumbItem(
   if (
     children.type &&
     children.type.displayName !== undefined &&
-    children.type.displayName === 'OverflowMenu'
+    children.type.displayName.includes('OverflowMenu')
   ) {
     const horizontalOverflowIcon = (
       <OverflowMenuHorizontal16 className={`${prefix}--overflow-menu__icon`} />

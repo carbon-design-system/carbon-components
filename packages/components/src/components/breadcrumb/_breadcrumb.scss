@@ -128,7 +128,7 @@
   }
 
   $caret-size: rem(7px);
-  .#{$prefix}--breadcrumb-menu-options.#{$prefix}--overflow-menu-options::after {
+  .#{$prefix}--breadcrumb-menu-options.#{$prefix}--overflow-menu-options[data-floating-menu-direction='bottom']::after {
     top: -$caret-size;
     left: $caret-size * 2;
     width: 0;

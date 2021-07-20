@@ -16,15 +16,16 @@ export function createComponentToggle(spec) {
     if (enabled) {
       if (next) {
         return React.createElement(next, { ...props, ref: ref });
-      } else {
-        return null;
       }
+
+      return null;
     }
 
     return React.createElement(classic, { ...props, ref: ref });
   }
 
-  ComponentToggle.displayName = `FeatureToggle(${name})`;
+  const wrappedComponent = React.forwardRef(ComponentToggle);
+  wrappedComponent.displayName = `FeatureToggle(${name})`;
 
-  return React.forwardRef(ComponentToggle);
+  return wrappedComponent;
 }

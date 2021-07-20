@@ -2436,7 +2436,7 @@ exports[`DataTable should render 1`] = `
                   }
                 }
               >
-                <ForwardRef(FeatureToggle(OverflowMenu))
+                <FeatureToggle(OverflowMenu)
                   ariaLabel="Settings"
                   className="bx--toolbar-action bx--overflow-menu"
                   flipped={true}
@@ -2549,7 +2549,7 @@ exports[`DataTable should render 1`] = `
                       </ClickListener>
                     </OverflowMenu>
                   </ForwardRef(OverflowMenu)>
-                </ForwardRef(FeatureToggle(OverflowMenu))>
+                </FeatureToggle(OverflowMenu)>
               </TableToolbarMenu>
               <Button
                 dangerDescription="danger"
@@ -3497,7 +3497,7 @@ exports[`DataTable sticky header should render 1`] = `
                   }
                 }
               >
-                <ForwardRef(FeatureToggle(OverflowMenu))
+                <FeatureToggle(OverflowMenu)
                   ariaLabel="Settings"
                   className="bx--toolbar-action bx--overflow-menu"
                   flipped={true}
@@ -3610,7 +3610,7 @@ exports[`DataTable sticky header should render 1`] = `
                       </ClickListener>
                     </OverflowMenu>
                   </ForwardRef(OverflowMenu)>
-                </ForwardRef(FeatureToggle(OverflowMenu))>
+                </FeatureToggle(OverflowMenu)>
               </TableToolbarMenu>
               <Button
                 dangerDescription="danger"

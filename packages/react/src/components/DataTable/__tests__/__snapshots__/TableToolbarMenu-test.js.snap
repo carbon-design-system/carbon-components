@@ -11,7 +11,7 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
     }
   }
 >
-  <ForwardRef(FeatureToggle(OverflowMenu))
+  <FeatureToggle(OverflowMenu)
     ariaLabel="Add"
     className="custom-class bx--toolbar-action bx--overflow-menu"
     flipped={true}
@@ -121,6 +121,6 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
         </ClickListener>
       </OverflowMenu>
     </ForwardRef(OverflowMenu)>
-  </ForwardRef(FeatureToggle(OverflowMenu))>
+  </FeatureToggle(OverflowMenu)>
 </TableToolbarMenu>
 `;
