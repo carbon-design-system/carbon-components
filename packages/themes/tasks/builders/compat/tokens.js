@@ -8,26 +8,33 @@
 'use strict';
 
 const { types: t } = require('@carbon/scss-generator');
-const { group } = require('../../src/next');
-const { FILE_BANNER } = require('./shared');
+const { TokenFormat } = require('../../../src/next');
+const { tokens } = require('../../../src');
+const { FILE_BANNER } = require('../shared');
+const { shouldIncludeToken } = require('./shared');
 
-function buildThemeTokens() {
-  const tokens = group.getTokens();
-  const variables = tokens.flatMap((token) => {
-    const id = token.name;
-    return [
-      t.Newline(),
-      t.Comment(`/ The CSS Custom Property for the \`${id}\` token`),
-      t.Assignment({
-        id: t.Identifier(id),
-        init: t.SassFunctionCall({
-          id: t.Identifier('_get'),
-          params: [t.SassString(id)],
+function buildCompatFile() {
+  const variables = tokens.colors
+    .filter(shouldIncludeToken)
+    .flatMap((token) => {
+      const id = TokenFormat.convert({
+        name: token,
+        format: TokenFormat.formats.scss,
+      });
+
+      return [
+        t.Newline(),
+        t.Comment(`/ CSS Custom Property for the ${id} token`),
+        t.Assignment({
+          id: t.Identifier(id),
+          init: t.SassFunctionCall({
+            id: t.Identifier('_get'),
+            params: [t.SassString(id)],
+          }),
+          default: true,
         }),
-        default: true,
-      }),
-    ];
-  });
+      ];
+    });
 
   return t.StyleSheet([
     // Preamble
@@ -36,8 +43,8 @@ function buildThemeTokens() {
 
     // Modules
     t.SassModule('sass:map'),
-    t.SassModule('../config'),
-    t.SassModule('../theme'),
+    t.SassModule('../../modules/config'),
+    t.SassModule('../../modules/theme'),
     t.Newline(),
 
     t.Comment('/ Internal helper for generating CSS Custom Properties'),
@@ -70,4 +77,4 @@ function buildThemeTokens() {
   ]);
 }
 
-module.exports = buildThemeTokens;
+module.exports = buildCompatFile;

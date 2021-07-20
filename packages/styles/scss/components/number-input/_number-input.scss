@@ -9,7 +9,7 @@
 @use '../../config' as *;
 @use '../../motion' as *;
 @use '../../spacing' as *;
-@use '../../theme' as *;
+@use '../../compat/theme' as *;
 @use '../../type' as *;
 @use '../../utilities/skeleton' as *;
 @use '../../utilities/button-reset';

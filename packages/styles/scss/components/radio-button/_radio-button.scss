@@ -9,7 +9,7 @@
 // Radio
 //-----------------------------
 
-@use '../../theme' as *;
+@use '../../compat/theme' as *;
 @use '../../type';
 @use '../form';
 @use '../../utilities/focus-outline' as *;

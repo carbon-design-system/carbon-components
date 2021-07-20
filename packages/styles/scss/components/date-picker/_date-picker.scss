@@ -8,7 +8,7 @@
 @use '../../colors' as *;
 @use '../../config' as *;
 @use '../../motion' as *;
-@use '../../theme' as *;
+@use '../../compat/theme' as *;
 @use '../../spacing' as *;
 @use '../../type' as *;
 @use '../form/form';

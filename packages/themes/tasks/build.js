@@ -19,6 +19,8 @@ const yaml = require('js-yaml');
 const { formatTokenName, themes, tokens } = require('../lib');
 const buildTokensFile = require('./builders/tokens');
 const buildThemesFile = require('./builders/themes');
+const buildCompatThemesFile = require('./builders/compat/themes');
+const buildCompatTokensFile = require('./builders/compat/tokens');
 const buildModulesThemesFile = require('./builders/modules-themes');
 const buildModulesTokensFile = require('./builders/modules-tokens');
 const buildMixinsFile = require('./builders/mixins');
@@ -68,6 +70,30 @@ async function build() {
       filepath: path.resolve(
         SCSS_DIR,
         '..',
+        'compat',
+        'generated',
+        '_themes.scss'
+      ),
+      builder() {
+        return buildCompatThemesFile();
+      },
+    },
+    {
+      filepath: path.resolve(
+        SCSS_DIR,
+        '..',
+        'compat',
+        'generated',
+        '_tokens.scss'
+      ),
+      builder() {
+        return buildCompatTokensFile();
+      },
+    },
+    {
+      filepath: path.resolve(
+        SCSS_DIR,
+        '..',
         'modules',
         'generated',
         '_themes.scss'
@@ -95,10 +121,9 @@ async function build() {
     },
   ];
 
-  await fs.ensureDir(SCSS_DIR);
-  await fs.ensureDir(path.resolve(SCSS_DIR, '..', 'modules', 'generated'));
-
   for (const { filepath, builder } of files) {
+    await fs.ensureFile(filepath);
+
     const { code } = generate(builder());
     await fs.writeFile(filepath, code);
   }

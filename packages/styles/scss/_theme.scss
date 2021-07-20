@@ -9,9 +9,16 @@
 @use '@carbon/themes/scss/modules/config' with (
   $prefix: $prefix,
 );
-@use '@carbon/themes/scss/modules/tokens';
-@forward '@carbon/themes/scss/modules/theme';
+@use './compat/themes' as compat;
+@use './themes';
+
+@forward '@carbon/themes/scss/modules/theme' with (
+  $fallback: themes.$white !default,
+  $theme: compat.$white !default,
+);
 @forward '@carbon/themes/scss/modules/tokens';
+
+@use '@carbon/themes/scss/modules/tokens';
 
 // TODO: add contextual tokens
 $border-subtle: tokens.$border-subtle-01;
@@ -26,27 +33,3 @@ $layer-selected-hover: tokens.$layer-selected-hover-01;
 
 $field: tokens.$field-01;
 $field-hover: tokens.$field-hover-01;
-
-// TODO remove
-$interactive-01: #0f62fe;
-$interactive-04: #0f62fe;
-$decorative-01: #e0e0e0;
-$hover-row: #636363;
-$ui-01: #f4f4f4;
-$ui-02: #ffffff;
-$ui-05: #161616;
-$disabled-01: #f4f4f4;
-$disabled-02: #c6c6c6;
-$hover-field: #e5e5e5;
-$hover-ui: #e5e5e5;
-$selected-ui: #e0e0e0;
-$hover-selected-ui: #cacaca;
-$hover-light-ui: #e5e5e5;
-$active-light-ui: #c6c6c6;
-$text-01: #161616;
-$text-02: #525252;
-$text-04: #ffffff;
-$text-05: #6f6f6f;
-$icon-01: #f4f4f4;
-$icon-02: #525252;
-$link-01: #0f62fe;

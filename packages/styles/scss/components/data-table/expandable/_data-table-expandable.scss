@@ -8,7 +8,7 @@
 @use '../../../config' as *;
 @use '../../../motion' as *;
 @use '../../../spacing' as *;
-@use '../../../theme' as *;
+@use '../../../compat/theme' as *;
 @use '../../../utilities/button-reset';
 @use '../../../utilities/convert' as *;
 @use '../../../utilities/focus-outline' as *;

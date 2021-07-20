@@ -9,7 +9,7 @@
 @use '../../feature-flags' as *;
 @use "../../type" as *;
 @use '../../motion';
-@use '../../theme' as *;
+@use '../../compat/theme' as *;
 @use "../../utilities/focus-outline" as *;
 @use "../../utilities/skeleton" as *;
 @use "../../utilities/high-contrast-mode" as *;
