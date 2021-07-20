@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corp. 2016, 2018
+ * Copyright IBM Corp. 2016, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,6 +10,10 @@ import React from 'react';
 import FormLabel from './FormLabel';
 import Tooltip from '../Tooltip';
 import mdx from './FormLabel.mdx';
+
+const textDirProp = {
+  dir: 'auto',
+};
 
 export default {
   title: 'Components/FormLabel',
@@ -38,4 +42,16 @@ export const WithTooltip = () => (
 
 WithTooltip.story = {
   name: 'Form Label with Tooltip',
+};
+
+export const WithTextDir = () => (
+  <FormLabel {...textDirProp}>שלום Hello !!</FormLabel>
+);
+
+WithTextDir.storyName = 'With textDir';
+
+WithTextDir.parameters = {
+  info: {
+    text: 'Form label with textDir.',
+  },
 };

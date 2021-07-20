@@ -10,6 +10,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { useFeatureFlag } from '../FeatureFlags';
 import { settings } from 'carbon-components';
+import resolveBaseTextDir from '../../tools/bidiUtils';
 
 const { prefix } = settings;
 
@@ -23,6 +24,7 @@ const Checkbox = React.forwardRef(function Checkbox(
     hideLabel,
     wrapperClassName,
     title = '',
+    dir,
     ...other
   },
   ref
@@ -65,7 +67,11 @@ const Checkbox = React.forwardRef(function Checkbox(
         }}
       />
       <label htmlFor={id} className={labelClasses} title={title || null}>
-        <span className={innerLabelClasses}>{labelText}</span>
+        <span
+          className={innerLabelClasses}
+          dir={resolveBaseTextDir(labelText, dir, false)}>
+          {labelText}
+        </span>
       </label>
     </div>
   );
@@ -86,6 +92,11 @@ Checkbox.propTypes = {
    * Specify whether the underlying input should be checked by default
    */
   defaultChecked: PropTypes.bool,
+
+  /**
+   * Provide the text direction for the given <FormLabel>
+   */
+  dir: PropTypes.oneOf(['', 'ltr', 'rtl', 'auto']),
 
   /**
    * Specify whether the Checkbox should be disabled

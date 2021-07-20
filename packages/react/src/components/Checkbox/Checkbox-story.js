@@ -90,3 +90,12 @@ export const playground = () => (
     <Checkbox {...props()} id="checkbox-label-2" />
   </fieldset>
 );
+
+export const checkboxWithTextDir = () => {
+  return (
+    <fieldset className={`${prefix}--fieldset`}>
+      <legend className={`${prefix}--label`}>Checkbox with textDir</legend>
+      <Checkbox labelText={`שלום Hello !!`} dir="auto" id="checkbox-label-1" />
+    </fieldset>
+  );
+};
