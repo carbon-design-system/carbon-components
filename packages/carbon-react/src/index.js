@@ -204,3 +204,5 @@ export {
   Grid,
   Column,
 } from './components/Grid';
+
+export { Theme, useTheme } from './components/Theme';

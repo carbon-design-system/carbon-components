@@ -1,0 +1,85 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs/blocks';
+
+# Theme
+
+[Source code](https://github.com/carbon-design-system/carbon/tree/main/packages/carbon-react/src/components/Theme)
+
+<!-- prettier-ignore-start -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Overview](#overview)
+  - [`useTheme`](#usetheme)
+- [Component API](#component-api)
+  - [Theme as](#theme-as)
+- [Feedback](#feedback)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- prettier-ignore-end -->
+
+## Overview
+
+The `Theme` component allows you to specify the theme for a page, or a portion
+of a page. It is most often used to implement inline theming in order to specify
+what theme a section of the page should render with.
+
+The `Theme` component accepts a `theme` prop which allows you to specify the
+theme. This value is propagated to the entire sub-tree of components and can be
+accessed by any child component using the `useTheme` hook.
+
+```jsx
+<Theme theme="g100">
+  <ChildComponent />
+</Theme>
+```
+
+The `Theme` component will render a wrapper element on which all of the values
+of the given theme will be applied as CSS Custom Properties. These CSS Custom
+Properties can be accessed directly, or you can use the Sass Variables provided
+in the styles from the Carbon Design System to refer to these properties in your
+styles.
+
+### `useTheme`
+
+The `useTheme` hook allows you to access the current theme in a component. This
+can be useful if you need to conditionally render something based on the theme.
+For example, if you have an illustration that needs to be rendered differently
+in a light or dark theme.
+
+You can use this hook in any component by calling `useTheme`:
+
+```jsx
+function ExampleComponent() {
+  const { theme } = useTheme();
+
+  if (theme === 'g100') {
+    // ...
+  }
+}
+```
+
+## Component API
+
+<Props />
+
+### Theme as
+
+You can configure the base element rendered by `Theme` using the `as` prop. For
+example, if you would like the `Theme` component to render as a `section` you
+could write the following:
+
+```jsx
+<Theme as="section" theme="g100">
+  <ChildComponent />
+</Theme>
+```
+
+Similarly, you can provide any custom component to the `as` prop which the
+`Theme` component will use.
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack,
+or updating this file on
+[GitHub](https://github.com/carbon-design-system/carbon/edit/main/packages/carbon-react/src/components/Theme/Theme.mdx).

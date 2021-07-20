@@ -1,0 +1,33 @@
+//
+// Copyright IBM Corp. 2018, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'sass:map';
+@use 'sass:meta';
+@use './config';
+@use './themes';
+@use './theme';
+@use './utilities/custom-property';
+
+/// Specify a Map of zones where the key will be used as part of the selector
+/// and the value will be a map used to emit CSS Custom Properties for all color
+/// values
+$zones: (
+  white: themes.$white,
+  g10: themes.$g10,
+  g90: themes.$g90,
+  g100: themes.$g100,
+) !default;
+
+@each $name, $theme in $zones {
+  .#{config.$prefix}--#{'' + $name} {
+    @each $key, $value in $theme {
+      @if type-of($value) == color {
+        @include custom-property.declaration($key, $value);
+      }
+    }
+  }
+}
