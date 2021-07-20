@@ -135,6 +135,10 @@
     }
   }
 
+  .#{$prefix}--slider-text-input.#{$prefix}--text-input--invalid {
+    padding-right: 1rem;
+  }
+
   .#{$prefix}--slider__thumb:focus ~ .#{$prefix}--slider__filled-track {
     background-color: $interactive;
   }

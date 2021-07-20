@@ -128,6 +128,8 @@ describe('Slider', () => {
   describe('key/mouse event processing', () => {
     const handleChange = jest.fn();
     const handleRelease = jest.fn();
+    const handleBlur = jest.fn();
+
     const wrapper = mount(
       <Slider
         id="slider"
@@ -139,6 +141,7 @@ describe('Slider', () => {
         stepMultiplier={5}
         onChange={handleChange}
         onRelease={handleRelease}
+        onBlur={handleBlur}
       />
     );
 
@@ -224,30 +227,87 @@ describe('Slider', () => {
       });
     });
 
-    it('does not set incorrect state when typing a invalid value in input field', () => {
+    it('allows user to set invalid value when typing in input field', () => {
       const evt = {
         target: {
           value: '999',
-          checkValidity: () => false,
         },
       };
 
       wrapper.instance().onChange(evt);
-      expect(wrapper.state().value).toEqual(100);
-      expect(handleChange).toHaveBeenLastCalledWith({ value: 100 });
+      expect(wrapper.state().value).toEqual(999);
+      expect(handleChange).toHaveBeenLastCalledWith({ value: 999 });
+    });
+
+    it('checks for validity onBlur', () => {
+      const checkValidity = jest.fn();
+
+      const evt = {
+        target: {
+          value: '',
+          checkValidity: checkValidity,
+        },
+      };
+
+      wrapper.instance().onBlur(evt);
+      expect(checkValidity).toHaveBeenCalled();
     });
 
     it('sets correct state when typing a valid value in input field', () => {
       const evt = {
         target: {
           value: '12',
-          checkValidity: () => true,
         },
       };
 
       wrapper.instance().onChange(evt);
       expect(wrapper.state().value).toEqual(12);
       expect(handleChange).toHaveBeenLastCalledWith({ value: 12 });
+    });
+  });
+
+  describe('syncs invalid state and props', () => {
+    const handleChange = jest.fn();
+    const handleRelease = jest.fn();
+    const handleBlur = jest.fn();
+
+    const wrapper = mount(
+      <Slider
+        id="slider"
+        className="extra-class"
+        value={50}
+        min={0}
+        max={100}
+        step={1}
+        onChange={handleChange}
+        onRelease={handleRelease}
+        onBlur={handleBlur}
+        invalid={false}
+      />
+    );
+
+    it('overrides invalid state for invalid prop', () => {
+      const changeEvt = {
+        target: {
+          value: '200',
+        },
+      };
+
+      const blurEvt = {
+        target: {
+          checkValidity: () => false,
+        },
+      };
+
+      wrapper.instance().onChange(changeEvt);
+      wrapper.instance().onBlur(blurEvt);
+      expect(wrapper.state().value).toEqual(200);
+      expect(wrapper.state().isValid).toEqual(true);
+      expect(
+        wrapper
+          .find(`.${prefix}--slider-text-input`)
+          .hasClass(`${prefix}--text-input--invalid`)
+      ).toEqual(false);
     });
   });
 
@@ -288,6 +348,13 @@ describe('Slider', () => {
     it('gracefully tolerates empty event passed to onChange', () => {
       const evt = {};
       wrapper.instance().onChange(evt);
+      expect(wrapper.state().value).toEqual(''); // from last test
+      expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('gracefully tolerates empty event passed to onBlur', () => {
+      const evt = {};
+      wrapper.instance().onBlur(evt);
       expect(wrapper.state().value).toEqual(''); // from last test
       expect(handleChange).not.toHaveBeenCalled();
     });

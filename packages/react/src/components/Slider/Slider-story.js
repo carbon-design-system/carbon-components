@@ -58,7 +58,7 @@ export const Default = () => (
   <Slider
     labelText="Slider Label"
     value={50}
-    min={0}
+    min={30}
     max={100}
     step={1}
     stepMultiplier={10}
