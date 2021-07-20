@@ -35,10 +35,10 @@ Carbon's grid components help developers use the
 [2x Grid](https://www.carbondesignsystem.com/guidelines/2x-grid/overview). The
 project provides `Grid` and `Column` components which can be used to build a
 variety of layouts. You can import these components from
-`carbon-components-react`:
+`@carbon/react`:
 
 ```js
-import { Grid, Column } from 'carbon-components-react';
+import { Grid, Column } from '@carbon/react';
 ```
 
 <Preview>
@@ -65,7 +65,7 @@ number `4` to specify that each `Column` component should span 4 columns at that
 breakpoint.
 
 ```js
-import { Grid, Column } from 'carbon-components-react';
+import { Grid, Column } from '@carbon/react';
 
 function MyComponent() {
   return (
@@ -79,7 +79,7 @@ function MyComponent() {
 }
 ```
 
-_Note: by default, `carbon-components` ships with a 16 column grid._
+_Note: by default, `@carbon/styles` ships with a 16 column grid._
 
 You can pair up multiple breakpoint props to specify how many columns the
 `Column` component should span at different break points. In the example below,
@@ -216,7 +216,7 @@ to a `section`. Simililarly, we use the `as` prop on `Column` to change it from
 a `div` to an `article`.
 
 ```jsx
-import { Grid, Column } from 'carbon-components-react';
+import { Grid, Column } from '@carbon/react';
 
 function MyComponent() {
   return (
@@ -234,7 +234,7 @@ You can also provide a custom component to the `as` prop. This custom component
 should accept all props passed to it, like a class name for the column.
 
 ```jsx
-import { Grid, Column } from 'carbon-components-react';
+import { Grid, Column } from '@carbon/react';
 
 function Article({ children, ...rest }) {
   return <article {...rest}>{children}</article>;
