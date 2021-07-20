@@ -153,7 +153,8 @@ function createSVGArtboards(
       X_OFFSET = 0;
 
       const artboards = sizes.map((size) => {
-        const asset = icon.assets.find((asset) => asset.size === 32);
+        const asset =
+          icon.assets.find((asset) => asset.size === 32) ?? icon.assets[0];
         const svgString = NSString.stringWithString(asset.source);
         const svgData = svgString.dataUsingEncoding(NSUTF8StringEncoding);
         const svgImporter = MSSVGImporter.svgImporter();
