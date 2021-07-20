@@ -6,6 +6,8 @@
  */
 
 import path from 'path';
+import resolve from '@rollup/plugin-node-resolve';
+import babel from '@rollup/plugin-babel';
 import stripBanner from 'rollup-plugin-strip-banner';
 
 const BANNER = `/**
@@ -19,6 +21,8 @@ const BANNER = `/**
 const baseConfig = {
   external: [],
   plugins: [
+    resolve(),
+    babel({ babelHelpers: 'bundled' }),
     stripBanner(),
     {
       renderChunk(code) {

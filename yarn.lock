@@ -1792,10 +1792,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@carbon/feature-flags@workspace:packages/feature-flags"
   dependencies:
+    "@babel/core": ^7.14.6
     "@babel/generator": ^7.14.5
+    "@babel/preset-env": ^7.14.7
     "@babel/template": ^7.14.5
     "@babel/types": ^7.14.5
     "@carbon/scss-generator": ^10.13.0
+    "@rollup/plugin-babel": ^5.3.0
+    "@rollup/plugin-node-resolve": ^13.0.0
     change-case: ^4.1.2
     fs-extra: ^9.0.1
     js-yaml: ^3.14.0
@@ -4671,6 +4675,22 @@ __metadata:
   peerDependencies:
     rollup: ^1.20.0||^2.0.0
   checksum: 6f3b3ecf9a0596a5db4212984bdeb13bb7612693602407e9457ada075dea5a5f2e4e124c592352cf27066a88b194de9b9a95390149b52cf335d5b5e17b4e265b
+  languageName: node
+  linkType: hard
+
+"@rollup/plugin-node-resolve@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "@rollup/plugin-node-resolve@npm:13.0.0"
+  dependencies:
+    "@rollup/pluginutils": ^3.1.0
+    "@types/resolve": 1.17.1
+    builtin-modules: ^3.1.0
+    deepmerge: ^4.2.2
+    is-module: ^1.0.0
+    resolve: ^1.19.0
+  peerDependencies:
+    rollup: ^2.42.0
+  checksum: c0237e65f50d593efc176e07a2ddf734918bc7344f739fe2254a3bfaa4be37c6d4787d045ab79d741811d3658f7e8bbb1484e6aa25bbb9fe2a3c33472b3f371d
   languageName: node
   linkType: hard
 
