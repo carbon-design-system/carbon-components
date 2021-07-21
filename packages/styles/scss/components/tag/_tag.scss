@@ -1,0 +1,292 @@
+//
+// Copyright IBM Corp. 2016, 2018
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'sass:meta';
+@use '../../theme' as *;
+@use '../../utilities/button-reset';
+@use '../../type';
+@use '../../motion' as *;
+@use '../../config' as *;
+@use '../../utilities/component-tokens' as *;
+@use '../../utilities/convert' as *;
+@use '../../utilities/high-contrast-mode' as *;
+@use '../../spacing' as *;
+@use './tokens';
+@use './mixins' as *;
+@use '../../utilities/skeleton';
+
+/// Tag styles
+/// @access public
+/// @group tag
+@mixin tag {
+  .#{$prefix}--tag {
+    @include tag-theme(
+      get-token-value(var(--tag-background-gray)),
+      get-token-value(var(--tag-color-gray)),
+      get-token-value(var(--tag-hover-gray))
+    );
+
+    display: inline-flex;
+    // ensures tag stays pill shaped;
+    min-width: rem(32px);
+    // restricts size of contained elements
+    max-width: 100%;
+    min-height: rem(24px);
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-02 $spacing-03;
+    margin: $spacing-02;
+    border-radius: rem(15px);
+    cursor: default;
+    vertical-align: middle;
+    word-break: break-word;
+
+    &:not(:first-child) {
+      margin-left: 0;
+    }
+  }
+
+  .#{$prefix}--tag--red {
+    @include tag-theme(
+      get-token-value(var(--tag-background-red)),
+      get-token-value(var(--tag-color-red)),
+      get-token-value(var(--tag-hover-red))
+    );
+  }
+
+  .#{$prefix}--tag--magenta {
+    @include tag-theme(
+      get-token-value(var(--tag-background-magenta)),
+      get-token-value(var(--tag-color-magenta)),
+      get-token-value(var(--tag-hover-magenta))
+    );
+  }
+
+  .#{$prefix}--tag--purple {
+    @include tag-theme(
+      get-token-value(var(--tag-background-purple)),
+      get-token-value(var(--tag-color-purple)),
+      get-token-value(var(--tag-hover-purple))
+    );
+  }
+
+  .#{$prefix}--tag--blue {
+    @include tag-theme(
+      get-token-value(var(--tag-background-blue)),
+      get-token-value(var(--tag-color-blue)),
+      get-token-value(var(--tag-hover-blue))
+    );
+  }
+
+  .#{$prefix}--tag--cyan {
+    @include tag-theme(
+      get-token-value(var(--tag-background-cyan)),
+      get-token-value(var(--tag-color-cyan)),
+      get-token-value(var(--tag-hover-cyan))
+    );
+  }
+
+  .#{$prefix}--tag--teal {
+    @include tag-theme(
+      get-token-value(var(--tag-background-teal)),
+      get-token-value(var(--tag-color-teal)),
+      get-token-value(var(--tag-hover-teal))
+    );
+  }
+
+  .#{$prefix}--tag--green {
+    @include tag-theme(
+      get-token-value(var(--tag-background-green)),
+      get-token-value(var(--tag-color-green)),
+      get-token-value(var(--tag-hover-green))
+    );
+  }
+
+  .#{$prefix}--tag--gray {
+    @include tag-theme(
+      get-token-value(var(--tag-background-gray)),
+      get-token-value(var(--tag-color-gray)),
+      get-token-value(var(--tag-hover-gray))
+    );
+  }
+
+  .#{$prefix}--tag--cool-gray {
+    @include tag-theme(
+      get-token-value(var(--tag-background-cool-gray)),
+      get-token-value(var(--tag-color-cool-gray)),
+      get-token-value(var(--tag-hover-cool-gray))
+    );
+  }
+
+  .#{$prefix}--tag--warm-gray {
+    @include tag-theme(
+      get-token-value(var(--tag-background-warm-gray)),
+      get-token-value(var(--tag-color-warm-gray)),
+      get-token-value(var(--tag-hover-warm-gray))
+    );
+  }
+
+  .#{$prefix}--tag--high-contrast {
+    @include tag-theme(
+      $background-inverse,
+      $text-inverse,
+      $background-inverse-hover
+    );
+  }
+
+  .#{$prefix}--tag--disabled,
+  .#{$prefix}--tag--filter.#{$prefix}--tag--disabled,
+  .#{$prefix}--tag--interactive.#{$prefix}--tag--disabled {
+    @include tag-theme($layer-disabled, $text-disabled);
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+
+  .#{$prefix}--tag__label {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .#{$prefix}--tag--interactive:focus {
+    box-shadow: inset 0 0 0 1px $focus;
+    outline: none;
+  }
+
+  .#{$prefix}--tag--interactive:hover {
+    cursor: pointer;
+  }
+
+  // tags used for filtering
+  .#{$prefix}--tag--filter {
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    cursor: pointer;
+
+    &:hover {
+      outline: none;
+    }
+  }
+
+  .#{$prefix}--tag--interactive {
+    transition: background-color $duration-fast-01 motion(entrance, productive);
+  }
+
+  .#{$prefix}--tag__close-icon {
+    display: flex;
+    width: rem(24px);
+    height: rem(24px);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    margin: 0 0 0 rem(2px);
+    background-color: transparent;
+    border-radius: 50%;
+    color: currentColor;
+    cursor: pointer;
+    transition: background-color $duration-fast-01 motion(standard, productive),
+      box-shadow $duration-fast-01 motion(standard, productive);
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  .#{$prefix}--tag__custom-icon {
+    width: rem(16px);
+    height: rem(16px);
+    flex-shrink: 0;
+    padding: 0;
+    border: 0;
+    margin-right: $spacing-02;
+    background-color: transparent;
+    color: currentColor;
+    outline: none;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  .#{$prefix}--tag--disabled .#{$prefix}--tag__close-icon {
+    cursor: not-allowed;
+  }
+
+  .#{$prefix}--tag__close-icon:focus {
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px $focus;
+    outline: none;
+  }
+
+  .#{$prefix}--tag--high-contrast .#{$prefix}--tag__close-icon:focus {
+    box-shadow: inset 0 0 0 1px $focus-inverse;
+  }
+
+  .#{$prefix}--tag--filter.#{$prefix}--tag--disabled
+    .#{$prefix}--tag__close-icon:hover {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--tag--filter.#{$prefix}--tag--disabled svg {
+    fill: $icon-disabled;
+  }
+
+  // small tags
+  .#{$prefix}--tag--sm {
+    min-height: rem(18px);
+    padding: 0 $spacing-03;
+  }
+
+  .#{$prefix}--tag--sm.#{$prefix}--tag--filter {
+    padding-right: 0;
+  }
+
+  .#{$prefix}--tag--sm .#{$prefix}--tag__close-icon {
+    width: rem(18px);
+    height: rem(18px);
+    margin-left: rem(5px);
+  }
+
+  // Skeleton state
+  .#{$prefix}--tag.#{$prefix}--skeleton {
+    @include tag-theme(
+      $bg-color: $skeleton-background,
+      $text-color: $text-primary
+    );
+
+    overflow: hidden;
+    width: rem(60px);
+
+    // Safari specific bug (#7672)
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+        transform: translateZ(0);
+      }
+    }
+  }
+
+  // Windows HCM fix
+  /* stylelint-disable */
+  .#{$prefix}--tag {
+    @include high-contrast-mode('outline');
+  }
+
+  .#{$prefix}--tag__close-icon svg,
+  .#{$prefix}--tag__custom-icon svg {
+    @include high-contrast-mode('icon-fill');
+  }
+
+  .#{$prefix}--tag__close-icon:focus {
+    @include high-contrast-mode('focus');
+  }
+  /* stylelint-enable */
+}
